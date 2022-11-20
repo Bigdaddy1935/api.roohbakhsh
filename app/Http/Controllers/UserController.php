@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection ALL */
 
 namespace App\Http\Controllers;
 
@@ -226,10 +226,10 @@ class UserController extends Controller
 
 
 
-
+        $device_name='device'.'='.$request->device_name;
         $user= $this->userRepository->SignIn($request->username,$request->password);
-        $user->tokens()->delete();
-        $token=  $user->createToken($request->device_name)->plainTextToken;
+        $user->tokens()->where('name','LIKE','device%')->delete();
+        $token=  $user->createToken($device_name)->plainTextToken;
 
 //get last user login at and user ip and save to table
           $user->update([

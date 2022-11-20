@@ -9,6 +9,7 @@
         "ext-curl": "*",
         "ext-soap": "*",
         "awssat/laravel-visits": "^4.0",
+        "bepsvpt/secure-headers": "^7.3",
         "beyondcode/laravel-vouchers": "*",
         "darryldecode/cart": "^4.2",
         "guzzlehttp/guzzle": "^7.2",

@@ -33,6 +33,7 @@ return array(
     '801c31d8ed748cfa537fa45402288c95' => $vendorDir . '/psy/psysh/src/functions.php',
     '1e298922c3e2134d42dcdb03e6d5f55a' => $vendorDir . '/torann/geoip/src/helpers.php',
     'ac4ced6690157c667ba34e00e797e03f' => $vendorDir . '/awssat/laravel-visits/src/helpers.php',
+    'cf44199717bf3055b6c87791a4b20b22' => $vendorDir . '/bepsvpt/secure-headers/src/helpers.php',
     'ec07570ca5a812141189b1fa81503674' => $vendorDir . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
     '02b00debec4c095ff10b1c4b849dad3b' => $vendorDir . '/pishran/zarinpal/src/helpers.php',
     '320163ac6b93aebe3dc25b60a0533d56' => $vendorDir . '/spatie/laravel-ignition/src/helpers.php',

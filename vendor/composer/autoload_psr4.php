@@ -107,6 +107,7 @@ return array(
     'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
     'Brick\\Math\\' => array($vendorDir . '/brick/math/src'),
     'BeyondCode\\Vouchers\\' => array($vendorDir . '/beyondcode/laravel-vouchers/src'),
+    'Bepsvpt\\SecureHeaders\\' => array($vendorDir . '/bepsvpt/secure-headers/src'),
     'Awssat\\Visits\\' => array($vendorDir . '/awssat/laravel-visits/src'),
     'App\\' => array($baseDir . '/app', $vendorDir . '/laravel/pint/app'),
 );

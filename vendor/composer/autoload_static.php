@@ -34,6 +34,7 @@ class ComposerStaticInit5d66253ad4a3a4d6e937f25a0d4aa78c
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         '1e298922c3e2134d42dcdb03e6d5f55a' => __DIR__ . '/..' . '/torann/geoip/src/helpers.php',
         'ac4ced6690157c667ba34e00e797e03f' => __DIR__ . '/..' . '/awssat/laravel-visits/src/helpers.php',
+        'cf44199717bf3055b6c87791a4b20b22' => __DIR__ . '/..' . '/bepsvpt/secure-headers/src/helpers.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
         '02b00debec4c095ff10b1c4b849dad3b' => __DIR__ . '/..' . '/pishran/zarinpal/src/helpers.php',
         '320163ac6b93aebe3dc25b60a0533d56' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/helpers.php',
@@ -195,6 +196,7 @@ class ComposerStaticInit5d66253ad4a3a4d6e937f25a0d4aa78c
         array (
             'Brick\\Math\\' => 11,
             'BeyondCode\\Vouchers\\' => 20,
+            'Bepsvpt\\SecureHeaders\\' => 22,
         ),
         'A' => 
         array (
@@ -613,6 +615,10 @@ class ComposerStaticInit5d66253ad4a3a4d6e937f25a0d4aa78c
         array (
             0 => __DIR__ . '/..' . '/beyondcode/laravel-vouchers/src',
         ),
+        'Bepsvpt\\SecureHeaders\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/bepsvpt/secure-headers/src',
+        ),
         'Awssat\\Visits\\' => 
         array (
             0 => __DIR__ . '/..' . '/awssat/laravel-visits/src',
@@ -677,6 +683,7 @@ class ComposerStaticInit5d66253ad4a3a4d6e937f25a0d4aa78c
         'App\\Interfaces\\LibraryRepositoryInterface' => __DIR__ . '/../..' . '/app/Interfaces/LibraryRepositoryInterface.php',
         'App\\Interfaces\\ProductRepositoryInterface' => __DIR__ . '/../..' . '/app/Interfaces/ProductRepositoryInterface.php',
         'App\\Interfaces\\ProgressRepositoryInterface' => __DIR__ . '/../..' . '/app/Interfaces/ProgressRepositoryInterface.php',
+        'App\\Interfaces\\SearchRepositoryInterface' => __DIR__ . '/../..' . '/app/Interfaces/SearchRepositoryInterface.php',
         'App\\Interfaces\\UserRepositoryInterface' => __DIR__ . '/../..' . '/app/Interfaces/UserRepositoryInterface.php',
         'App\\Interfaces\\VoucherRepositoryInterface' => __DIR__ . '/../..' . '/app/Interfaces/VoucherRepositoryInterface.php',
         'App\\Interfaces\\ZarinpalRepositoryInterface' => __DIR__ . '/../..' . '/app/Interfaces/ZarinpalRepositoryInterface.php',
@@ -737,6 +744,7 @@ class ComposerStaticInit5d66253ad4a3a4d6e937f25a0d4aa78c
         'App\\Repositories\\ProductRepository' => __DIR__ . '/../..' . '/app/Repositories/ProductRepository.php',
         'App\\Repositories\\ProgressRepository' => __DIR__ . '/../..' . '/app/Repositories/ProgressRepository.php',
         'App\\Repositories\\Repository' => __DIR__ . '/../..' . '/app/Repositories/Repository.php',
+        'App\\Repositories\\SearchRepository' => __DIR__ . '/../..' . '/app/Repositories/SearchRepository.php',
         'App\\Repositories\\TutorialRepository' => __DIR__ . '/../..' . '/app/Repositories/TutorialRepository.php',
         'App\\Repositories\\UserRepository' => __DIR__ . '/../..' . '/app/Repositories/UserRepository.php',
         'App\\Repositories\\VoucherRepository' => __DIR__ . '/../..' . '/app/Repositories/VoucherRepository.php',
@@ -756,6 +764,15 @@ class ComposerStaticInit5d66253ad4a3a4d6e937f25a0d4aa78c
         'Awssat\\Visits\\Traits\\Setters' => __DIR__ . '/..' . '/awssat/laravel-visits/src/Traits/Setters.php',
         'Awssat\\Visits\\Visits' => __DIR__ . '/..' . '/awssat/laravel-visits/src/Visits.php',
         'Awssat\\Visits\\VisitsServiceProvider' => __DIR__ . '/..' . '/awssat/laravel-visits/src/VisitsServiceProvider.php',
+        'Bepsvpt\\SecureHeaders\\Builders\\Builder' => __DIR__ . '/..' . '/bepsvpt/secure-headers/src/Builders/Builder.php',
+        'Bepsvpt\\SecureHeaders\\Builders\\ClearSiteDataBuilder' => __DIR__ . '/..' . '/bepsvpt/secure-headers/src/Builders/ClearSiteDataBuilder.php',
+        'Bepsvpt\\SecureHeaders\\Builders\\ContentSecurityPolicyBuilder' => __DIR__ . '/..' . '/bepsvpt/secure-headers/src/Builders/ContentSecurityPolicyBuilder.php',
+        'Bepsvpt\\SecureHeaders\\Builders\\ExpectCertificateTransparencyBuilder' => __DIR__ . '/..' . '/bepsvpt/secure-headers/src/Builders/ExpectCertificateTransparencyBuilder.php',
+        'Bepsvpt\\SecureHeaders\\Builders\\PermissionsPolicyBuilder' => __DIR__ . '/..' . '/bepsvpt/secure-headers/src/Builders/PermissionsPolicyBuilder.php',
+        'Bepsvpt\\SecureHeaders\\Builders\\StrictTransportSecurityBuilder' => __DIR__ . '/..' . '/bepsvpt/secure-headers/src/Builders/StrictTransportSecurityBuilder.php',
+        'Bepsvpt\\SecureHeaders\\SecureHeaders' => __DIR__ . '/..' . '/bepsvpt/secure-headers/src/SecureHeaders.php',
+        'Bepsvpt\\SecureHeaders\\SecureHeadersMiddleware' => __DIR__ . '/..' . '/bepsvpt/secure-headers/src/SecureHeadersMiddleware.php',
+        'Bepsvpt\\SecureHeaders\\SecureHeadersServiceProvider' => __DIR__ . '/..' . '/bepsvpt/secure-headers/src/SecureHeadersServiceProvider.php',
         'BeyondCode\\Vouchers\\Events\\VoucherRedeemed' => __DIR__ . '/..' . '/beyondcode/laravel-vouchers/src/Events/VoucherRedeemed.php',
         'BeyondCode\\Vouchers\\Exceptions\\VoucherAlreadyRedeemed' => __DIR__ . '/..' . '/beyondcode/laravel-vouchers/src/Exceptions/VoucherAlreadyRedeemed.php',
         'BeyondCode\\Vouchers\\Exceptions\\VoucherExpired' => __DIR__ . '/..' . '/beyondcode/laravel-vouchers/src/Exceptions/VoucherExpired.php',
