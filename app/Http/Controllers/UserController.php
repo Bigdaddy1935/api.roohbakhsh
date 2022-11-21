@@ -271,10 +271,8 @@ class UserController extends Controller
         return response()->json([
 
             'message'=>'ورود با موفقیت انجام شد',
-            'username'=>$request->username,
+            'user'=>$user,
             'Token'=>$token,
-            'approved'=>$user->approved
-
         ]);
 
     }
