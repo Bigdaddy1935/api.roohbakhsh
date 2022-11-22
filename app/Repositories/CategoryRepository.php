@@ -37,7 +37,8 @@ class CategoryRepository extends Repository implements CategoryRepositoryInterfa
              ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
               $q->where('user_id',$user);
              }])
-            ->paginate(50);
+          ->orderBy('id','DESC')
+            ->paginate(10);
     }
 
     public function Get_Lesson_With_Their_Cat($id)
@@ -54,7 +55,7 @@ class CategoryRepository extends Repository implements CategoryRepositoryInterfa
              $q->where('user_id',$user);
              }])
            ->orderBy('id','DESC')
-            ->paginate(50);
+            ->paginate(10);
     }
 
     public function Get_Article_With_Their_Cat($id)
@@ -72,7 +73,7 @@ class CategoryRepository extends Repository implements CategoryRepositoryInterfa
             $q->where('user_id',$user);
             }])
            ->orderBy('id','DESC')
-            ->paginate(50);
+            ->paginate(10);
     }
 
     public function Get_Product_With_Their_Cat($id)
@@ -90,7 +91,7 @@ class CategoryRepository extends Repository implements CategoryRepositoryInterfa
                 $q->where('user_id',$user);
             }])
             ->orderBy('id','DESC')
-            ->paginate(50);
+            ->paginate(10);
     }
 
 

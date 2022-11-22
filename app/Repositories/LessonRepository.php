@@ -29,7 +29,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
                  $q->where('user_id',$user);
              }])
          ->orderBy('id','DESC')
-            ->paginate(50);
+            ->paginate(10);
     }
 
     public function GetLessonsOfAnCourse($id)
@@ -46,7 +46,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
                  $q->where('user_id',$user);
              }])
              ->orderBy('id','DESC')
-            ->paginate(50);
+            ->paginate(10);
     }
 
     public function GetSpecificLesson($id)

@@ -32,7 +32,7 @@ class ProductRepository extends Repository implements ProductRepositoryInterface
                 $q->where('user_id',$user);
             }])
             ->orderBy('id','DESC')
-            ->paginate(50);
+            ->paginate(10);
     }
 
     public function GetSpecificProduct($id)

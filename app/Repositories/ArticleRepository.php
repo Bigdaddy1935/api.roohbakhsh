@@ -25,7 +25,8 @@ class ArticleRepository extends Repository implements ArticleRepositoryInterface
              ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
           $q->where('user_id',$user);
              }])
-            ->paginate(50);
+              ->orderBy('id','DESC')
+            ->paginate(10);
     }
 
     public function GetSpecificArticle($id)
