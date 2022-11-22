@@ -11,6 +11,7 @@ use App\Interfaces\ProgressRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
 use App\Models\Token;
 use App\Models\User;
+use App\Models\VideoProgressBar;
 use App\QueryFilters\Fullname;
 use App\QueryFilters\Gender;
 use App\QueryFilters\Role;
@@ -642,14 +643,12 @@ class UserController extends Controller
     }
 
 
-    public function lessonsLearned($course_id): JsonResponse
+    public function lessonsLearned(): JsonResponse
     {
-
-
-     $count= $this->progressRepository->WhereProgressIsFull($course_id);
-
+        $id=auth()->id();
+     $count= VideoProgressBar::query()->where('user_id',$id)->where('percentage','=','100')->count();
      return response()->json([
-         'تعداد درس های دیده شد'=>$count
+         'تعداد درس های کامل دیده شد'=>$count
      ]);
     }
 

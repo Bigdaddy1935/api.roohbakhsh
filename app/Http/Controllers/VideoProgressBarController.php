@@ -110,8 +110,6 @@ class VideoProgressBarController extends Controller
     public function getFullTimeOfAnCourse($course_id): JsonResponse
     {
 
-
-
         $count= $this->progressRepository->GetLessonsCountOfAnCourse($course_id);
 
         $whereIsFullCount=$this->progressRepository->WhereProgressIsFull($course_id);
