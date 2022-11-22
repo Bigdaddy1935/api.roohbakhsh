@@ -155,7 +155,7 @@ Route::prefix('app/courses')->controller(CourseController::class)->group(functio
     Route::get('get/course/count','getCourseLessonsCount');
     Route::middleware('auth:sanctum')->get('like/{id}','likeCourse');
     Route::middleware('auth:sanctum')->get('bookmark/{id}','bookmarkCourse');
-    Route::get('get/{id}','get_course_by_id')->name('course.get');
+    Route::middleware('auth:sanctum')->get('get/{id}','get_course_by_id')->name('course.get');
 });
 Route::prefix('app/lessons')->controller(LessonController::class)->group(function (){
     Route::get('get','getLessons');
@@ -163,7 +163,7 @@ Route::prefix('app/lessons')->controller(LessonController::class)->group(functio
     Route::get('get/by_course_id/{id}','getCourseLessons');
     Route::middleware('auth:sanctum')->get('like/{id}','likeLesson');
     Route::middleware('auth:sanctum')->get('bookmark/{id}','bookmarkLesson');
-    Route::get('get/{id}','get_lesson_by_id')->name('lessons.get');
+    Route::middleware('auth:sanctum')->get('get/{id}','get_lesson_by_id')->name('lessons.get');
 
 });
 
