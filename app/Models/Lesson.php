@@ -37,9 +37,7 @@ protected $casts=[
     'categories'=>'string'
 ];
 
-    protected $hidden = [
-    'url_video'
-    ];
+
 
     public function courses(): BelongsTo
     {

@@ -204,16 +204,15 @@ class LessonController extends Controller
     }
 
 
-    /**
-     * @param $id
-     * @return JsonResponse
-     *
-     * get lessons of a course by course id
-     */
-    public function getCourseLessons($id): JsonResponse
+
+    public function getCourseLessons($id)
     {
 
         $lessons=$this->lessonRepository->GetLessonsOfAnCourse($id);
+
+     foreach ($lessons as $lesson){
+         unset($lesson['url_video']);
+     }
 
         return response()->json($lessons);
 
