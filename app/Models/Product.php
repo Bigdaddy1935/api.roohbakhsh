@@ -96,4 +96,9 @@ class Product extends Model
     {
         return $this->hasOne(Course::class,'id','course_id');
     }
+    public function related()
+    {
+        return $this->belongsToMany(Product::class, 'related_products', 'product_id', 'related_product_id');
+    }
+
 }

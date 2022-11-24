@@ -41,6 +41,7 @@ public array $data=[];
 
 
       $ids=  explode(',',$request->order_id);
+      $amounts=explode(',',$request->amount);
 
 
 
@@ -58,11 +59,11 @@ public array $data=[];
 
 
        //save all user products in cart as array to invoice table
-        foreach ($ids as $id){
+        for($i = 0 ; $i < $ids; $i++){
             $this->data=[
                 'user_id'=>auth()->id(),
-                'order_id'=>$id,
-                'amount'=>$request->amount,
+                'order_id'=>$ids[$i],
+                'amount'=>$amounts[$i],
                 'ref_id'=>$request->ref_id,
                 'mobile'=>$request->mobile,
                 'email'=>$request->email,

@@ -48,13 +48,14 @@ class ProductController extends Controller
             'duration'=>'required',
             'course_id'=>'required',
             'categories'=>'required',
-            'sendNotify'=>'required'
+            'sendNotify'=>'required',
         ]);
 
 
         //change category ,tags ,file_id to an array
         $tags = explode(",", $request->tags);
         $categories=explode(",",$request->categories);
+        $related_product_id=explode(',',$request->related);
 
         $data=$request->all();
         $product = $this->productRepository->create([
@@ -65,6 +66,7 @@ class ProductController extends Controller
             'price_discount'=>$request->price_discount,
             'course_id'=>$request->course_id,
         ]);
+        $product->related()->attach($related_product_id);
         $product->categories()->attach($categories);
         $product->tag($tags);
 

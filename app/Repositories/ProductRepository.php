@@ -52,7 +52,7 @@ class ProductRepository extends Repository implements ProductRepositoryInterface
                 ->with(['courses'=>function ($q) {
                     $q->join('users','users.id','=','courses.course_user_id')
                         ->select('courses.*','users.fullname')->withCount('lessons');
-                }])
+                }])->with('related')
                ->findOrFail($id);
                 if($ifInCart){
                     $response['inCart'] = true;
@@ -74,6 +74,7 @@ class ProductRepository extends Repository implements ProductRepositoryInterface
                   $q->join('users','users.id','=','courses.course_user_id')
                       ->select('courses.*','users.fullname')->withCount('lessons');
               }])
+              ->with('related')
                ->findOrFail($id);
            if($ifInCart){
                $response['inCart'] = true;
