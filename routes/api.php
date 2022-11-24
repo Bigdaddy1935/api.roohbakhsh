@@ -46,7 +46,7 @@ Route::middleware('auth:sanctum')->prefix('courses')->controller(CourseControlle
 Route::middleware('auth:sanctum')->controller(HomeController::class)->group(function (){
     Route::post('/notification','SendNotify');
     Route::get('/notification/get','getNotify');
-    Route::delete('/notification/delete','delNotify');
+    Route::delete('/notification/delete/{id}','delNotify');
 });
 
 
