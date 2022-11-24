@@ -120,5 +120,13 @@ class HomeController extends Controller
        return response()->json($notifications);
     }
 
+    public function delNotify($id): JsonResponse
+    {
+        $ids=explode(",",$id);
+       Notification::destroy($ids);
+        return response()->json([
+            'message'=>"success",
+        ]);
+    }
 
 }
