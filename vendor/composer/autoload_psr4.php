@@ -45,6 +45,7 @@ return array(
     'Stephenjude\\Wallet\\' => array($vendorDir . '/stephenjude/laravel-wallet/src'),
     'Spatie\\Searchable\\' => array($vendorDir . '/spatie/laravel-searchable/src'),
     'Spatie\\Referer\\' => array($vendorDir . '/spatie/laravel-referer/src'),
+    'Spatie\\Permission\\' => array($vendorDir . '/spatie/laravel-permission/src'),
     'Spatie\\LaravelPackageTools\\' => array($vendorDir . '/spatie/laravel-package-tools/src'),
     'Spatie\\LaravelIgnition\\' => array($vendorDir . '/spatie/laravel-ignition/src'),
     'Spatie\\Ignition\\' => array($vendorDir . '/spatie/ignition/src'),

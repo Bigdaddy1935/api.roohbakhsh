@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\SearchRepositoryInterface;
+use App\Models\Notification;
 use App\Models\Tutorial;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -99,10 +100,24 @@ class HomeController extends Controller
         $body=$request->body;
         $this->appNotificationController->sendWebNotification($title,$body);
 
-        return response()->json([
-            'message'=>'اعلان با موفقیت ارسال شد'
+      $saveNotify=  Notification::query()->create([
+            'title'=>$title,
+            'body'=>$body
         ]);
 
+
+        return response()->json([
+            'message'=>'اعلان با موفقیت ارسال شد',
+            'notification'=>$saveNotify,
+        ]);
+
+    }
+
+    public function getNotify()
+    {
+       $notifications =Notification::all();
+
+       return response()->json($notifications);
     }
 
 

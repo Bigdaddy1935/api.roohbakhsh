@@ -140,6 +140,7 @@ Route::prefix('app')->controller(ZarinpalPayment::class)->group(function (){
 Route::prefix('app')->controller(HomeController::class)->group(function (){
     Route::post('/search','search')->name('search');
     Route::get('/tutorial','showTutorial');
+    Route::get('/notification/get','getNotify');
     Route::post('/notification','SendNotify');
 });
 Route::prefix('app/articles')->controller(ArticleController::class)->group(function (){

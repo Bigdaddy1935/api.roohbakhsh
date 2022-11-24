@@ -24,6 +24,7 @@
         "pishran/zarinpal": "^4.3",
         "rtconner/laravel-tagging": "^4.1",
         "shetabit/payment": "^4.3",
+        "spatie/laravel-permission": "^5.7",
         "spatie/laravel-searchable": "^1.11",
         "stephenjude/laravel-wallet": "^0.0.5",
         "tzsk/sms": "^6.0"
