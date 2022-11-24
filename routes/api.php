@@ -45,6 +45,7 @@ Route::middleware('auth:sanctum')->prefix('courses')->controller(CourseControlle
 
 Route::middleware('auth:sanctum')->controller(HomeController::class)->group(function (){
     Route::post('/notification','SendNotify');
+    Route::get('/notification/get','getNotify');
 });
 
 
@@ -140,7 +141,6 @@ Route::prefix('app')->controller(ZarinpalPayment::class)->group(function (){
 Route::prefix('app')->controller(HomeController::class)->group(function (){
     Route::post('/search','search')->name('search');
     Route::get('/tutorial','showTutorial');
-    Route::get('/notification/get','getNotify');
     Route::post('/notification','SendNotify');
 });
 Route::prefix('app/articles')->controller(ArticleController::class)->group(function (){
