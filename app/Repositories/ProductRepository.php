@@ -4,12 +4,10 @@ namespace App\Repositories;
 
 use App\Interfaces\ProductRepositoryInterface;
 use App\Models\Cart;
-use App\Models\Course;
 use App\Models\Invoice;
 use App\Models\Product;
-use function PHPUnit\Framework\isEmpty;
-use function PHPUnit\Framework\isJson;
-use function PHPUnit\Framework\isNull;
+use Illuminate\Contracts\Database\Query\Builder;
+
 
 class ProductRepository extends Repository implements ProductRepositoryInterface
 {
@@ -52,7 +50,9 @@ class ProductRepository extends Repository implements ProductRepositoryInterface
                 ->with(['courses'=>function ($q) {
                     $q->join('users','users.id','=','courses.course_user_id')
                         ->select('courses.*','users.fullname')->withCount('lessons');
-                }])->with('related')
+                }])->with(['related'=>function ( $q){
+               $q->with('courses');
+           }])
                ->findOrFail($id);
                 if($ifInCart){
                     $response['inCart'] = true;
@@ -74,7 +74,9 @@ class ProductRepository extends Repository implements ProductRepositoryInterface
                   $q->join('users','users.id','=','courses.course_user_id')
                       ->select('courses.*','users.fullname')->withCount('lessons');
               }])
-              ->with('related')
+              ->with(['related'=>function ( $q){
+                  $q->with('courses');
+              }])
                ->findOrFail($id);
            if($ifInCart){
                $response['inCart'] = true;

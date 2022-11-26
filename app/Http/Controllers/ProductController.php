@@ -57,7 +57,7 @@ class ProductController extends Controller
         $categories=explode(",",$request->categories);
         $related_product_id=explode(',',$request->related);
 
-        $data=$request->all();
+
         $product = $this->productRepository->create([
             'tiny_desc'=>$request->tiny_desc,
             'price'=>$request->price,
