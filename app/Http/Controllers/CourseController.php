@@ -180,7 +180,8 @@ protected $result=[];
         ])
             ->thenReturn()
             ->join('users','users.id','=','courses.course_user_id')->with('categories')
-            ->get(['courses.*','users.fullname']);
+            ->select('courses.*','users.fullname')
+            ->paginate(10);
 
 
         return response()->json($course);

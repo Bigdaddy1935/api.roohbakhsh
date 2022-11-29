@@ -238,8 +238,11 @@ class ProductController extends Controller
 
         ])
             ->thenReturn()
-            ->join('users','users.id','=','products.user_id')->with('categories')->with('files')
-            ->get(['products.*','users.fullname']);
+            ->join('users','users.id','=','products.user_id')
+            ->select('products.*','users.fullname')
+            ->with('categories')
+            ->with('files')
+            ->paginate(10);
 
 
         return response()->json($product);

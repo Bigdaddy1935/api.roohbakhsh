@@ -242,7 +242,7 @@ class ArticleController extends Controller
        ])
            ->thenReturn()
          ->with('categories')->with('tagged')
-           ->get();
+           ->paginate(10);
 
 
             return response()->json($articles);

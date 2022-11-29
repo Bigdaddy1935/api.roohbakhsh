@@ -406,7 +406,7 @@ class UserController extends Controller
 
         ])
             ->thenReturn()
-            ->get();
+            ->paginate(10);
 
 
         return response()->json($articles);
