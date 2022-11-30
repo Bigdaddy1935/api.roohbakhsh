@@ -241,7 +241,10 @@ class ArticleController extends Controller
            Categories::class,
        ])
            ->thenReturn()
-         ->with('categories')->with('tagged')
+           ->join('users','users.id','=','articles.user_id')
+            ->select('articles.*','users.fullname')
+            ->with('categories')
+           ->with('tagged')
            ->paginate(10);
 
 
