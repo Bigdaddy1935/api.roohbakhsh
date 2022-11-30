@@ -406,6 +406,7 @@ class UserController extends Controller
 
         ])
             ->thenReturn()
+            ->orderBy('id','DESC')
             ->paginate(10);
 
 

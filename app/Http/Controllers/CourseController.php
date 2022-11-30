@@ -179,8 +179,10 @@ protected $result=[];
             Categories::class
         ])
             ->thenReturn()
-            ->join('users','users.id','=','courses.course_user_id')->with('categories')
+            ->join('users','users.id','=','courses.course_user_id')
             ->select('courses.*','users.fullname')
+            ->with('categories')
+            ->orderBy('id','DESC')
             ->paginate(10);
 
 

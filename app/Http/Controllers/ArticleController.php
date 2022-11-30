@@ -245,6 +245,7 @@ class ArticleController extends Controller
             ->select('articles.*','users.fullname')
             ->with('categories')
            ->with('tagged')
+           ->orderBy('id','DESC')
            ->paginate(10);
 
 

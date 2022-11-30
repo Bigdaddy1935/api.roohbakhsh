@@ -197,6 +197,7 @@ class LessonController extends Controller
             ->select('lessons.*','users.fullname')
             ->with('categories')
             ->with('courses')
+            ->orderBy('id','DESC')
             ->paginate(10);
 
 

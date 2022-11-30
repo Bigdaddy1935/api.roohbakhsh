@@ -242,6 +242,7 @@ class ProductController extends Controller
             ->select('products.*','users.fullname')
             ->with('categories')
             ->with('files')
+            ->orderBy('id','DESC')
             ->paginate(10);
 
 
