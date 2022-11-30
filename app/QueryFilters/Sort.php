@@ -11,7 +11,7 @@ class Sort extends Filter
     protected function applyFilter($builder)
     {
 
-      return  $builder->orderBy('updated_at', request($this->filterName()));
+      return  $builder->orderBy('id', request($this->filterName()));
 
     }
 }
