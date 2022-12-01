@@ -167,9 +167,10 @@ class ProductController extends Controller
         ];
 
         $product=$this->productRepository->update($id,$data);
-
+if($request->related){
+    $product->related()->sync($related_products_id);
+}
         //save validation into pivot tables
-        $product->related()->sync($related_products_id);
         $product->tag($tags);
         $product->categories()->sync($categories);
 
