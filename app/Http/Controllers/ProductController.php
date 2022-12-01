@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\CourseRepositoryInterface;
 use App\Interfaces\ProductRepositoryInterface;
 use App\Models\Product;
 use App\QueryFilters\Categories;
@@ -21,13 +22,15 @@ class ProductController extends Controller
     protected $url;
     protected AppNotificationController $appNotificationController;
     protected ProductRepositoryInterface $productRepository;
+    private CourseRepositoryInterface $courseRepository;
 
 
-    public function __construct(AppNotificationController $appNotificationController , ProductRepositoryInterface $productRepository)
+    public function __construct(AppNotificationController $appNotificationController , ProductRepositoryInterface $productRepository,CourseRepositoryInterface $courseRepository)
     {
 
         $this->appNotificationController = $appNotificationController;
         $this->productRepository = $productRepository;
+        $this->courseRepository = $courseRepository;
     }
 
 
@@ -194,7 +197,7 @@ if($request->related){
     {
         $ids=explode(",",$id);
 
-       $this->productRepository->delete($ids);
+       $this->courseRepository->delete($ids);
 
         return response()->json([
            'message'=>'محصولات مورد نظر با موفقیت حذف شدند',
