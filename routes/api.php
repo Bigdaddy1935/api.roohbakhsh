@@ -36,6 +36,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->prefix('courses')->controller(CourseController::class)->group(function () {
     Route::get('get','getCourses');
     Route::get('get/{id}','get_course_by_id');
+    Route::get('list','list');
     Route::post('add', 'addCourse');
     Route::get('/','index');
     Route::post('update/{id}', 'updateCourse');
@@ -91,6 +92,7 @@ Route::middleware('auth:sanctum')->prefix('products')->controller(ProductControl
     Route::post('add','addProduct');
     Route::get('get','getProducts');
     Route::get('get/{id}','get_product_by_id');
+    Route::get('list','list');
     Route::get('/','index');
     Route::get('get/related/{id}','relatedProducts');
     Route::post('update/{id}','updateProducts');

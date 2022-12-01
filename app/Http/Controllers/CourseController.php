@@ -220,6 +220,12 @@ protected $result=[];
 
     }
 
+    public function list()
+    {
+      $result=  $this->courseRepository->all();
+        return response()->json($result);
+    }
+
 
 
 }

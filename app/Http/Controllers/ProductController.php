@@ -266,4 +266,6 @@ if($request->related){
 
       return response()->json($newPro);
     }
+
+
 }
