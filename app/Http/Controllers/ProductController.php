@@ -267,5 +267,12 @@ if($request->related){
       return response()->json($newPro);
     }
 
+    public function list()
+    {
+      $result=  Product::query()->join('courses','courses.id', '=','products.course_id')->select('product.*','courses.course_title')->get();
+
+      return response()->json($result);
+    }
+
 
 }
