@@ -154,6 +154,7 @@ class ProductController extends Controller
         //request tables into array
         $tags=explode(",",$request->tags);
         $categories=explode(",",$request->categories);
+        $related_products_id=explode(",",$request->related);
         $validation=$request->all();
         //find input id and update fields of product
         $data=[
@@ -168,6 +169,7 @@ class ProductController extends Controller
         $product=$this->productRepository->update($id,$data);
 
         //save validation into pivot tables
+        $product->related()->sync($related_products_id);
         $product->tag($tags);
         $product->categories()->sync($categories);
 
