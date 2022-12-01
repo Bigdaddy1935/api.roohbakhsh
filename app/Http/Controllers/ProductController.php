@@ -66,7 +66,11 @@ class ProductController extends Controller
             'price_discount'=>$request->price_discount,
             'course_id'=>$request->course_id,
         ]);
-        $product->related()->attach($related_product_id);
+
+        if($request->related){
+            $product->related()->attach($related_product_id);
+        }
+
         $product->categories()->attach($categories);
         $product->tag($tags);
 
