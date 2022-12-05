@@ -8,5 +8,7 @@ interface ProductRepositoryInterface
     public function GetSpecificProduct($id);
     public function GetRelatedOfAnProduct($id);
 
+    public function ProductList();
+
     public function latestProduct();
 }

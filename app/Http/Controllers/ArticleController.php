@@ -8,7 +8,6 @@ use App\Models\Article;
 use App\QueryFilters\Categories;
 use App\QueryFilters\Sort;
 use App\QueryFilters\Status;
-use App\QueryFilters\tags;
 use App\QueryFilters\Title;
 use App\QueryFilters\User_id;
 use App\QueryFilters\Visibility;

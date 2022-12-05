@@ -269,7 +269,7 @@ if($request->related){
 
     public function list()
     {
-      $result=  Product::query()->join('courses','courses.id', '=','products.course_id')->select('products.*','courses.course_title')->get();
+      $result= $this->productRepository->ProductList();
 
       return response()->json($result);
     }

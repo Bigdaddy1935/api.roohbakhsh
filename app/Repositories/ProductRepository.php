@@ -119,4 +119,9 @@ class ProductRepository extends Repository implements ProductRepositoryInterface
             }])
             ->orderBy('id','DESC')->limit(10)->get();
     }
+
+    public function ProductList()
+    {
+        return Product::query()->join('courses','courses.id', '=','products.course_id')->select('products.*','courses.course_title')->latest()->get();
+    }
 }
