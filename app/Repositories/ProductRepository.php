@@ -28,6 +28,8 @@ class ProductRepository extends Repository implements ProductRepositoryInterface
             ->with('categories')
             ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
                 $q->where('user_id',$user);
+            }])->with(['related'=>function ( $q){
+                $q->with('courses');
             }])
             ->orderBy('id','DESC')
             ->paginate(10);

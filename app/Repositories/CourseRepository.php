@@ -43,4 +43,20 @@ class CourseRepository extends Repository implements CourseRepositoryInterface
             }])
             ->findOrFail($id);
     }
+
+    public function courselist()
+    {
+        $user= auth('sanctum')->id();
+        return Course::query()->join('users','users.id','=','courses.course_user_id')
+            ->select('courses.*','users.fullname')
+            ->with('categories')
+            ->withAggregate('visits','score')
+            ->withCount('lessons')
+            ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                $q->where('user_id',$user);
+            }])
+            ->orderBy('id','DESC')
+            ->get();
+
+    }
 }

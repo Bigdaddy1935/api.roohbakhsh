@@ -222,7 +222,7 @@ protected $result=[];
 
     public function list()
     {
-      $result=  $this->courseRepository->all();
+      $result=  $this->courseRepository->courselist();
         return response()->json($result);
     }
 

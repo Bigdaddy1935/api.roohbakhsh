@@ -163,7 +163,7 @@ class ProductController extends Controller
         $data=[
             'type'=>$request->type,
             'price'=>$request->price,
-            'price_discount'=>$request->price_discount,
+            'price_discount'=>$request->price_discount == null ? null :$request->price_discount,
             'duration'=>$request->duration,
             'tiny_desc'=>$request->tiny_desc,
             'course_id'=>$request->course_id
