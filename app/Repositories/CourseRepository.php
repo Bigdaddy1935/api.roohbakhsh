@@ -62,6 +62,6 @@ class CourseRepository extends Repository implements CourseRepositoryInterface
 
     public function CoursesCount()
     {
-       return Course::query()->where('free','=','0')->where('media','=',0)->get()->count();
+       return Course::query()->where('type','=','course')->get()->count();
     }
 }

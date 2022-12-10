@@ -10,6 +10,6 @@ class Types extends Filter
 
     protected function applyFilter($builder)
     {
-      return  $builder->where('type', request($this->filterName()));
+      return  $builder->where('type','=', request($this->filterName()));
     }
 }
