@@ -274,5 +274,13 @@ if($request->related){
       return response()->json($result);
     }
 
+    public function productCount()
+    {
+       $result= $this->productRepository->ProductsCount();
+        return response()->json([
+            'ProductsCount'=>$result
+        ]);
+    }
+
 
 }

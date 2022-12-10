@@ -179,8 +179,6 @@ protected $result=[];
             Categories::class,
             Type::class
 
-
-
         ])
             ->thenReturn()
             ->join('users','users.id','=','courses.course_user_id')

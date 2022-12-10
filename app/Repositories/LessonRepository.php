@@ -66,6 +66,8 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             ->findOrFail($id);
     }
 
-
-
+    public function lessonsCount()
+    {
+        return Lesson::query()->get()->count();
+    }
 }

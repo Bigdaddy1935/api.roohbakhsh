@@ -40,4 +40,8 @@ class ArticleRepository extends Repository implements ArticleRepositoryInterface
     }
 
 
+    public function ArticlesCount()
+    {
+        return Article::query()->get()->count();
+    }
 }

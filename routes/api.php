@@ -55,6 +55,7 @@ Route::middleware('auth:sanctum')->controller(HomeController::class)->group(func
 Route::middleware('auth:sanctum')->prefix('lessons')->controller(LessonController::class)->group(function (){
     Route::post('add','addLesson');
     Route::get('get','getLessons');
+    Route::get('get/counts','Lcount');
     Route::get('get/{id}','get_lesson_by_id');
     Route::get('/','index');
     Route::get('take','takeLesson');
@@ -76,6 +77,7 @@ Route::middleware('auth:sanctum')->prefix('articles')->controller(ArticleControl
     Route::post('bookmark','bookmarkPost');
     Route::post('update/{id}','updateArticle');
     Route::get('get','getArticles');
+    Route::get('get/counts','ArticlesCount');
     Route::get('get/{id}','get_article_by_id');
     Route::delete('delete/{id}','deleteArticle');
 });
@@ -89,9 +91,9 @@ Route::prefix('users')->controller(UserController::class)->group(function(){
     Route::middleware('auth:sanctum')->get('logout','logout');
 });
 Route::middleware('auth:sanctum')->prefix('products')->controller(ProductController::class)->group(function (){
-
     Route::post('add','addProduct');
     Route::get('get','getProducts');
+    Route::get('get/counts','productCount');
     Route::get('get/{id}','get_product_by_id');
     Route::get('list','list');
     Route::get('/','index');

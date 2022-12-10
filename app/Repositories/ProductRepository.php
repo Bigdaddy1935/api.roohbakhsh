@@ -126,4 +126,9 @@ class ProductRepository extends Repository implements ProductRepositoryInterface
     {
         return Product::query()->join('courses','courses.id', '=','products.course_id')->select('products.*','courses.course_title')->latest()->get();
     }
+
+    public function ProductsCount()
+    {
+        return Product::query()->get()->count();
+    }
 }

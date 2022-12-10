@@ -246,8 +246,15 @@ class ArticleController extends Controller
            ->with('tagged')
            ->orderBy('id','DESC')
            ->paginate(10);
-
-
             return response()->json($articles);
 }
+
+    public function ArticlesCount()
+    {
+      $result= $this->articleRepository->ArticlesCount();
+
+      return response()->json([
+          'ArticlesCount'=>$result
+      ]);
+    }
 }

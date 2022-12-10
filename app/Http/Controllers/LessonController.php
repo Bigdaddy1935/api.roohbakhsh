@@ -117,7 +117,7 @@ class LessonController extends Controller
     {
 
 
-        $validate_data  =$request->all();
+     $request->all();
 
         $data=[
             'course_id'=>$request->course_id,
@@ -241,4 +241,12 @@ class LessonController extends Controller
        ]);
     }
 
+    public function Lcount()
+    {
+      $result=  $this->lessonRepository->lessonsCount();
+
+      return response()->json([
+          'lessonsCount'=>$result
+      ]);
+    }
 }
