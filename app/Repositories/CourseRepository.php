@@ -57,6 +57,11 @@ class CourseRepository extends Repository implements CourseRepositoryInterface
             }])
             ->orderBy('id','DESC')
             ->get();
+    }
 
+
+    public function CoursesCount()
+    {
+       return Course::query()->where('free','=','0')->where('media','=',0)->get()->count();
     }
 }

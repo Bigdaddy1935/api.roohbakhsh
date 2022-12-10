@@ -31,8 +31,8 @@ class Course extends Model
         'navigation',
         'course_teacher',
         'picture',
-        'media',
-        'free'
+        'type'
+
     ];
 
 

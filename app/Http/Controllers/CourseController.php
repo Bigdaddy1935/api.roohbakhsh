@@ -123,7 +123,7 @@ protected $result=[];
             'course_user_id'=>$request->course_user_id,
             'course_title'=>$request->course_title,
             'description'=>$request->description,
-            'free'=>$request->free,
+            'type'=>$request->type,
             'course_visibility'=>$request->course_visibility,
             'code'=>$request->code,
             'access'=>$request->access,
@@ -131,7 +131,7 @@ protected $result=[];
             'course_status'=>$request->course_status,
             'navigation'=>$request->navigation,
             'picture'=>$request->picture,
-            'media'=>$request->media,
+
         ];
         $categories=explode(",",$request->categories);
         $Course = $this->courseRepository->update($id,$data);
@@ -224,6 +224,15 @@ protected $result=[];
     {
       $result=  $this->courseRepository->courselist();
         return response()->json($result);
+    }
+
+    public function CoursesCounts()
+    {
+       $result= $this->courseRepository->CoursesCount();
+
+       return response()->json([
+           'coursesCount'=>$result
+       ]);
     }
 
 
