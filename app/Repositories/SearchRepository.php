@@ -30,7 +30,15 @@ class SearchRepository  implements SearchRepositoryInterface
             ->select('lessons.*','users.fullname')
           ->join('courses','courses.id','=','lessons.course_id')
           ->select('lessons.*','courses.navigation')
-            ->with('courses')
+            ->with('courses',function ($q) use ($user){
+                $q->join("users","users.id",'=',"courses.course_user_id")
+                    ->select("courses.*","users.fullname")
+                    ->with("categories")
+                    ->withCount("lessons")
+                    ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                        $q->where('user_id',$user);
+                    }])->orderBy('id','DESC')->get()->toArray();
+            })
             ->with('categories')
             ->withAggregate('visits','score')
             ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
@@ -89,8 +97,16 @@ class SearchRepository  implements SearchRepositoryInterface
      return   Lesson::query()->where('title','LIKE',"%{$req}%")->join('users', 'users.id', '=', 'lessons.user_id')
             ->select('lessons.*','users.fullname')
          ->join('courses','courses.id','=','lessons.course_id')
-         ->select('lessons.*','courses.navigation')
-            ->with('courses')
+         ->select('lessons.*','courses.navigation')->
+            with('courses',function ($q) use ($user){
+                $q->join("users","users.id",'=',"courses.course_user_id")
+                    ->select("courses.*","users.fullname")
+                    ->with("categories")
+                    ->withCount("lessons")
+                    ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                        $q->where('user_id',$user);
+                    }])->orderBy('id','DESC')->get()->toArray();
+            })
             ->with('categories')
             ->withAggregate('visits','score')
             ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
