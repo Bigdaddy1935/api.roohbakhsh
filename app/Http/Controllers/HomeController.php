@@ -41,10 +41,12 @@ class HomeController extends Controller
             }
             for ($i=0;$i<count($lesson);$i++){
                 $lesson[$i]['type']='lessons';
+                unset($lesson[$i]['url_video']);
             }
             for ($i=0;$i<count($article);$i++){
                 $article[$i]['type']='articles';
             }
+
 
             return response()->json([
                 'course'=>$course,
@@ -64,6 +66,7 @@ class HomeController extends Controller
             }
             for ($i=0;$i<count($lesson);$i++){
                 $lesson[$i]['type']='lessons';
+                unset($lesson[$i]['url_video']);
             }
             for ($i=0;$i<count($article);$i++){
                 $article[$i]['type']='articles';
@@ -71,6 +74,8 @@ class HomeController extends Controller
             for ($i=0;$i<count($product);$i++){
                 $product[$i]['type']='products';
             }
+
+
 
             return response()->json([
                 'course'=>$course,
