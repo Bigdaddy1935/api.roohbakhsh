@@ -84,6 +84,7 @@ Route::middleware('auth:sanctum')->prefix('articles')->controller(ArticleControl
 Route::prefix('users')->controller(UserController::class)->group(function(){
     Route::post('register','register');
     Route::middleware('auth:sanctum')->get('get','getUsers');
+    Route::middleware('auth:sanctum')->get('get/counts','UsersCount');
     Route::middleware('auth:sanctum')->get('/','index');
     Route::post('login','login_cms');
     Route::middleware('auth:sanctum')->post('update/{id}','updateUsers');

@@ -700,6 +700,14 @@ class UserController extends Controller
        ]);
     }
 
+    public function UsersCount()
+    {
+     $result=   User::query()->get()->count();
+
+     return response()->json([
+         'UsersCount'=>$result
+     ]);
+    }
 
 
 
