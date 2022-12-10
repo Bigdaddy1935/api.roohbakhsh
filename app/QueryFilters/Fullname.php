@@ -10,6 +10,6 @@ class Fullname extends Filter
 
     protected function applyFilter($builder)
     {
-      return  $builder->where('fullname', request($this->filterName()));
+      return  $builder->where('fullname','LIKE', "%".request($this->filterName())."%");
     }
 }

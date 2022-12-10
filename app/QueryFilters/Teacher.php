@@ -10,6 +10,6 @@ class Teacher extends Filter
 
     protected function applyFilter($builder)
     {
-      return  $builder->where('teacher', request($this->filterName()));
+      return  $builder->where('teacher','LIKE', "%".request($this->filterName())."%");
     }
 }
