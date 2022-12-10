@@ -132,7 +132,8 @@ Route::prefix('tutorial')->controller(TutorialController::class)->group(function
 });
 
 Route::prefix('invoices')->controller(InvoiceController::class)->group(function (){
-   Route::get('total','SellCount');
+   Route::get('total/amount','TotalAmount');
+   Route::get('total/sell','TotalSell');
 });
 
 

@@ -26,30 +26,17 @@ class SearchRepository  implements SearchRepositoryInterface
 
     public function SearchInLessonFirstWord($req, $user)
     {
-      return  Lesson::query()->where('title','LIKE',"{$req}%")->join('users', 'users.id', '=', 'lessons.user_id')
-            ->select('lessons.*','users.fullname')
-          ->join('courses','courses.id','=','lessons.course_id')
-          ->select('lessons.*','courses.navigation')
-            ->with('courses',function ($q) use ($user){
-                $q->join("users","users.id",'=',"courses.course_user_id")
-                    ->select("courses.*","users.fullname")
-                    ->with("categories")
-                    ->withCount("lessons")
-                    ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
-                        $q->where('user_id',$user);
-                    }])->orderBy('id','DESC')->get()->toArray();
-            })
-            ->with('categories')
-            ->withAggregate('visits','score')
-            ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
-                $q->where('user_id',$user);
-            }])
-            ->with(['progress'=>function ($q)use ($user){
-                $q->where('user_id',$user);
-            }])
-          ->orderBy('id','DESC')
-          ->get()
-          ->toArray();
+        return   Lesson::query()->
+        with('courses',function ($q) use ($user){
+            $q->join("users","users.id",'=',"courses.course_user_id")
+                ->select("courses.*","users.fullname")
+                ->with("categories")
+                ->withCount("lessons")
+                ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                    $q->where('user_id',$user);
+                }])->orderBy('id','DESC')->get()->toArray();
+        })->where('title','LIKE',"{$req}%")
+            ->orderBy('id','DESC')->get()->toArray();
     }
 
     public function SearchInArticleFirstWord($req, $user)
@@ -94,7 +81,7 @@ class SearchRepository  implements SearchRepositoryInterface
 
     public function SearchInLesson($req, $user)
     {
-     return   Lesson::query()->
+     return   Lesson::query()->where('title','LIKE',"%{$req}%")->
             with('courses',function ($q) use ($user){
                 $q->join("users","users.id",'=',"courses.course_user_id")
                     ->select("courses.*","users.fullname")
@@ -103,7 +90,7 @@ class SearchRepository  implements SearchRepositoryInterface
                     ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
                         $q->where('user_id',$user);
                     }])->orderBy('id','DESC')->get()->toArray();
-            })->where('title','LIKE',"%{$req}%")
+            })
             ->orderBy('id','DESC')->get()->toArray();
     }
 

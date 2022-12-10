@@ -94,13 +94,23 @@ public array $data=[];
        return response()->json($user_invoice);
     }
 
-    public function SellCount()
+    public function TotalAmount()
     {
        $res= Invoice::query()->sum('amount');
 
        return response()->json([
-           'TotalSell'=>$res
+           'TotalAmount'=>$res
        ]);
+    }
+
+    public function TotalSell()
+    {
+        $res=Invoice::query()->count('order_id');
+
+        return response()->json([
+            'TotalSell'=>$res
+        ]);
+
     }
 
 }

@@ -42,6 +42,18 @@ class HomeController extends Controller
             for ($i=0;$i<count($lesson);$i++){
                 $lesson[$i]['type']='lessons';
                 unset($lesson[$i]['url_video']);
+                unset($lesson[$i]['title']);
+                unset($lesson[$i]['course_id']);
+                unset($lesson[$i]['id']);
+                unset($lesson[$i]['picture']);
+                unset($lesson[$i]['description']);
+                unset($lesson[$i]['status']);
+                unset($lesson[$i]['visibility']);
+                unset($lesson[$i]['code']);
+                unset($lesson[$i]['created_at']);
+                unset($lesson[$i]['updated_at']);
+                unset($lesson[$i]['user_id']);
+                unset($lesson[$i]['teacher']);
             }
             for ($i=0;$i<count($article);$i++){
                 $article[$i]['type']='articles';
@@ -67,6 +79,19 @@ class HomeController extends Controller
             for ($i=0;$i<count($lesson);$i++){
                 $lesson[$i]['type']='lessons';
                 unset($lesson[$i]['url_video']);
+                unset($lesson[$i]['title']);
+                unset($lesson[$i]['course_id']);
+                unset($lesson[$i]['id']);
+                unset($lesson[$i]['picture']);
+                unset($lesson[$i]['description']);
+                unset($lesson[$i]['status']);
+                unset($lesson[$i]['visibility']);
+                unset($lesson[$i]['code']);
+                unset($lesson[$i]['created_at']);
+                unset($lesson[$i]['updated_at']);
+                unset($lesson[$i]['user_id']);
+                unset($lesson[$i]['teacher']);
+
             }
             for ($i=0;$i<count($article);$i++){
                 $article[$i]['type']='articles';
@@ -77,11 +102,12 @@ class HomeController extends Controller
 
 
 
+
             return response()->json([
                 'course'=>$course,
                 'lesson'=>$lesson,
                 'article'=>$article,
-                'product'=>$product
+                'product'=>$product,
             ]);
         }
     }
