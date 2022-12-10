@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Interfaces\CourseRepositoryInterface;
 use App\Models\Course;
+use App\QueryFilters\Type;
 use App\QueryFilters\Types;
 use App\QueryFilters\Categories;
 use App\QueryFilters\CourseTeacher;
@@ -174,9 +175,12 @@ protected $result=[];
             CourseTitle::class,
             CourseUserId::class,
             CourseTeacher::class,
-            Types::class,
             Sort::class,
-            Categories::class
+            Categories::class,
+            Type::class
+
+
+
         ])
             ->thenReturn()
             ->join('users','users.id','=','courses.course_user_id')
