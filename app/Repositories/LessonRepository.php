@@ -28,7 +28,6 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
              ->with(['progress'=>function ($q)use ($user){
                  $q->where('user_id',$user);
              }])
-         ->orderBy('id','DESC')
             ->paginate(10);
     }
 
@@ -45,7 +44,6 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
              ->with(['progress'=>function ($q)use ($user){
                  $q->where('user_id',$user);
              }])
-             ->orderBy('id','DESC')
             ->paginate(10);
     }
 
