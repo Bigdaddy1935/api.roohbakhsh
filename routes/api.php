@@ -103,7 +103,7 @@ Route::middleware('auth:sanctum')->prefix('products')->controller(ProductControl
     Route::delete('delete/{id}','deleteProducts');
 });
 Route::middleware('auth:sanctum')->prefix('libraries')->controller(LibraryController::class)->group(function (){
-
+    Route::middleware('auth:sanctum')->get('/','index');
     Route::post('add','addLibrary');
     Route::get('get','getLibrary');
     Route::post('update/{id}','updateLibrary');

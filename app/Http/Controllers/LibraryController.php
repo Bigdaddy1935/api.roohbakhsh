@@ -3,8 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\LibraryRepositoryInterface;
+use App\Models\Lesson;
+use App\Models\Library;
+use App\QueryFilters\Categories;
+use App\QueryFilters\Course_id;
+use App\QueryFilters\Sort;
+use App\QueryFilters\Teacher;
+use App\QueryFilters\Title;
+use App\QueryFilters\Type;
+use App\QueryFilters\User_id;
+use App\QueryFilters\Visibility;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Validation\ValidationException;
 
 class LibraryController extends Controller
@@ -118,5 +129,21 @@ class LibraryController extends Controller
             'libraries_id'=>$ids,
         ]);
 
+    }
+    public function index(): JsonResponse
+    {
+
+        $library=app(Pipeline::class)->send(Library::query())->through([
+            Title::class,
+            Type::class,
+            Sort::class,
+
+        ])
+            ->thenReturn()
+            ->orderBy('id','DESC')
+            ->paginate(10);
+
+
+        return response()->json($library);
     }
 }
