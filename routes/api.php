@@ -131,6 +131,10 @@ Route::prefix('tutorial')->controller(TutorialController::class)->group(function
     Route::middleware('auth:sanctum')->get('get','showTutorial');
 });
 
+Route::prefix('invoices')->controller(InvoiceController::class)->group(function (){
+   Route::get('total','SellCount');
+});
+
 
 
 

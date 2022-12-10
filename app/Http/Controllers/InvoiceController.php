@@ -94,4 +94,13 @@ public array $data=[];
        return response()->json($user_invoice);
     }
 
+    public function SellCount()
+    {
+       $res= Invoice::query()->sum('amount');
+
+       return response()->json([
+           'TotalSell'=>$res
+       ]);
+    }
+
 }
