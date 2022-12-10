@@ -172,7 +172,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | HTTP Access Only
+    | HTTP Types Only
     |--------------------------------------------------------------------------
     |
     | Setting this value to true will prevent JavaScript from accessing the

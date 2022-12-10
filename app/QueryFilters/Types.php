@@ -4,12 +4,12 @@ namespace App\QueryFilters;
 
 use function request;
 
-class Access extends Filter
+class Types extends Filter
 {
 
 
     protected function applyFilter($builder)
     {
-      return  $builder->where('access', request($this->filterName()));
+      return  $builder->where('type', request($this->filterName()));
     }
 }

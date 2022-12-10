@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Interfaces\CourseRepositoryInterface;
 use App\Models\Course;
-use App\QueryFilters\Access;
+use App\QueryFilters\Types;
 use App\QueryFilters\Categories;
 use App\QueryFilters\CourseTeacher;
 use App\QueryFilters\CourseTitle;
@@ -174,7 +174,7 @@ protected $result=[];
             CourseTitle::class,
             CourseUserId::class,
             CourseTeacher::class,
-            Access::class,
+            Types::class,
             Sort::class,
             Categories::class
         ])
