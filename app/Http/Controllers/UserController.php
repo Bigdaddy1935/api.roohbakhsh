@@ -664,14 +664,14 @@ class UserController extends Controller
 
 
      return response()->json([
-         ' درس های کامل دیده شد'=>$count
+         'lessonLearned'=>$count
      ]);
     }
 
     public function LessonsSee()
     {
         $user=auth()->id();
-        $count= VideoProgressBar::query()->where('user_id',$user)->where('percentage','>','0')->where('percentage','<','100')->with('lessons',function ($q) use ($user){
+        $count= VideoProgressBar::query()->where('user_id',$user)->where('percentage','>','0')->where('percentage','<','99.99')->with('lessons',function ($q) use ($user){
             $q->join('users','users.id','=','lessons.user_id')
                 ->select('lessons.*','users.fullname')
                 ->with('categories')
@@ -688,7 +688,7 @@ class UserController extends Controller
 
 
         return response()->json([
-            ' درس های جاری'=>$count
+            'lessonSee'=>$count
         ]);
     }
 
