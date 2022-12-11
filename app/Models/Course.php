@@ -76,6 +76,9 @@ class Course extends Model
         return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id');
     }
 
-
+    public function products()
+    {
+       return $this->belongsTo(Product::class ,'id','course_id',);
+    }
 
 }
