@@ -646,11 +646,50 @@ class UserController extends Controller
 
     public function lessonsLearned(): JsonResponse
     {
-        $id=auth()->id();
-     $count= VideoProgressBar::query()->where('user_id',$id)->where('percentage','=','100')->count();
+        $user=auth()->id();
+     $count= VideoProgressBar::query()->where('user_id',$user)->where('percentage','=','100')->with('lessons',function ($q) use ($user){
+         $q->join('users','users.id','=','lessons.user_id')
+             ->select('lessons.*','users.fullname')
+             ->with('categories')
+             ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                 $q->where('user_id',$user);
+             }])
+             ->withExists(['likers as like'=>function($q)use ($user){
+                 $q->where('user_id',$user);
+             }])
+             ->with(['progress'=>function ($q)use ($user){
+                 $q->where('user_id',$user);
+             }]);
+     })->get();
+
+
      return response()->json([
-         'تعداد درس های کامل دیده شد'=>$count
+         ' درس های کامل دیده شد'=>$count
      ]);
+    }
+
+    public function LessonsSee()
+    {
+        $user=auth()->id();
+        $count= VideoProgressBar::query()->where('user_id',$user)->where('percentage','>','0')->where('percentage','<','100')->with('lessons',function ($q) use ($user){
+            $q->join('users','users.id','=','lessons.user_id')
+                ->select('lessons.*','users.fullname')
+                ->with('categories')
+                ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                    $q->where('user_id',$user);
+                }])
+                ->withExists(['likers as like'=>function($q)use ($user){
+                    $q->where('user_id',$user);
+                }])
+                ->with(['progress'=>function ($q)use ($user){
+                    $q->where('user_id',$user);
+                }]);
+        })->get();
+
+
+        return response()->json([
+            ' درس های جاری'=>$count
+        ]);
     }
 
     public function PurchasedProductsCount(): JsonResponse
