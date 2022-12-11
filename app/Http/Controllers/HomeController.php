@@ -34,13 +34,13 @@ class HomeController extends Controller
             $product=$this->searchRepository->SearchInProductFirstWord($req,$user);
 
             for ($i=0;$i<count($product);$i++){
-                $product[$i]['type']='product';
+                $product[$i]['model']='product';
             }
             for ($i=0;$i<count($course);$i++){
-                $course[$i]['type']='courses';
+                $course[$i]['model']='courses';
             }
             for ($i=0;$i<count($lesson);$i++){
-                $lesson[$i]['type']='lessons';
+                $lesson[$i]['model']='lessons';
                 unset($lesson[$i]['url_video']);
                 unset($lesson[$i]['title']);
                 unset($lesson[$i]['course_id']);
@@ -56,7 +56,7 @@ class HomeController extends Controller
                 unset($lesson[$i]['teacher']);
             }
             for ($i=0;$i<count($article);$i++){
-                $article[$i]['type']='articles';
+                $article[$i]['model']='articles';
             }
 
 
@@ -74,10 +74,10 @@ class HomeController extends Controller
             $product=$this->searchRepository->SearchInProduct($req,$user);
 
             for ($i=0;$i<count($course);$i++){
-                $course[$i]['type']='courses';
+                $course[$i]['model']='courses';
             }
             for ($i=0;$i<count($lesson);$i++){
-                $lesson[$i]['type']='lessons';
+                $lesson[$i]['model']='lessons';
                 unset($lesson[$i]['url_video']);
                 unset($lesson[$i]['title']);
                 unset($lesson[$i]['course_id']);
@@ -94,10 +94,10 @@ class HomeController extends Controller
 
             }
             for ($i=0;$i<count($article);$i++){
-                $article[$i]['type']='articles';
+                $article[$i]['model']='articles';
             }
             for ($i=0;$i<count($product);$i++){
-                $product[$i]['type']='products';
+                $product[$i]['model']='products';
             }
 
 
