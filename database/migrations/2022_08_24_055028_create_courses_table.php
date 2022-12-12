@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('course_user_id');
             $table->string('course_title', 100)->unique();
-            $table->text('description')->nullable();
+            $table->longText('description')->nullable();
             $table->tinyInteger('course_visibility')->default(0);
             $table->string('code', 100)->default('')->nullable();
             $table->boolean('access')->default(0);

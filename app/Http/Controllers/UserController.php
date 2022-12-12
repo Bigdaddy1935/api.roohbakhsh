@@ -671,10 +671,9 @@ class UserController extends Controller
     public function LessonsSee()
     {
         $user=auth()->id();
-        $count= VideoProgressBar::query()->where('user_id',$user)->where('percentage','>','0')->where('percentage','<','99.99')->with('lessons',function ($q) use ($user){
-            $q->join('users','users.id','=','lessons.user_id')
-                ->select('lessons.*','users.fullname')
-                ->with('categories')
+        $lessons= VideoProgressBar::query()->where('user_id',$user)
+            ->with('lessons',function ($q) use ($user){
+            $q->with('categories')
                 ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
                     $q->where('user_id',$user);
                 }])
@@ -684,11 +683,16 @@ class UserController extends Controller
                 ->with(['progress'=>function ($q)use ($user){
                     $q->where('user_id',$user);
                 }]);
-        })->get();
+        })->get()->toArray();
 
+      $lessonsC=  count($lessons);
+
+        for ($i=0;$i<$lessonsC;$i++) {
+            unset($lessons[$i]['lessons'][0]['url_video']);
+        }
 
         return response()->json([
-            'lessonSee'=>$count
+            'lessonSee'=>$lessons
         ]);
     }
 

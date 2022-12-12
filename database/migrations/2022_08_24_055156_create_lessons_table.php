@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('title',100)->unique();
             $table->text('picture')->nullable();
             $table->string('teacher');
-            $table->text('description')->nullable();
+            $table->longText('description')->nullable();
             $table->text('url_video')->nullable();
             $table->boolean('status')->default(false);
             $table->tinyInteger('visibility')->default(false);
