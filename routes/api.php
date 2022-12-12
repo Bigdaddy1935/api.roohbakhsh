@@ -212,6 +212,8 @@ Route::middleware('auth:sanctum')->prefix('app/users')->controller(UserControlle
     Route::get('bookmarks','userBookmarks');
     Route::get('lesson/score','addScoreForLessonsProgress');
     Route::get('lessons_learned','lessonsLearned');
+    Route::get('courses/see','CourseProgress');
+    Route::get('courses/full','CourseProgressFull');
     Route::get('lessons_see','LessonsSee');
     Route::get('purchased_products_count','PurchasedProductsCount');
     Route::get('purchased_products','PurchasedProducts');

@@ -9,6 +9,7 @@ use App\Interfaces\LessonRepositoryInterface;
 use App\Interfaces\ProductRepositoryInterface;
 use App\Interfaces\ProgressRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
+use App\Models\Course;
 use App\Models\Token;
 use App\Models\User;
 use App\Models\VideoProgressBar;
@@ -750,6 +751,65 @@ class UserController extends Controller
      return response()->json([
          'UsersCount'=>$result
      ]);
+    }
+
+    public function CourseProgress()
+    {
+        $user=auth()->id();
+        $res=Course::query()->withWhereHas('lessons',function ($q) use ($user){
+            $q->withWhereHas('progress',function ($q) use($user) {
+                $q->where('user_id',$user)->where('percentage','>',0);
+            })->join('users','users.id','=','lessons.user_id')
+                ->select('lessons.*','users.fullname')
+                ->with('categories')
+                ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                    $q->where('user_id',$user);
+                }])
+                ->withExists(['likers as like'=>function($q)use ($user){
+                    $q->where('user_id',$user);
+                }])
+                ->with(['progress'=>function ($q)use ($user){
+                    $q->where('user_id',$user);
+                }]);
+
+        })->withCount('lessons')->get()->toArray();
+
+        for ($i=0;$i<count($res);$i++){
+            $totalProgress = 0;
+            $newRes = $res[$i]['lessons'];
+            for($j=0;$j < count($newRes); $j++){
+                $totalProgress += $newRes[$j]['progress']['percentage'];
+            }
+            $res[$i]['courseProgres']=$totalProgress/$res[$i]['lessons_count'];
+        }
+        return response()->json($res);
+    }
+
+    public function CourseProgressFull()
+    {
+        $user=auth()->id();
+        $res=   Course::query()->withWhereHas('lessons',function ($q) use ($user){
+            $q->withWhereHas('progress',function ($q) use($user) {
+                $q->where('user_id',$user)->where('percentage','=','100');
+            })->join('users','users.id','=','lessons.user_id')
+                ->select('lessons.*','users.fullname')
+                ->with('categories')
+                ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                    $q->where('user_id',$user);
+                }])
+                ->withExists(['likers as like'=>function($q)use ($user){
+                    $q->where('user_id',$user);
+                }])
+                ->with(['progress'=>function ($q)use ($user){
+                    $q->where('user_id',$user);
+                }]);;
+
+        })->get()->toArray();
+
+
+
+
+        return response()->json($res);
     }
 
 
