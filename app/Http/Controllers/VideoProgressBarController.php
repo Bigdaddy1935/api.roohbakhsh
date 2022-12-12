@@ -125,8 +125,8 @@ class VideoProgressBarController extends Controller
 
         }
         return response()->json([
-            'میزان پیشرفت دوره'=>$result,
-            'امتیار'=>$currentScore,
+            'courseProgress'=>$result,
+            'Score'=>$currentScore,
         ]);
 
 
