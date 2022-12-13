@@ -76,9 +76,9 @@ protected $result=[];
             $totalProgress = 0;
             $newRes = $course['data'][$i]['lessons'];
             for($j=0;$j < count($newRes); $j++){
-                $totalProgress += $newRes[$j]['progress']['percentage'];
+                $totalProgress += doubleval($newRes[$j]['progress']['percentage']);
             }
-            $course['data'][$i]['courseProgress']=$totalProgress/$course['data'][$i]['lessons_count'];
+            $course['data'][$i]['courseProgress']=$totalProgress/($course['data'][$i]['lessons_count']);
         }
 
        if($course){
