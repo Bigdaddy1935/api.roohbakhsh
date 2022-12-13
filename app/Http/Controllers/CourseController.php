@@ -80,7 +80,7 @@ protected $result=[];
                 $totalProgress += $newRes[$j]['progress']['percentage'];
             }
             if($totalProgress == 0){
-                $course['data'][$i]['courseProgress'] = 0;
+                $course['data'][$i]['courseProgress'] = doubleval(0);
             }else {
                 $course['data'][$i]['courseProgress'] = ($totalProgress / $lessonCount);
             }
