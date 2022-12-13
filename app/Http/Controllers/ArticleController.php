@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Interfaces\ArticleRepositoryInterface;
 use App\Models\Article;
+use App\Models\Tag;
 use App\QueryFilters\Categories;
 use App\QueryFilters\Sort;
 use App\QueryFilters\Status;
@@ -256,5 +257,23 @@ class ArticleController extends Controller
       return response()->json([
           'ArticlesCount'=>$result
       ]);
+    }
+
+    public function ArticlesTags(Request $request)
+    {
+        $tags=$request->tags;
+        $user= auth('sanctum')->id();
+        $result=Article::withAnyTag($tags)
+              ->join('users','users.id','=','articles.user_id')
+              ->select('articles.*','users.fullname')
+              ->with(['tagged','categories'])
+              ->withAggregate('visits','score')
+              ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                  $q->where('user_id',$user);
+              }])
+              ->orderBy('id','DESC')
+              ->paginate(10);
+
+       return response()->json($result);
     }
 }

@@ -12,7 +12,6 @@ use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\TicketsController;
 use App\Http\Controllers\TutorialController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideoProgressBarController;
@@ -161,6 +160,7 @@ Route::prefix('app/articles')->controller(ArticleController::class)->group(funct
     Route::middleware('auth:sanctum')->get('like/{id}','likeArticle');
     Route::middleware('auth:sanctum')->get('bookmark/{id}','bookmarkArticle');
     Route::get('get/{id}','get_article_by_id')->name('article.get');
+    Route::post('from/tags','ArticlesTags');
 });
 Route::prefix('app/courses')->controller(CourseController::class)->group(function (){
     Route::get('get','getCourses');
