@@ -75,14 +75,15 @@ protected $result=[];
         for ($i=0;$i<count($course['data']);$i++){
             $totalProgress = 0;
             $lessonCount = $course['data'][$i]['lessons_count'];
-            $course['data'][$i]['courseProgress'] = 0;
-            $courseProgress = $course['data'][$i]['courseProgress'];
             $newRes = $course['data'][$i]['lessons'];
             for($j=0;$j < count($newRes); $j++){
                 $totalProgress += $newRes[$j]['progress']['percentage'];
             }
-            $courseProgress = ($totalProgress / $lessonCount);
-            $course[$i]['courseProgress'] = $courseProgress;
+            if($totalProgress == 0){
+                $course['data'][$i]['courseProgress'] = 0;
+            }else {
+                $course['data'][$i]['courseProgress'] = ($totalProgress / $lessonCount);
+            }
         }
 
        if($course){
