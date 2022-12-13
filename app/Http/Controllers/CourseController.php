@@ -97,11 +97,14 @@ protected $result=[];
         $view_count= visits($course_id)->count();
         $course=$this->courseRepository->GetSpecificCourse($id);
 
+        $progressTotal = 0;
+        for($i = 0 ; $i < count($course['lessons']); $i++ ){
+           $progressTotal += $course['lessons'][$i]['progress']['percentage'];
+        }
+        $progressTotal = $progressTotal / $course['lessons_count'];
+        $course['courseProgress'] = $progressTotal;
 
-        return response()->json([
-            'course'=>$course,
-            'visits_score'=>$view_count
-        ]);
+        return response()->json($course);
     }
 
 

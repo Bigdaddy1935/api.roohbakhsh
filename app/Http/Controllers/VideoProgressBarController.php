@@ -121,7 +121,7 @@ class VideoProgressBarController extends Controller
           $score =$whereIsFullCount*20;
           $currentScore =$user->score ?? 0;
           $currentScore +=$score;
-       $user->forceFill(['score'=>$currentScore])->save();
+          $user->forceFill(['score'=>$currentScore])->save();
 
         }
         return response()->json([
