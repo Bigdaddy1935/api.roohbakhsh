@@ -73,12 +73,12 @@ protected $result=[];
      $course=$this->courseRepository->GetCoursesData();
 
         for ($i=0;$i<count($course['data']);$i++){
-            $course['data'][$i]['courseProgress'] =  0;
+            $totalProgress = 0;
             $newRes = $course['data'][$i]['lessons'];
             for($j=0;$j < count($newRes); $j++){
-                $course['data'][$i]['courseProgress'] += $newRes[$j]['progress']['percentage'];
+                $totalProgress += $newRes[$j]['progress']['percentage'];
             }
-            $course['data'][$i]['courseProgress'] = $course['data'][$i]['courseProgress'] /$course['data'][$i]['lessons_count'];
+            $course['data'][$i]['courseProgress'] = $totalProgress/$course['data'][$i]['lessons_count'];
         }
 
        if($course){
