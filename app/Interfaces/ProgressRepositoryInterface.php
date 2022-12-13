@@ -11,4 +11,7 @@ interface ProgressRepositoryInterface
     public function GetLessonsCountOfAnCourse($course_id);
 
     public function WhereProgressIsFull($course_id);
+
+    public function LessonsSeeFull($user);
+    public function CurrentLessonsSee($user);
 }

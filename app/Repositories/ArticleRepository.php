@@ -44,4 +44,19 @@ class ArticleRepository extends Repository implements ArticleRepositoryInterface
     {
         return Article::query()->get()->count();
     }
+
+
+    public function ArticlesFromTag($tags, $user)
+    {
+        return Article::withAnyTag($tags)
+            ->join('users','users.id','=','articles.user_id')
+            ->select('articles.*','users.fullname')
+            ->with(['tagged','categories'])
+            ->withAggregate('visits','score')
+            ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                $q->where('user_id',$user);
+            }])
+            ->orderBy('id','DESC')
+            ->paginate(10);
+    }
 }

@@ -44,4 +44,39 @@ class ProgressRepository extends Repository implements ProgressRepositoryInterfa
     {
       return  VideoProgressBar::query()->where('user_id',$user_id)->where('lesson_id',$video_id)->first();
     }
+
+    public function LessonsSeeFull($user)
+    {
+      return  VideoProgressBar::query()->where('user_id',$user)->where('percentage','=','100')->with('lessons',function ($q) use ($user){
+            $q->join('users','users.id','=','lessons.user_id')
+                ->select('lessons.*','users.fullname')
+                ->with('categories')
+                ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                    $q->where('user_id',$user);
+                }])
+                ->withExists(['likers as like'=>function($q)use ($user){
+                    $q->where('user_id',$user);
+                }])
+                ->with(['progress'=>function ($q)use ($user){
+                    $q->where('user_id',$user);
+                }]);
+        })->get();
+    }
+
+    public function CurrentLessonsSee($user)
+    {
+        return VideoProgressBar::query()->where('user_id',$user)
+            ->with('lessons',function ($q) use ($user){
+                $q->with('categories')
+                    ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                        $q->where('user_id',$user);
+                    }])
+                    ->withExists(['likers as like'=>function($q)use ($user){
+                        $q->where('user_id',$user);
+                    }])
+                    ->with(['progress'=>function ($q)use ($user){
+                        $q->where('user_id',$user);
+                    }]);
+            })->get()->toArray();
+    }
 }

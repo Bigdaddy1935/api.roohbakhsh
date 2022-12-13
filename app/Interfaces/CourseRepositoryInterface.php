@@ -9,5 +9,7 @@ interface CourseRepositoryInterface
     public function GetSpecificCourse($id);
     public function courselist();
     public function CoursesCount();
+    public function CourseSeeFull($user);
+    public function CurrentCourseSee($user);
 
 }

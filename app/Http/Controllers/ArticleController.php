@@ -263,17 +263,7 @@ class ArticleController extends Controller
     {
         $tags=$request->tags;
         $user= auth('sanctum')->id();
-        $result=Article::withAnyTag($tags)
-              ->join('users','users.id','=','articles.user_id')
-              ->select('articles.*','users.fullname')
-              ->with(['tagged','categories'])
-              ->withAggregate('visits','score')
-              ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
-                  $q->where('user_id',$user);
-              }])
-              ->orderBy('id','DESC')
-              ->paginate(10);
-
-       return response()->json($result);
+        $result=$this->articleRepository->ArticlesFromTag($tags,$user);
+        return response()->json($result);
     }
 }

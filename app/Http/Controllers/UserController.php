@@ -647,44 +647,18 @@ class UserController extends Controller
 
     public function lessonsLearned(): JsonResponse
     {
+
         $user=auth()->id();
-     $count= VideoProgressBar::query()->where('user_id',$user)->where('percentage','=','100')->with('lessons',function ($q) use ($user){
-         $q->join('users','users.id','=','lessons.user_id')
-             ->select('lessons.*','users.fullname')
-             ->with('categories')
-             ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
-                 $q->where('user_id',$user);
-             }])
-             ->withExists(['likers as like'=>function($q)use ($user){
-                 $q->where('user_id',$user);
-             }])
-             ->with(['progress'=>function ($q)use ($user){
-                 $q->where('user_id',$user);
-             }]);
-     })->get();
-
-
+        $result=$this->progressRepository->LessonsSeeFull($user);
      return response()->json([
-         'lessonLearned'=>$count
+         'lessonLearned'=>$result
      ]);
     }
 
     public function LessonsSee()
     {
         $user=auth()->id();
-        $lessons= VideoProgressBar::query()->where('user_id',$user)
-            ->with('lessons',function ($q) use ($user){
-            $q->with('categories')
-                ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
-                    $q->where('user_id',$user);
-                }])
-                ->withExists(['likers as like'=>function($q)use ($user){
-                    $q->where('user_id',$user);
-                }])
-                ->with(['progress'=>function ($q)use ($user){
-                    $q->where('user_id',$user);
-                }]);
-        })->get()->toArray();
+        $lessons=$this->progressRepository->CurrentLessonsSee($user);
 
       $lessonsC=  count($lessons);
 
@@ -756,24 +730,7 @@ class UserController extends Controller
     public function CourseProgress()
     {
         $user=auth()->id();
-        $res=Course::query()->withWhereHas('lessons',function ($q) use ($user){
-            $q->withWhereHas('progress',function ($q) use($user) {
-                $q->where('user_id',$user)->where('percentage','>',0);
-            })->join('users','users.id','=','lessons.user_id')
-                ->select('lessons.*','users.fullname')
-                ->with('categories')
-                ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
-                    $q->where('user_id',$user);
-                }])
-                ->withExists(['likers as like'=>function($q)use ($user){
-                    $q->where('user_id',$user);
-                }])
-                ->with(['progress'=>function ($q)use ($user){
-                    $q->where('user_id',$user);
-                }]);
-
-        })->withCount('lessons')->get()->toArray();
-
+        $res=$this->courseRepository->CurrentCourseSee($user);
         for ($i=0;$i<count($res);$i++){
             $totalProgress = 0;
             $newRes = $res[$i]['lessons'];
@@ -788,27 +745,7 @@ class UserController extends Controller
     public function CourseProgressFull()
     {
         $user=auth()->id();
-        $res=   Course::query()->withWhereHas('lessons',function ($q) use ($user){
-            $q->withWhereHas('progress',function ($q) use($user) {
-                $q->where('user_id',$user)->where('percentage','=','100');
-            })->join('users','users.id','=','lessons.user_id')
-                ->select('lessons.*','users.fullname')
-                ->with('categories')
-                ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
-                    $q->where('user_id',$user);
-                }])
-                ->withExists(['likers as like'=>function($q)use ($user){
-                    $q->where('user_id',$user);
-                }])
-                ->with(['progress'=>function ($q)use ($user){
-                    $q->where('user_id',$user);
-                }]);;
-
-        })->get()->toArray();
-
-
-
-
+        $res=$this->courseRepository->CourseSeeFull($user);
         return response()->json($res);
     }
 
