@@ -72,6 +72,15 @@ protected $result=[];
 
      $course=$this->courseRepository->GetCoursesData();
 
+        for ($i=0;$i<count($course['data']);$i++){
+            $totalProgress = 0;
+            $newRes = $course['data'][$i]['lessons'];
+            for($j=0;$j < count($newRes); $j++){
+                $totalProgress += $newRes[$j]['progress']['percentage'];
+            }
+            $course['data'][$i]['courseProgress']=$totalProgress/$course['data'][$i]['lessons_count'];
+        }
+
        if($course){
            return response()->json($course);
        }
@@ -104,7 +113,10 @@ protected $result=[];
         $progressTotal = $progressTotal / $course['lessons_count'];
         $course['courseProgress'] = $progressTotal;
 
-        return response()->json($course);
+        return response()->json([
+            'course'=>$course,
+            'visits'=>$view_count
+        ]);
     }
 
 
