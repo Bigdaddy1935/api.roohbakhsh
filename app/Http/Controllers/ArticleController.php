@@ -15,8 +15,10 @@ use App\QueryFilters\Visibility;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pipeline\Pipeline;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
-
+use function PHPUnit\Framework\isEmpty;
+use function PHPUnit\Framework\isNull;
 
 
 class ArticleController extends Controller
@@ -134,11 +136,30 @@ class ArticleController extends Controller
     {
 
         $ids=explode(",",$id);
-        $this->articleRepository->delete($ids);
+       $res=  Article::query()->whereIn('id',$ids)->with('bookmarkableBookmarks')->get()->toArray();
+
+        $data=[];
+
+       for($i=0;$i<count($res);$i++) {
+           $newRes = count($res[$i]['bookmarkable_bookmarks']);
+           for ($j = 0; $j < $newRes; $j++) {
+               $data[]= $res[$i]['bookmarkable_bookmarks'][$j]['id'];
+           }
+       }
+
+       if(count($data)==0){
+           $this->articleRepository->delete($ids);
+       } else
+       {
+           DB::table('bookmarks')->whereIn('id',$data)->delete();
+           $this->articleRepository->delete($ids);
+
+       }
+
         return response()->json([
-            'message'=>"مقاله مورد نظر با موفقیت حذف شد",
-            'id'=>$ids
-            ]);
+            'message'=>'مقالات مورد نظر با موفقیت حذف شد',
+            'ids'=>$ids
+        ]);
    }
 
 
