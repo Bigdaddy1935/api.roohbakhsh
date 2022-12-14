@@ -737,7 +737,7 @@ class UserController extends Controller
             for($j=0;$j < count($newRes); $j++){
                 $totalProgress += $newRes[$j]['progress']['percentage'];
             }
-            $res[$i]['courseProgress']=$totalProgress/$res[$i]['lessons_count'];
+            $res[$i]['courseProgress']=sprintf("%.2f",$totalProgress/$res[$i]['lessons_count']);
         }
         return response()->json($res);
     }
