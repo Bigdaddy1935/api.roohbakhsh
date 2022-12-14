@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Interfaces\ArticleRepositoryInterface;
 use App\Models\Article;
+use App\Models\Comment;
 use App\Models\Tag;
 use App\QueryFilters\Categories;
 use App\QueryFilters\Sort;
@@ -136,29 +137,43 @@ class ArticleController extends Controller
     {
 
         $ids=explode(",",$id);
-       $res=  Article::query()->whereIn('id',$ids)->with('bookmarkableBookmarks')->get()->toArray();
+       $res=  Article::query()->whereIn('id',$ids)->with('bookmarkableBookmarks',function ($q){
+           $q->where('bookmarkable_type','App\Models\Article');
+       })->with('comments',function ($q){
+           $q->where('commentable_type','App\Models\Article');
+       })->get()->toArray();
+        $bookmarks=[];
 
-        $data=[];
 
+        for($i=0;$i<count($res);$i++) {
+            $newRes = count($res[$i]['bookmarkable_bookmarks']);
+            for ($j = 0; $j < $newRes; $j++) {
+                $bookmarks[]= $res[$i]['bookmarkable_bookmarks'][$j]['id'];
+            }
+        }
+
+        $comments=[];
        for($i=0;$i<count($res);$i++) {
-           $newRes = count($res[$i]['bookmarkable_bookmarks']);
+           $newRes = count($res[$i]['comments']);
            for ($j = 0; $j < $newRes; $j++) {
-               $data[]= $res[$i]['bookmarkable_bookmarks'][$j]['id'];
+               $comments[]= $res[$i]['comments'][$j]['id'];
            }
        }
 
-       if(count($data)==0){
-           $this->articleRepository->delete($ids);
-       } else
-       {
-           DB::table('bookmarks')->whereIn('id',$data)->delete();
-           $this->articleRepository->delete($ids);
-
+       if (count($bookmarks)!=0 && count($comments) == 0){
+           DB::table('bookmarks')->whereIn('id',$bookmarks)->delete();
+       }elseif (count($bookmarks)==0 && count($comments) != 0){
+           Comment::destroy($comments);
        }
+       elseif (count($bookmarks)!=0 && count($comments) != 0){
+           DB::table('bookmarks')->whereIn('id',$bookmarks)->delete();
+           Comment::destroy($comments);
+       }
+        $this->articleRepository->delete($ids);
 
         return response()->json([
             'message'=>'مقالات مورد نظر با موفقیت حذف شد',
-            'ids'=>$ids
+            'ids'=>$res
         ]);
    }
 
