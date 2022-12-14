@@ -82,7 +82,7 @@ protected $result=[];
             if($totalProgress == 0){
                 $course['data'][$i]['courseProgress'] = 0.0;
             }else {
-                $course['data'][$i]['courseProgress'] = doubleval(($totalProgress / $lessonCount));
+                $course['data'][$i]['courseProgress'] = sprintf("%.2f",($totalProgress / $lessonCount));
             }
         }
 
