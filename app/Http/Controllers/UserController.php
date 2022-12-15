@@ -9,6 +9,7 @@ use App\Interfaces\LessonRepositoryInterface;
 use App\Interfaces\ProductRepositoryInterface;
 use App\Interfaces\ProgressRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
+use App\Models\Article;
 use App\Models\Course;
 use App\Models\Token;
 use App\Models\User;
@@ -287,8 +288,11 @@ class UserController extends Controller
      */
     public function logout(): JsonResponse
     {
-//        $user->tokens()->where('name','LIKE','device%')->delete();
-      auth('sanctum')->user()->tokens()->delete();
+
+
+        auth()->tokens()->where('name','LIKE','device%')->delete();
+           auth()->tokens()->whereNot('name','LIKE','device%')->delete();
+
       return response()->json([
           'message'=>'logout',
 
@@ -524,7 +528,9 @@ class UserController extends Controller
         $bookmarks['products'] = $products;
         $bookmarks['articles']= $articles;
 
-        return response()->json($bookmarks);
+        return response()->json(
+
+        );
 
     }
     /**
