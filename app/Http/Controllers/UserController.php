@@ -268,8 +268,10 @@ class UserController extends Controller
             'password' => 'required|string|min:8',
         ]);
 
+        $username='web'.'='.$request->username;
+
         $user= $this->userRepository->SignIn($request->username,$request->password);
-        $token= $user->createToken($request->username)->plainTextToken;
+        $token= $user->createToken($username)->plainTextToken;
 
         return response()->json([
 
@@ -288,8 +290,11 @@ class UserController extends Controller
      */
     public function logout(): JsonResponse
     {
-      auth('sanctum')->user()->tokens()->where('name','LIKE','device%')->orWhere('name','NOT LIKE','%device%')->delete();
 
+        if(auth('sanctum')->user()->tokens()->where('name','LIKE','device%')->delete()){}
+        else{
+            auth('sanctum')->user()->tokens()->where('name','LIKE','web%')->delete();
+        }
       return response()->json([
           'message'=>'logout',
 
