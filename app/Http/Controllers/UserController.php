@@ -163,7 +163,10 @@ class UserController extends Controller
                   'score'=>$request->score,
                   'code'=>$code,
                   'wallet_balance'=>1000000,
-                  'teacher'=>$request->teacher,
+                  'about_me'=>$request->about_me,
+                  'address'=>$request->address,
+                  'postal'=>$request->postal,
+                  'parent_num'=>$request->parent_num,
               ];
               $user= $this->userRepository->create($data);
               $user->deposit(400000);
@@ -194,6 +197,10 @@ class UserController extends Controller
               'code'=>$code,
               'wallet_balance'=>1000000,
               'teacher'=>$request->teacher,
+              'about_me'=>$request->about_me,
+              'address'=>$request->address,
+              'postal'=>$request->postal,
+              'parent_num'=>$request->parent_num,
           ];
           $user= $this->userRepository->create($data);
           return response()->json( $user,201);
@@ -288,10 +295,16 @@ class UserController extends Controller
      *
      * destroy tokens of user for logout
      */
-    public function logout(): JsonResponse
+    public function logout(Request $request): JsonResponse
     {
 
-        auth('sanctum')->user()->tokens()->where('name','LIKE','web%')->orWhere('name','LIKE','device%')->delete();
+       $type= $request->type;
+
+       if($type =="web"){
+           auth('sanctum')->user()->tokens()->where('name','LIKE','web%')->delete();
+       }else{
+           auth('sanctum')->user()->tokens()->Where('name','LIKE','device%')->delete();
+       }
 
         return response()->json([
           'message'=>'logout',
@@ -359,6 +372,10 @@ class UserController extends Controller
             'status_users'=>$request->status_users,
             'score'=>$request->score,
             'teacher'=>$request->teacher,
+            'about_me'=>$request->about_me,
+            'address'=>$request->address,
+            'postal'=>$request->postal,
+            'parent_num'=>$request->parent_num,
         ];
 
         $users= $this->userRepository->Update($id,$data);

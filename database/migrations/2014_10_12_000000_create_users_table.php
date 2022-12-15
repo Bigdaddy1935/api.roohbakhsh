@@ -33,6 +33,9 @@ return new class extends Migration
             $table->bigInteger('score')->default(0);
             $table->datetime('last_login_at')->nullable();
             $table->string('last_login_ip')->nullable();
+            $table->text('address')->nullable();
+            $table->string('parent_num',20)->unique();
+            $table->integer('postal',10)->unique();
             $table->rememberToken();
             $table->timestamps();
         });
