@@ -290,7 +290,7 @@ class UserController extends Controller
     {
 
 
-        auth()->tokens()->where('name','LIKE','device%')->orWhereNot('name','device')->delete();
+        auth('sanctum')->user()->tokens()->where('name','LIKE','device%')->orWhereNot('name','device')->delete();
 
          return response()->json([
           'message'=>'logout',
