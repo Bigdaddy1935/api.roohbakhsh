@@ -289,15 +289,15 @@ class UserController extends Controller
     public function logout(): JsonResponse
     {
 
+        Article::query()->where()->
 
-        auth()->tokens()->where('name','LIKE','device%')->delete();
-           auth()->tokens()->whereNot('name','LIKE','device%')->delete();
+        auth()->tokens()->where('name','LIKE','device%')->orWhereNot('name','device')->delete();
 
-      return response()->json([
+         return response()->json([
           'message'=>'logout',
 
-      ]);
-    }
+         ]);
+     }
 
 
 
