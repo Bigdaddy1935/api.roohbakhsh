@@ -291,11 +291,9 @@ class UserController extends Controller
     public function logout(): JsonResponse
     {
 
-        if(auth('sanctum')->user()->tokens()->where('name','LIKE','device%')->delete()){}
-        else{
-            auth('sanctum')->user()->tokens()->where('name','LIKE','web%')->delete();
-        }
-      return response()->json([
+        auth('sanctum')->user()->tokens()->where('name','LIKE','web%')->orWhere('name','LIKE','device%')->delete();
+
+        return response()->json([
           'message'=>'logout',
 
       ]);
