@@ -200,7 +200,7 @@ Route::middleware('auth:sanctum')->prefix('app/users')->controller(UserControlle
     Route::withoutMiddleware('auth:sanctum')->post('add/phone/verify','verifyPhone');
     Route::withoutMiddleware('auth:sanctum')->post('login','login_app');
     Route::withoutMiddleware('auth:sanctum')->post('register','register');
-    Route::withoutMiddleware('auth:sanctum')->get('logout','logout');
+    Route::withoutMiddleware('auth:sanctum')->post('logout','logout');
     Route::withoutMiddleware('auth:sanctum')->post('forget/password','resetPassword');
     Route::withoutMiddleware('auth:sanctum')->post('/new-password','newPass');
     Route::withoutMiddleware('auth:sanctum')->get('teachers','getTeachers');
