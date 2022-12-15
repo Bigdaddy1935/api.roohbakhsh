@@ -9,7 +9,6 @@ use App\Interfaces\LessonRepositoryInterface;
 use App\Interfaces\ProductRepositoryInterface;
 use App\Interfaces\ProgressRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
-use App\Models\Article;
 use App\Models\Course;
 use App\Models\Token;
 use App\Models\User;
@@ -289,11 +288,10 @@ class UserController extends Controller
     public function logout(): JsonResponse
     {
 
-
-            auth('sanctum')->user()->tokens()->where('name','LIKE','device%')->delete();
-
-           auth('sanctum')->user()->tokens()->whereNot('name','LIKE','device%')->delete();
-      
+       if( auth()->tokens()->where('name','LIKE','device%')->delete()){}
+       else{
+           auth()->tokens()->where('name','not like','%device%')->delete();
+       }
 
       return response()->json([
           'message'=>'logout',
