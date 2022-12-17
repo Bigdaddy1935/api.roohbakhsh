@@ -106,9 +106,7 @@ class LessonController extends Controller
             $q->where('bookmarkable_type','App\Models\Lesson');
         })->with('comments',function ($q){
             $q->where('commentable_type','App\Models\Lesson');
-        })->with(['progress'=>function ($q)use($ids) {
-            $q->whereIn('lesson_id',$ids);
-        }])->get()->toArray();
+        })->with('progress')->get()->toArray();
 
         $bookmarks=[];
         $comments=[];
