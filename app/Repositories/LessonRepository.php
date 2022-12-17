@@ -41,9 +41,9 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
               $q->where('user_id',$user);
           }])
-             ->with(['progress'=>function ($q)use ($user){
+             ->with('progress',function ($q)use ($user){
                  $q->where('user_id',$user);
-             }])
+             })
             ->paginate(10);
     }
 

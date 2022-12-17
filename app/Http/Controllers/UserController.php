@@ -378,7 +378,7 @@ class UserController extends Controller
                 'postal'=>$request->postal,
                 'parent_num'=>$request->parent_num,
             ];
-        
+
 
 
 
