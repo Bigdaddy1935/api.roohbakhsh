@@ -77,9 +77,9 @@ protected $casts=[
         return visits($this)->relation();
     }
 
-    public function progress(): BelongsTo
+    public function progress()
     {
-        return   $this->belongsTo(VideoProgressBar::class,'id','lesson_id');
+        return   $this->hasMany(VideoProgressBar::class,'lesson_id','id');
     }
     public function comments()
     {

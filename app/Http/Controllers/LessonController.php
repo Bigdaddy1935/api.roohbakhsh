@@ -102,9 +102,10 @@ class LessonController extends Controller
 
         $ids=explode(",",$id);
 
-        $res=Lesson::query()->whereIn($type,$ids)->with('bookmarkableBookmarks',function ($q){
+        $res=Lesson::query()->whereIn($type,$ids)
+            ->with('bookmarkableBookmarks',function ($q){
             $q->where('bookmarkable_type','App\Models\Lesson');
-        })->with('comments',function ($q){
+             })->with('comments',function ($q){
             $q->where('commentable_type','App\Models\Lesson');
         })->with('progress')->get()->toArray();
 
@@ -147,8 +148,8 @@ class LessonController extends Controller
             }
 
         return response()->json([
-            'message'=>"درس مورد نظر با موفقیت حذف شد",
-            'id'=>$ids,
+            'message'=>'درس های مورد نظر با موفقیت حذف شد',
+            'ids'=>$ids
         ]);
 }
 
