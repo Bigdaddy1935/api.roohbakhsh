@@ -66,12 +66,24 @@ class CommentsController extends Controller
 
     }
 
-    public function getComment(): JsonResponse
+    public function getComment(Request $request): JsonResponse
 
 
     {
 
-      $comment=$this->commentRepository->getComments();
+      $product_id=  $request->input('id');
+      $comment=$this->commentRepository->getComments($product_id);
+        for($i=0;$i<count($comment);$i++){
+            if($comment[$i]['user']['invoices']!=null){
+                $comment[$i]['sold']='yes';
+            }else{
+                {
+                    $comment[$i]['sold']='no';
+                }
+            }
+        }
+
+
         return response()->json($comment);
     }
 

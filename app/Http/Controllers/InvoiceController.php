@@ -59,7 +59,7 @@ public array $data=[];
 
 
        //save all user products in cart as array to invoice table
-        for($i = 0 ; $i < $ids; $i++){
+        for($i = 0 ; $i < count($ids); $i++){
             $this->data=[
                 'user_id'=>auth()->id(),
                 'order_id'=>$ids[$i],
@@ -72,8 +72,8 @@ public array $data=[];
             $this->InvoiceRepository->create($this->data);
         }
 
-//       $id= auth()->id();
-//        Cart::query()->where('user_id' ,$id)->delete();
+       $id= auth()->id();
+        Cart::query()->where('user_id' ,$id)->delete();
 
         return response()->json($this->data);
 

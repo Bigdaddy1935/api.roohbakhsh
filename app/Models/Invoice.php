@@ -16,4 +16,9 @@ class Invoice extends Model
     {
         return $this->hasMany(Product::class ,'id','order_id');
     }
+
+    public function users()
+    {
+        return $this->hasMany(User::class,'id','user_id');
+    }
 }

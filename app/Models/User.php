@@ -101,6 +101,11 @@ class User extends Authenticatable
         return    $this->belongsToMany(Voucher::class);
     }
 
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class ,'user_id','id');
+    }
+
 
 
 
