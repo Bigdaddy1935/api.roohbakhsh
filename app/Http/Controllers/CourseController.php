@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\CourseRepositoryInterface;
+use App\Interfaces\LessonRepositoryInterface;
+use App\Models\Comment;
 use App\Models\Course;
+use App\Models\Lesson;
+use App\Models\VideoProgressBar;
 use App\QueryFilters\Type;
 use App\QueryFilters\Types;
 use App\QueryFilters\Categories;
@@ -15,7 +19,7 @@ use App\QueryFilters\Sort;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pipeline\Pipeline;
-
+use Illuminate\Support\Facades\DB;
 
 
 class CourseController extends Controller
@@ -23,12 +27,14 @@ class CourseController extends Controller
 protected $result=[];
     protected CourseRepositoryInterface $courseRepository;
     protected AppNotificationController $appNotificationController;
+    protected LessonRepositoryInterface $lessonRepository;
 
 
-    public function __construct(AppNotificationController $appNotificationController,CourseRepositoryInterface $courseRepository)
+    public function __construct(AppNotificationController $appNotificationController,CourseRepositoryInterface $courseRepository,LessonRepositoryInterface $lessonRepository )
     {
         $this->courseRepository = $courseRepository;
         $this->appNotificationController = $appNotificationController;
+        $this->lessonRepository = $lessonRepository;
     }
 
 
@@ -178,6 +184,81 @@ protected $result=[];
     public function deleteCourse($id): JsonResponse
     {
         $ids=explode(",",$id);
+        $res=Lesson::query()->whereIn('course_id',$ids)->with('bookmarkableBookmarks',function ($q){
+            $q->where('bookmarkable_type','App\Models\Lesson');
+        })->with('comments',function ($q){
+            $q->where('commentable_type','App\Models\Lesson');
+        })->with(['progress'=>function ($q)use($ids) {
+            $q->whereIn('lesson_id',$ids);
+        }])->get()->toArray();
+
+        $bookmarks=[];
+        $comments=[];
+        $progress=[];
+        for($i=0;$i<count($res);$i++) {
+            $newRes = count($res[$i]['bookmarkable_bookmarks']);
+            for ($j = 0; $j < $newRes; $j++) {
+                $bookmarks[]= $res[$i]['bookmarkable_bookmarks'][$j]['id'];
+            }
+        }
+
+        for($i=0;$i<count($res);$i++) {
+            $newRes = count($res[$i]['comments']);
+            for ($j = 0; $j < $newRes; $j++) {
+                $comments[]= $res[$i]['comments'][$j]['id'];
+            }
+        }
+
+        for($i=0;$i<count($res);$i++) {
+            $newRes = count($res[$i]['progress']);
+            for ($j = 0; $j < $newRes; $j++) {
+                $progress[]= $res[$i]['progress'][$j]['id'];
+            }
+        }
+
+
+        if(count($bookmarks)!=0){
+            DB::table('bookmarks')->whereIn('id',$bookmarks)->delete();
+        }
+        if(count($comments)!=0){
+            Comment::destroy($comments);
+        }
+        if(count($progress)!=0){
+            VideoProgressBar::destroy($progress);
+        }
+
+        Lesson::query()->whereIn('course_id',$ids)->delete();
+        $res=  Course::query()->whereIn('id',$ids)->with('bookmarkableBookmarks',function ($q){
+            $q->where('bookmarkable_type','App\Models\Course');
+        })->with('comments',function ($q){
+            $q->where('commentable_type','App\Models\Course');
+        })->get()->toArray();
+        $bookmarks=[];
+        $comments=[];
+
+        for($i=0;$i<count($res);$i++) {
+            $newRes = count($res[$i]['bookmarkable_bookmarks']);
+            for ($j = 0; $j < $newRes; $j++) {
+                $bookmarks[]= $res[$i]['bookmarkable_bookmarks'][$j]['id'];
+            }
+        }
+
+
+        for($i=0;$i<count($res);$i++) {
+            $newRes = count($res[$i]['comments']);
+            for ($j = 0; $j < $newRes; $j++) {
+                $comments[]= $res[$i]['comments'][$j]['id'];
+            }
+        }
+
+        if(count($bookmarks)!=0){
+            DB::table('bookmarks')->whereIn('id',$bookmarks)->delete();
+        }
+        if(count($comments)!=0){
+            Comment::destroy($comments);
+        }
+
+
         $this->courseRepository->delete($ids);
         return response()->json([
           'message'=>"دوره مورد نظر با موفقیت حذف شد",

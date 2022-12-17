@@ -35,7 +35,7 @@ return new class extends Migration
             $table->string('last_login_ip')->nullable();
             $table->text('address')->nullable();
             $table->string('parent_num',20)->unique();
-            $table->integer('postal',10)->unique();
+            $table->integer('postal')->unique();
             $table->rememberToken();
             $table->timestamps();
         });
