@@ -143,7 +143,7 @@ class ArticleController extends Controller
            $q->where('commentable_type','App\Models\Article');
        })->get()->toArray();
         $bookmarks=[];
-
+        $comments=[];
 
         for($i=0;$i<count($res);$i++) {
             $newRes = count($res[$i]['bookmarkable_bookmarks']);
@@ -152,7 +152,7 @@ class ArticleController extends Controller
             }
         }
 
-        $comments=[];
+
        for($i=0;$i<count($res);$i++) {
            $newRes = count($res[$i]['comments']);
            for ($j = 0; $j < $newRes; $j++) {
@@ -160,15 +160,12 @@ class ArticleController extends Controller
            }
        }
 
-       if (count($bookmarks)!=0 && count($comments) == 0){
-           DB::table('bookmarks')->whereIn('id',$bookmarks)->delete();
-       }elseif (count($bookmarks)==0 && count($comments) != 0){
-           Comment::destroy($comments);
-       }
-       elseif (count($bookmarks)!=0 && count($comments) != 0){
-           DB::table('bookmarks')->whereIn('id',$bookmarks)->delete();
-           Comment::destroy($comments);
-       }
+        if(count($bookmarks)!=0){
+            DB::table('bookmarks')->whereIn('id',$bookmarks)->delete();
+        }
+        if(count($comments)!=0){
+            Comment::destroy($comments);
+        }
         $this->articleRepository->delete($ids);
 
         return response()->json([

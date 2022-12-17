@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 
 use App\Interfaces\LessonRepositoryInterface;
+use App\Models\Comment;
 use App\Models\Lesson;
+use App\Models\VideoProgressBar;
 use App\QueryFilters\Categories;
 use App\QueryFilters\Course_id;
 use App\QueryFilters\Sort;
@@ -15,6 +17,7 @@ use App\QueryFilters\Visibility;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pipeline\Pipeline;
+use Illuminate\Support\Facades\DB;
 
 
 class LessonController extends Controller
@@ -98,7 +101,52 @@ class LessonController extends Controller
     {
 
         $ids=explode(",",$id);
+
+        $res=Lesson::query()->whereIn('id',$ids)->with('bookmarkableBookmarks',function ($q){
+            $q->where('bookmarkable_type','App\Models\Lesson');
+        })->with('comments',function ($q){
+            $q->where('commentable_type','App\Models\Lesson');
+        })->with(['progress'=>function ($q)use($ids) {
+            $q->whereIn('lesson_id',$ids);
+        }])->get()->toArray();
+
+        $bookmarks=[];
+        $comments=[];
+        $progress=[];
+        for($i=0;$i<count($res);$i++) {
+            $newRes = count($res[$i]['bookmarkable_bookmarks']);
+            for ($j = 0; $j < $newRes; $j++) {
+                $bookmarks[]= $res[$i]['bookmarkable_bookmarks'][$j]['id'];
+            }
+        }
+
+        for($i=0;$i<count($res);$i++) {
+            $newRes = count($res[$i]['comments']);
+            for ($j = 0; $j < $newRes; $j++) {
+                $comments[]= $res[$i]['comments'][$j]['id'];
+            }
+        }
+
+        for($i=0;$i<count($res);$i++) {
+            $newRes = count($res[$i]['progress']);
+            for ($j = 0; $j < $newRes; $j++) {
+                $progress[]= $res[$i]['progress'][$j]['id'];
+            }
+        }
+
+
+        if(count($bookmarks)!=0){
+            DB::table('bookmarks')->whereIn('id',$bookmarks)->delete();
+        }
+        if(count($comments)!=0){
+            Comment::destroy($comments);
+        }
+        if(count($progress)!=0){
+            VideoProgressBar::destroy($progress);
+        }
+
         $this->lessonRepository->delete($ids);
+
         return response()->json([
             'message'=>"درس مورد نظر با موفقیت حذف شد",
             'id'=>$ids,
