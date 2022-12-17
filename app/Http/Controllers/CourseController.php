@@ -83,7 +83,7 @@ protected $result=[];
             $lessonCount = $course['data'][$i]['lessons_count'];
             $newRes = $course['data'][$i]['lessons'];
             for($j=0;$j < count($newRes); $j++){
-                $totalProgress += $newRes[$j]['progress']['percentage'];
+                $totalProgress += $newRes[$j]['progress'][0]['percentage'];
             }
             if($totalProgress == 0){
                 $course['data'][$i]['courseProgress'] = 0.0;
