@@ -97,12 +97,12 @@ class LessonController extends Controller
      *
      * delete lessons from input id
      */
-    public function deleteLesson($id): JsonResponse
+    public function deleteLesson($id,$type='id'): JsonResponse
     {
 
         $ids=explode(",",$id);
 
-        $res=Lesson::query()->whereIn('id',$ids)->with('bookmarkableBookmarks',function ($q){
+        $res=Lesson::query()->whereIn($type,$ids)->with('bookmarkableBookmarks',function ($q){
             $q->where('bookmarkable_type','App\Models\Lesson');
         })->with('comments',function ($q){
             $q->where('commentable_type','App\Models\Lesson');
@@ -144,8 +144,9 @@ class LessonController extends Controller
         if(count($progress)!=0){
             VideoProgressBar::destroy($progress);
         }
-
-        $this->lessonRepository->delete($ids);
+        if($type=='id'){
+              $this->lessonRepository->delete($ids);
+            }
 
         return response()->json([
             'message'=>"درس مورد نظر با موفقیت حذف شد",

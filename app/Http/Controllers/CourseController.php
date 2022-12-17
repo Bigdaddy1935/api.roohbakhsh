@@ -184,49 +184,9 @@ protected $result=[];
     public function deleteCourse($id): JsonResponse
     {
         $ids=explode(",",$id);
-        $res=Lesson::query()->whereIn('course_id',$ids)->with('bookmarkableBookmarks',function ($q){
-            $q->where('bookmarkable_type','App\Models\Lesson');
-        })->with('comments',function ($q){
-            $q->where('commentable_type','App\Models\Lesson');
-        })->with(['progress'=>function ($q)use($ids) {
-            $q->whereIn('lesson_id',$ids);
-        }])->get()->toArray();
-
-        $bookmarks=[];
-        $comments=[];
-        $progress=[];
-        for($i=0;$i<count($res);$i++) {
-            $newRes = count($res[$i]['bookmarkable_bookmarks']);
-            for ($j = 0; $j < $newRes; $j++) {
-                $bookmarks[]= $res[$i]['bookmarkable_bookmarks'][$j]['id'];
-            }
-        }
-
-        for($i=0;$i<count($res);$i++) {
-            $newRes = count($res[$i]['comments']);
-            for ($j = 0; $j < $newRes; $j++) {
-                $comments[]= $res[$i]['comments'][$j]['id'];
-            }
-        }
-
-        for($i=0;$i<count($res);$i++) {
-            $newRes = count($res[$i]['progress']);
-            for ($j = 0; $j < $newRes; $j++) {
-                $progress[]= $res[$i]['progress'][$j]['id'];
-            }
-        }
 
 
-        if(count($bookmarks)!=0){
-            DB::table('bookmarks')->whereIn('id',$bookmarks)->delete();
-        }
-        if(count($comments)!=0){
-            Comment::destroy($comments);
-        }
-        if(count($progress)!=0){
-            VideoProgressBar::destroy($progress);
-        }
-
+        (new LessonController)->deleteLesson($id,'course_id');
         Lesson::query()->whereIn('course_id',$ids)->delete();
         $res=  Course::query()->whereIn('id',$ids)->with('bookmarkableBookmarks',function ($q){
             $q->where('bookmarkable_type','App\Models\Course');

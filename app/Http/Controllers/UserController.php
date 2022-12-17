@@ -350,32 +350,38 @@ class UserController extends Controller
     {
         $request->all();
 
-        $file=$request->file('picture');
+       $url=$request->pictureurl;
+        $file= $request->file('picture');
 
         if(!empty($file)){
             $this->url=  $this->userRepository->Upload($file);
         }
 
-        $data=[
-            'username' =>$request->username,
-            'approved'=>$request->approved,
-            'phone'=>$request->phone,
-            'fullname'=>$request->firstname.','.$request->lastname,
-            'email'=>$request->email,
-            'role'=>$request->role,
-            'picture'=> $this->url,
-            'gender'=>$request->gender,
-            'national_code'=>$request->national_code,
-            'birthday'=>$request->birthday,
-            'born_place'=>$request->born_place,
-            'status_users'=>$request->status_users,
-            'score'=>$request->score,
-            'teacher'=>$request->teacher,
-            'about_me'=>$request->about_me,
-            'address'=>$request->address,
-            'postal'=>$request->postal,
-            'parent_num'=>$request->parent_num,
-        ];
+        if($file2){
+            $data=[
+                'username' =>$request->username,
+                'approved'=>$request->approved,
+                'phone'=>$request->phone,
+                'fullname'=>$request->firstname.','.$request->lastname,
+                'email'=>$request->email,
+                'role'=>$request->role,
+                'picture'=> $file ?$this->url:$url,
+                'gender'=>$request->gender,
+                'national_code'=>$request->national_code,
+                'birthday'=>$request->birthday,
+                'born_place'=>$request->born_place,
+                'status_users'=>$request->status_users,
+                'score'=>$request->score,
+                'teacher'=>$request->teacher,
+                'about_me'=>$request->about_me,
+                'address'=>$request->address,
+                'postal'=>$request->postal,
+                'parent_num'=>$request->parent_num,
+            ];
+        }
+
+
+
 
         $users= $this->userRepository->Update($id,$data);
 
