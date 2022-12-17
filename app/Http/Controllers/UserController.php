@@ -357,7 +357,7 @@ class UserController extends Controller
             $this->url=  $this->userRepository->Upload($file);
         }
 
-        if($file2){
+
             $data=[
                 'username' =>$request->username,
                 'approved'=>$request->approved,
@@ -378,7 +378,7 @@ class UserController extends Controller
                 'postal'=>$request->postal,
                 'parent_num'=>$request->parent_num,
             ];
-        }
+        
 
 
 
