@@ -544,9 +544,7 @@ class UserController extends Controller
         $bookmarks['products'] = $products;
         $bookmarks['articles']= $articles;
 
-        return response()->json(
-
-        );
+        return response()->json($bookmarks);
 
     }
     /**
