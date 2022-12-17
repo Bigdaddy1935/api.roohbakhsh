@@ -186,7 +186,7 @@ protected $result=[];
         $ids=explode(",",$id);
 
 
-        (new LessonController)->deleteLesson($id,'course_id');
+        (new LessonController($this->appNotificationController,$this->lessonRepository))->deleteLesson($id,'course_id');
         Lesson::query()->whereIn('course_id',$ids)->delete();
         $res=  Course::query()->whereIn('id',$ids)->with('bookmarkableBookmarks',function ($q){
             $q->where('bookmarkable_type','App\Models\Course');
