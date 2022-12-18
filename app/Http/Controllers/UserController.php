@@ -704,7 +704,8 @@ class UserController extends Controller
       $count= $this->userRepository->UserPurchasedProductsCount($user_id);
 
       return response()->json([
-          'message'=>$count
+          'message'=>'تعداد محصولات خریداری شده',
+          'productsCount'=>$count
       ]);
     }
 
@@ -715,7 +716,8 @@ class UserController extends Controller
         $purchased=$this->userRepository->UserPurchasedProducts($user_id);
 
         return response()->json([
-            'message'=>$purchased,
+            'message'=>'محصولات خریداری شده',
+            'products'=>$purchased
         ]);
 
 
