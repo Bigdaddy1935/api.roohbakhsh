@@ -704,7 +704,7 @@ class UserController extends Controller
       $count= $this->userRepository->UserPurchasedProductsCount($user_id);
 
       return response()->json([
-          'تعداد محصولات خریداری شده'=>$count
+          'message'=>$count
       ]);
     }
 
@@ -715,7 +715,7 @@ class UserController extends Controller
         $purchased=$this->userRepository->UserPurchasedProducts($user_id);
 
         return response()->json([
-            'محصولات خریداری شده'=>$purchased,
+            'message'=>$purchased,
         ]);
 
 
@@ -739,8 +739,8 @@ class UserController extends Controller
        $userScore=$user->score;
         $balance= $user->wallet_balance;
        return response()->json([
-           'امتیاز فعلی'=>$userScore,
-           'کیف پول'=>$balance,
+           'currentScore'=>$userScore,
+           'walletBalance'=>$balance,
        ]);
     }
 
