@@ -131,8 +131,14 @@ class UserRepository extends Repository implements UserRepositoryInterface
         return  Product::query()->whereHas('invoices',function ($q)use ($user_id){
             $q->where('user_id',$user_id);
         })->with('courses',function ($q){
-            $q->with('lessons');
-        })->orderBy('id','DESC')->get();
+            $q->join('users','users.id','=','courses.course_user_id')
+                ->select('courses.*','users.fullname')->withCount('lessons');
+        })->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                $q->where('user_id',$user);
+            }])->with(['related'=>function ( $q){
+            $q->with('courses');
+        }])
+            ->with('categories')->orderBy('id','DESC')->get();
     }
     public function Teachers()
     {
