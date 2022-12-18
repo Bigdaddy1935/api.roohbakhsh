@@ -761,7 +761,7 @@ class UserController extends Controller
             $totalProgress = 0;
             $newRes = $res[$i]['lessons'];
             for($j=0;$j < count($newRes); $j++){
-                $totalProgress += $newRes[$j]['progress']['percentage'];
+                $totalProgress += $newRes[$j]['progress'][0]['percentage'];
             }
             $res[$i]['courseProgress']=sprintf("%.2f",$totalProgress/$res[$i]['lessons_count']);
         }
