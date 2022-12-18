@@ -68,7 +68,6 @@ class UserController extends Controller
     public function addPhone(Request $request): JsonResponse
     {
         $request->validate([
-
             'phone'=>'required|max:11|unique:users,phone'
         ]);
 
@@ -456,7 +455,7 @@ class UserController extends Controller
         ]);
         $user=User::query()->where('phone',$request->phone)->first();
         if($user){
-            $this->userRepository->SendSms($request->phone ,$token= rand(1000,9999));
+            $this->userRepository->SendSms($request->phone ,$token= rand(1000,9999),$user->username);
 //            $id= $user->id;
 //            $this->userRepository->SetNewPassword($id,$request->password);
             $data=[

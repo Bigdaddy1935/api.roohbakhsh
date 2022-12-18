@@ -21,7 +21,7 @@ class UserRepository extends Repository implements UserRepositoryInterface
         return User::class;
     }
 
-    public function SendSms($phone, $token)
+    public function SendSms($phone, $token ,$username)
     {
         $client = new SoapClient("https://ippanel.com/class/sms/wsdlservice/server.php?wsdl");
         $user = "ghasem13741374";
@@ -31,7 +31,7 @@ class UserRepository extends Repository implements UserRepositoryInterface
         $pattern_code = "g595hekwz5ojg2e";
         $input_data = array(
             "verification-code" => $token,
-            'name'=>$phone
+            'name'=>$username ?$username :$phone
         );
         $client ->sendPatternSms($fromNum, $toNum, $user, $pass, $pattern_code, $input_data);
     }
