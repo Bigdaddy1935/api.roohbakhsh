@@ -7,7 +7,7 @@ namespace App\Interfaces;
 interface UserRepositoryInterface
 {
 
-    public function SendSms($phone ,$token,$username);
+    public function SendSms($phone ,$token);
     public function SavePhoneToken(array $data);
     public function CheckSmsToken($phone , $token);
     public function SignIn($username , $password);

@@ -455,7 +455,19 @@ class UserController extends Controller
         ]);
         $user=User::query()->where('phone',$request->phone)->first();
         if($user){
-            $this->userRepository->SendSms($request->phone ,$token= rand(1000,9999),$user->username);
+            $token= rand(1000,9999);
+            $client = new SoapClient("https://ippanel.com/class/sms/wsdlservice/server.php?wsdl");
+            $user = "ghasem13741374";
+            $pass = "uLhN23sHvH20@";
+            $fromNum = "+98EVENT";
+            $toNum = $request->phone;
+            $pattern_code = "g595hekwz5ojg2e";
+            $input_data = array(
+                "verification-code" => $token,
+                'name'=>$user->username
+            );
+            $client ->sendPatternSms($fromNum, $toNum, $user, $pass, $pattern_code, $input_data);
+
 //            $id= $user->id;
 //            $this->userRepository->SetNewPassword($id,$request->password);
             $data=[
