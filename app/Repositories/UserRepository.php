@@ -133,8 +133,8 @@ class UserRepository extends Repository implements UserRepositoryInterface
         })->with('courses',function ($q){
             $q->join('users','users.id','=','courses.course_user_id')
                 ->select('courses.*','users.fullname')->withCount('lessons');
-        })->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
-                $q->where('user_id',$user);
+        })->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user_id){
+                $q->where('user_id',$user_id);
             }])->with(['related'=>function ( $q){
             $q->with('courses');
         }])
