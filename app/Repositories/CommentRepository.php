@@ -16,23 +16,19 @@ class CommentRepository extends Repository implements CommentRepositoryInterface
         return Comment::class;
     }
 
-    public function getComments($product_id)
+    public function getComments()
     {
-        $user= auth('sanctum')->id();
+        $user= auth()->id();
         return Comment::query()
             ->with('replies')
-            ->with('user',function ($q) use ($user,$product_id){
-                $q->with('invoices',function ($q) use ($user,$product_id){
-                  $q->where('user_id',$user)->where('order_id',$product_id);
-                });
-            })
+            ->with('user')
             ->withExists(['likers as like'=>function($q)use ($user){
                 $q->where('user_id',$user);
             }])
             ->withCount('likers as like_count')
             ->whereNull('parent_id')
             ->orderBy('id','DESC')
-            ->get()->toArray();
+            ->get();
     }
 
 
