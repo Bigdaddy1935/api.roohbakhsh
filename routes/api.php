@@ -258,7 +258,7 @@ Route::prefix('app/comment')->controller(CommentsController::class)->group(funct
     Route::middleware('auth:sanctum')->post('accept/{id}','AcceptComment');
     Route::middleware('auth:sanctum')->post('remove/{id}','removeComment');
     Route::middleware('auth:sanctum')->post('reject/{id}','RejectComment');
-    Route::get('get','getComment');
+    Route::get('get/{id}','getComment');
 });
 
 
