@@ -455,6 +455,7 @@ class UserController extends Controller
             'phone'=>'required'
         ]);
         $user=User::query()->where('phone',$request->phone)->first();
+       $username= $user->username;
         if($user){
             $token= rand(1000,9999);
             $client = new SoapClient("https://ippanel.com/class/sms/wsdlservice/server.php?wsdl");
@@ -465,7 +466,7 @@ class UserController extends Controller
             $pattern_code = "g595hekwz5ojg2e";
             $input_data = array(
                 "verification-code" => $token,
-                'name'=>$user->username
+                'name'=>$username
             );
             $client ->sendPatternSms($fromNum, $toNum, $user, $pass, $pattern_code, $input_data);
 
