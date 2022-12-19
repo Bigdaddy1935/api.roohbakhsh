@@ -64,8 +64,7 @@ class UserRepository extends Repository implements UserRepositoryInterface
 
     public function SetNewPassword($id, $password)
     {
-        User::query()->where('id', $id)->update(['password' => $password]);
-
+        User::query()->where('id', $id)->update(['password' => bcrypt($password)]);
     }
 
     public function upload($file)
