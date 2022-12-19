@@ -160,4 +160,20 @@ class HomeController extends Controller
         ]);
     }
 
+    public function updateNotify(Request $request,$id)
+    {
+        $request->all();
+        $data=[
+            'title'=>$request->title,
+            'body'=>$request->body,
+        ];
+
+       $result= Notification::query()->where('id',$id)->update($data);
+
+        return response()->json([
+            'message'=>'موارد مورد نظر با موفقیت ویرایش شد',
+            'notify'=>$result
+        ]);
+    }
+
 }

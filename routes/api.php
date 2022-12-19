@@ -48,6 +48,7 @@ Route::middleware('auth:sanctum')->controller(HomeController::class)->group(func
     Route::post('/notification','SendNotify');
     Route::get('/notification/get','getNotify');
     Route::delete('/notification/delete/{id}','delNotify');
+    Route::post('/notification/update/{id}','updateNotify');
 });
 
 
