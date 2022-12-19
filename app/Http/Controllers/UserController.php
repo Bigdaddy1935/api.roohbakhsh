@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Stephenjude\Wallet\Exceptions\InsufficientFundException;
 use Stephenjude\Wallet\Exceptions\InvalidAmountException;
+use SoapClient;
 
 class UserController extends Controller
 {
