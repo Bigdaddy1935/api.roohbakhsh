@@ -23,8 +23,8 @@ class CommentRepository extends Repository implements CommentRepositoryInterface
             ->with('replies')
             ->with('user',function ($q) use ($user,$product_id){
                 $q->with('invoices',function ($q) use ($user,$product_id){
-                  $q->where('user_id',$user)->where('order_id',$product_id)->get();
-                })->get();
+                  $q->where('user_id',$user)->where('order_id',$product_id);
+                });
             })
             ->withExists(['likers as like'=>function($q)use ($user){
                 $q->where('user_id',$user);
