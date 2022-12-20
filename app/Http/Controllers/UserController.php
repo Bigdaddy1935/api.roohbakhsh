@@ -796,7 +796,7 @@ class UserController extends Controller
     {
         $request->validate([
                 'phone'=>'required|string|max:11|unique:users,phone',
-                'parent_num'=>'required|string|max:11|unique:users,parent_num',
+                'parent_num'=>'required|string|max:11',
                 'gender'=>'required',
                 'national_code'=>'required|string|max:11|unique:users,national_code',
                 'birthday'=>'required',
@@ -828,7 +828,7 @@ class UserController extends Controller
     {
         $request->all();
         $token=$request->refrence_code;
-       $client = new SoapClient("https://ippanel.com/class/sms/wsdlservice/server.php?wsdl");
+        $client = new SoapClient("https://ippanel.com/class/sms/wsdlservice/server.php?wsdl");
         $user = "ghasem13741374";
         $pass = "uLhN23sHvH20@";
         $fromNum = "+98EVENT";
@@ -841,12 +841,12 @@ class UserController extends Controller
         $client ->sendPatternSms($fromNum, $toNum, $user, $pass, $pattern_code, $input_data);
 
 
-return response()->json([
+    return response()->json([
    'message'=>'پیامک با موفقیت ارسال شد',
    'phone'=>$toNum,
    'name'=>$request->fullname,
    'refrence_code'=>$request->refrence_code
-]);
+    ]);
     }
 
 

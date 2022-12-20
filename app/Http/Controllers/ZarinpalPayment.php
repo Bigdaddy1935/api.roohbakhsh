@@ -57,6 +57,7 @@ class ZarinpalPayment
 
             $receipt = Payment::amount($amount)->transactionId($authority)->verify();
             // You can show payment referenceId to the user.
+
             return response()->json($receipt->getReferenceId());
 
         } catch (InvalidPaymentException $exception) {
@@ -65,7 +66,7 @@ class ZarinpalPayment
             We can catch the exception to handle invalid payments.
             getMessage method, returns a suitable message that can be used in user interface.
              **/
-            return response()->json($exception->getMessage());
+            return response()->json($exception->getMessage(),404);
         }
     }
 }
