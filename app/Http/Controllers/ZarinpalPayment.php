@@ -68,7 +68,9 @@ class ZarinpalPayment
             We can catch the exception to handle invalid payments.
             getMessage method, returns a suitable message that can be used in user interface.
              **/
-            return response()->json($exception->getMessage(),404);
+            return response()->json([
+                'message'=>'پرداخت ناموفق'
+            ],404);
         }
     }
 }
