@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\ZarinpalRepositoryInterface;
+use App\Models\Zarinpal;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Shetabit\Multipay\Exceptions\InvalidPaymentException;
@@ -51,8 +52,8 @@ class ZarinpalPayment
 
 
         $authority = $request->input('Authority');
-        $zarinpal=$this->zarinpalRepository->VerifyZarinpalPayment($authority);
-        $amount=$zarinpal['amount'];
+        $zarinpal=Zarinpal::query()->where('authority',$authority)->get();
+        $amount=$zarinpal->amount;
         try {
 
             $receipt = Payment::amount($amount)->transactionId($authority)->verify();
