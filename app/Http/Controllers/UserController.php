@@ -128,13 +128,10 @@ class UserController extends Controller
 
 
      $request->validate([
-
             'username' => 'required|string|unique:users,username',
             'password' => 'required|string|min:8',
             'phone'=>'required|string|max:11|unique:users,phone',
             'email'=>'unique:users,email',
-
-
         ]);
         if(!empty($request->file('picture'))){
             $this->url=   $this->userRepository->Upload($request->file('picture'));
@@ -167,6 +164,7 @@ class UserController extends Controller
                   'address'=>$request->address,
                   'postal'=>$request->postal,
                   'parent_num'=>$request->parent_num,
+                  'messenger_num'=>$request->messenger_num,
               ];
               $user= $this->userRepository->create($data);
               $user->deposit(400000);
@@ -201,6 +199,8 @@ class UserController extends Controller
               'address'=>$request->address,
               'postal'=>$request->postal,
               'parent_num'=>$request->parent_num,
+              'messenger_num'=>$request->messenger_num,
+
           ];
           $user= $this->userRepository->create($data);
           return response()->json( $user,201);
@@ -377,6 +377,8 @@ class UserController extends Controller
                 'address'=>$request->address,
                 'postal'=>$request->postal,
                 'parent_num'=>$request->parent_num,
+                'messenger_num'=>$request->messenger_num,
+
             ];
 
 
@@ -788,6 +790,62 @@ class UserController extends Controller
         $user=auth()->id();
         $res=$this->courseRepository->CourseSeeFull($user);
         return response()->json($res);
+    }
+
+    public function MahdyarRegister(Request $request)
+    {
+        $request->validate([
+                'phone'=>'required|string|max:11|unique:users,phone',
+                'parent_num'=>'required|string|max:11|unique:users,parent_num',
+                'gender'=>'required',
+                'national_code'=>'required|string|max:11|unique:users,national_code',
+                'birthday'=>'required',
+                'address'=>'required',
+                'fullname'=>'required',
+            ]);
+
+        $data=[
+            'phone'=>$request->phone,
+            'fullname'=>$request->firstname.','.$request->lastname,
+            'gender'=>$request->gender,
+            'national_code'=>$request->national_code,
+            'birthday'=>$request->birthday,
+            'address'=>$request->address,
+            'postal'=>$request->postal,
+            'parent_num'=>$request->parent_num,
+            'messenger_num'=>$request->messenger_num,
+        ];
+        $users=$this->userRepository->create($data);
+
+      return response()->json([
+          'message'=>'ثبت نام با موفقیت انجام شد',
+          'user'=>$users
+      ]);
+    }
+
+    public function MahdyarSms(Request $request)
+    {
+        $request->all();
+        $token=$request->refrence_code;
+       $client = new SoapClient("https://ippanel.com/class/sms/wsdlservice/server.php?wsdl");
+        $user = "ghasem13741374";
+        $pass = "uLhN23sHvH20@";
+        $fromNum = "+98EVENT";
+        $toNum = $request->parent_num;
+        $pattern_code = "cqaovf26yyhqe4m";
+        $input_data = array(
+            "verification-code" => $token,
+            'name'=>$request->fullname
+        );
+        $client ->sendPatternSms($fromNum, $toNum, $user, $pass, $pattern_code, $input_data);
+
+
+return response()->json([
+   'message'=>'پیامک با موفقیت ارسال شد',
+   'phone'=>$toNum,
+   'name'=>$request->fullname,
+   'refrence_code'=>$request->refrence_code
+]);
     }
 
 

@@ -83,6 +83,8 @@ Route::middleware('auth:sanctum')->prefix('articles')->controller(ArticleControl
 });
 Route::prefix('users')->controller(UserController::class)->group(function(){
     Route::post('register','register');
+    Route::post('register/mahdyar','MahdyarRegister');
+    Route::post('register/mahdyar/sms','MahdyarSms');
     Route::middleware('auth:sanctum')->get('get','getUsers');
     Route::middleware('auth:sanctum')->get('get/counts','UsersCount');
     Route::middleware('auth:sanctum')->get('/','index');
