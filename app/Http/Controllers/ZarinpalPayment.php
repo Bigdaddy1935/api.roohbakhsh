@@ -6,6 +6,7 @@ use App\Interfaces\ZarinpalRepositoryInterface;
 use App\Models\Zarinpal;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Shetabit\Multipay\Exceptions\InvalidPaymentException;
 use Shetabit\Multipay\Invoice;
 use Shetabit\Payment\Facade\Payment;
@@ -52,7 +53,7 @@ class ZarinpalPayment
 
 
         $authority = $request->input('Authority');
-        $zarinpal=Zarinpal::query()->where('authority',$authority)->get();
+        $zarinpal=DB::table('zarinpals')->where('authority',$authority)->first();
         $amount=$zarinpal->amount;
         try {
 
