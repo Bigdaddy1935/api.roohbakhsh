@@ -52,7 +52,7 @@ class ZarinpalPayment
 
         $authority = $request->input('Authority');
         $zarinpal=$this->zarinpalRepository->VerifyZarinpalPayment($authority);
-        $amount=$zarinpal->amount;
+        $amount=$zarinpal['amount'];
         try {
 
             $receipt = Payment::amount($amount)->transactionId($authority)->verify();
