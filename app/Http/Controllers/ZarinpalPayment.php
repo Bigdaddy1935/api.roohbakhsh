@@ -56,7 +56,6 @@ class ZarinpalPayment
         try {
 
             $receipt = Payment::amount($amount)->transactionId($authority)->verify();
-
             // You can show payment referenceId to the user.
             return response()->json($receipt->getReferenceId());
 
