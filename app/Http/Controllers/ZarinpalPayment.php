@@ -55,22 +55,17 @@ class ZarinpalPayment
         $authority = $request->input('Authority');
         $zarinpal=DB::table('zarinpals')->where('authority',$authority)->first();
         $amount=$zarinpal->amount;
-        try {
 
             $receipt = Payment::amount($amount)->transactionId($authority)->verify();
+
+            if($receipt){
+                return response()->json($receipt->getReferenceId());
+            }
             // You can show payment referenceId to the user.
+        return response()->json([
+            'message'=>'پرداخت ناموفق'
+        ],404);
 
-            return response()->json($receipt->getReferenceId());
 
-        } catch (InvalidPaymentException $exception) {
-            /**
-            when payment is not verified, it will throw an exception.
-            We can catch the exception to handle invalid payments.
-            getMessage method, returns a suitable message that can be used in user interface.
-             **/
-            return response()->json([
-                'message'=>'پرداخت ناموفق'
-            ],404);
-        }
     }
 }
