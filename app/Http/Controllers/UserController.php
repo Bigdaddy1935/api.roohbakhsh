@@ -801,7 +801,8 @@ class UserController extends Controller
                 'national_code'=>'required|string|max:11|unique:users,national_code',
                 'birthday'=>'required',
                 'address'=>'required',
-                'fullname'=>'required',
+                'firstname'=>'required',
+                'lastname'=>'required',
             ]);
 
         $data=[
