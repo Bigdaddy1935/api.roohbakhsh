@@ -826,19 +826,19 @@ class UserController extends Controller
 
     public function MahdyarSms(Request $request)
     {
-        $request->all();
-        $token=$request->refrence_code;
-        $client = new SoapClient("https://ippanel.com/class/sms/wsdlservice/server.php?wsdl");
-        $user = "ghasem13741374";
-        $pass = "uLhN23sHvH20@";
-        $fromNum = "+98EVENT";
-        $toNum = $request->parent_num;
-        $pattern_code = "cqaovf26yyhqe4m";
-        $input_data = array(
-            "verification-code" => $token,
-            'name'=>$request->fullname
-        );
-        $client ->sendPatternSms($fromNum, $toNum, $user, $pass, $pattern_code, $input_data);
+//        $request->all();
+//        $token=$request->refrence_code;
+//        $client = new SoapClient("https://ippanel.com/class/sms/wsdlservice/server.php?wsdl");
+//        $user = "ghasem13741374";
+//        $pass = "uLhN23sHvH20@";
+//        $fromNum = "+98EVENT";
+//        $toNum = $request->parent_num;
+//        $pattern_code = "cqaovf26yyhqe4m";
+//        $input_data = array(
+//            "verification-code" => $token,
+//            'name'=>$request->fullname
+//        );
+//        $client ->sendPatternSms($fromNum, $toNum, $user, $pass, $pattern_code, $input_data);
 
 
     return response()->json([

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Shetabit\Multipay\Exceptions\InvalidPaymentException;
 use Shetabit\Multipay\Invoice;
 use Shetabit\Payment\Facade\Payment;
+use SoapClient;
 
 class ZarinpalPayment
 {
@@ -59,6 +60,18 @@ class ZarinpalPayment
             $receipt = Payment::amount($amount)->transactionId($authority)->verify();
 
             if($receipt){
+                $token=$receipt->getReferenceId();
+                $client = new SoapClient("https://ippanel.com/class/sms/wsdlservice/server.php?wsdl");
+                $user = "ghasem13741374";
+                $pass = "uLhN23sHvH20@";
+                $fromNum = "+98EVENT";
+                $toNum = $request->parent_num;
+                $pattern_code = "cqaovf26yyhqe4m";
+                $input_data = array(
+                    "verification-code" => $token,
+                    'name'=>$request->parent_num
+                );
+                $client ->sendPatternSms($fromNum, $toNum, $user, $pass, $pattern_code, $input_data);
                 return response()->json($receipt->getReferenceId());
             }
             // You can show payment referenceId to the user.

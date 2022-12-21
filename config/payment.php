@@ -254,7 +254,7 @@ return [
 
             'mode' => 'normal', // can be normal, sandbox, zaringate
             'merchantId' => '845b5d38-3c62-11ea-b338-000c295eb8fc',
-            'callbackUrl' => 'https://roohbakhshac.ir/clup',
+            'callbackUrl' => 'https://roohbakhshac.ir/club/verify',
             'description' => 'payment using zarinpal',
         ],
         'zibal' => [
