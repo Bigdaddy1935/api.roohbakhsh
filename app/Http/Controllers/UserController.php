@@ -795,10 +795,10 @@ class UserController extends Controller
     public function MahdyarRegister(Request $request)
     {
         $request->validate([
-                'phone'=>'required|string|max:11|unique:users,phone',
+                'phone'=>'required|string|max:11',
                 'parent_num'=>'required|string|max:11',
                 'gender'=>'required',
-                'national_code'=>'required|string|max:11|unique:users,national_code',
+                'national_code'=>'required|string|max:11',
                 'birthday'=>'required',
                 'address'=>'required',
                 'firstname'=>'required',
