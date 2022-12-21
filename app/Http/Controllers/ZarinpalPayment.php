@@ -51,8 +51,6 @@ class ZarinpalPayment
      */
     public function verifyInvoice(Request $request): JsonResponse
     {
-
-
         $authority = $request->input('Authority');
         $zarinpal=DB::table('zarinpals')->where('authority',$authority)->first();
         $amount=$zarinpal->amount;

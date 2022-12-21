@@ -150,7 +150,7 @@ Route::prefix('app')->controller(ZarinpalPayment::class)->group(function (){
     Route::post('/zarinpal','ZarinpalRequest');
     Route::get('/zarinpal/verify','ZarinpalVerify')->name('verify');
     Route::post('invoice','invoicepage');
-    Route::get('invoice/verify','verifyInvoice');
+    Route::post('invoice/verify','verifyInvoice');
 });
 Route::prefix('app')->controller(HomeController::class)->group(function (){
     Route::post('/search','search')->name('search');
