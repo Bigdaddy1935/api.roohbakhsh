@@ -98,7 +98,7 @@ protected $result=[];
        else{
            return response()->json([
 
-               'message'=>'درسی ثبت نشده'
+               'message'=>'دوره ای ثبت نشده'
 
            ],401);
        }
@@ -296,6 +296,22 @@ protected $result=[];
        return response()->json([
            'coursesCount'=>$result
        ]);
+    }
+
+    public function getMedia()
+    {
+      $course=  $this->courseRepository->getCourseMedia();
+
+        if($course){
+            return response()->json($course);
+        }
+        else{
+            return response()->json([
+
+                'message'=>'رسانه ای ثبت نشده'
+
+            ],401);
+        }
     }
 
 

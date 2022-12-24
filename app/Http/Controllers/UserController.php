@@ -141,7 +141,7 @@ class UserController extends Controller
       if($identification != null) {
           $IdentificationUser = $this->userRepository->GetIdentificationUser($identification);
           if($IdentificationUser){
-              $IdentificationUser->deposit(400000);
+              $IdentificationUser->deposit(40000);
               $code= $this->userRepository->generateCode();
               $data=[
                   'username' =>$request->username,
@@ -159,7 +159,7 @@ class UserController extends Controller
                   'status_users'=>$request->status_users,
                   'score'=>$request->score,
                   'code'=>$code,
-                  'wallet_balance'=>1000000,
+                  'wallet_balance'=>100000,
                   'about_me'=>$request->about_me,
                   'address'=>$request->address,
                   'postal'=>$request->postal,
@@ -167,7 +167,7 @@ class UserController extends Controller
                   'messenger_num'=>$request->messenger_num,
               ];
               $user= $this->userRepository->create($data);
-              $user->deposit(400000);
+              $user->deposit(40000);
               return response()->json( $user,201);
       }else {
 
@@ -193,7 +193,7 @@ class UserController extends Controller
               'status_users'=>$request->status_users,
               'score'=>$request->score,
               'code'=>$code,
-              'wallet_balance'=>1000000,
+              'wallet_balance'=>100000,
               'teacher'=>$request->teacher,
               'about_me'=>$request->about_me,
               'address'=>$request->address,
@@ -848,9 +848,6 @@ class UserController extends Controller
    'refrence_code'=>$request->refrence_code
     ]);
     }
-
-
-
 
 
 

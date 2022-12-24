@@ -168,6 +168,7 @@ Route::prefix('app/articles')->controller(ArticleController::class)->group(funct
 Route::prefix('app/courses')->controller(CourseController::class)->group(function (){
     Route::get('get','getCourses');
     Route::get('/','index');
+    Route::get('get/media','getMedia');
     Route::get('get/course/count','getCourseLessonsCount');
     Route::middleware('auth:sanctum')->get('like/{id}','likeCourse');
     Route::middleware('auth:sanctum')->get('bookmark/{id}','bookmarkCourse');

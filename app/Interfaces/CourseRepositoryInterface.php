@@ -11,5 +11,6 @@ interface CourseRepositoryInterface
     public function CoursesCount();
     public function CourseSeeFull($user);
     public function CurrentCourseSee($user);
+    public function getCourseMedia();
 
 }
