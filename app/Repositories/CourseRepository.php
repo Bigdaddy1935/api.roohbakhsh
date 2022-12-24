@@ -37,7 +37,7 @@ class CourseRepository extends Repository implements CourseRepositoryInterface
     public function GetCoursesData()
     {
        $user= auth('sanctum')->id();
-      return Course::query()->join('users','users.id','=','courses.course_user_id')
+      return Course::query()->where('type','=','course')->join('users','users.id','=','courses.course_user_id')
               ->select('courses.*','users.fullname')
               ->with('categories')
               ->withAggregate('visits','score')
