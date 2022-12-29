@@ -79,4 +79,9 @@ class ZarinpalPayment
 
 
     }
+
+    public function table()
+    {
+       return Zarinpal::all();
+    }
 }

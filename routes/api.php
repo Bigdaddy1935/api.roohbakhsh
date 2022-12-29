@@ -32,7 +32,7 @@ use Illuminate\Support\Facades\Route;
 
 
 //CMS ROUTES
-Route::middleware('auth:sanctum')->prefix('courses')->controller(CourseController::class)->group(function () {
+Route::middleware(['auth:sanctum','XSS'])->prefix('courses')->controller(CourseController::class)->group(function () {
     Route::get('get','getCourses');
     Route::get('get/counts','CoursesCounts');
     Route::get('get/{id}','get_course_by_id');
@@ -44,7 +44,7 @@ Route::middleware('auth:sanctum')->prefix('courses')->controller(CourseControlle
 });
 
 
-Route::middleware('auth:sanctum')->controller(HomeController::class)->group(function (){
+Route::middleware(['auth:sanctum','XSS'])->controller(HomeController::class)->group(function (){
     Route::post('/notification','SendNotify');
     Route::get('/notification/get','getNotify');
     Route::delete('/notification/delete/{id}','delNotify');
@@ -52,7 +52,7 @@ Route::middleware('auth:sanctum')->controller(HomeController::class)->group(func
 });
 
 
-Route::middleware('auth:sanctum')->prefix('lessons')->controller(LessonController::class)->group(function (){
+Route::middleware(['auth:sanctum','XSS'])->prefix('lessons')->controller(LessonController::class)->group(function (){
     Route::post('add','addLesson');
     Route::get('get','getLessons');
     Route::get('get/counts','Lcount');
@@ -63,14 +63,14 @@ Route::middleware('auth:sanctum')->prefix('lessons')->controller(LessonControlle
     Route::post('update/{id}', 'updateLesson');
 
 });
-Route::middleware('auth:sanctum')->prefix('categories')->controller(CategoryController::class)->group(function (){
+Route::middleware(['auth:sanctum','XSS'])->prefix('categories')->controller(CategoryController::class)->group(function (){
     Route::post('add','addCategory');
     Route::get('get','getCategory');
     Route::get('get-all','getAll');
     Route::post('update/{id}','updateCategory');
     Route::delete('delete/{id}','deleteCategory');
 });
-Route::middleware('auth:sanctum')->prefix('articles')->controller(ArticleController::class)->group(function (){
+Route::middleware(['auth:sanctum','XSS'])->prefix('articles')->controller(ArticleController::class)->group(function (){
     Route::post('add','addArticle');
     Route::get('/','index');
     Route::post('like','LikePost');
@@ -82,18 +82,18 @@ Route::middleware('auth:sanctum')->prefix('articles')->controller(ArticleControl
     Route::delete('delete/{id}','deleteArticle');
 });
 Route::prefix('users')->controller(UserController::class)->group(function(){
-    Route::post('register','register');
+    Route::middleware('XSS')->post('register','register');
     Route::post('register/mahdyar','MahdyarRegister');
     Route::post('register/mahdyar/sms','MahdyarSms');
-    Route::middleware('auth:sanctum')->get('get','getUsers');
-    Route::middleware('auth:sanctum')->get('get/counts','UsersCount');
-    Route::middleware('auth:sanctum')->get('/','index');
+    Route::middleware(['auth:sanctum','XSS'])->get('get','getUsers');
+    Route::middleware(['auth:sanctum','XSS'])->get('get/counts','UsersCount');
+    Route::middleware(['auth:sanctum','XSS'])->get('/','index');
     Route::post('login','login_cms');
-    Route::middleware('auth:sanctum')->post('update/{id}','updateUsers');
-    Route::middleware('auth:sanctum')->delete('delete/{id}','deleteUsers');
-    Route::middleware('auth:sanctum')->get('logout','logout');
+    Route::middleware(['auth:sanctum','XSS'])->post('update/{id}','updateUsers');
+    Route::middleware(['auth:sanctum','XSS'])->delete('delete/{id}','deleteUsers');
+    Route::middleware(['auth:sanctum','XSS'])->get('logout','logout');
 });
-Route::middleware('auth:sanctum')->prefix('products')->controller(ProductController::class)->group(function (){
+Route::middleware(['auth:sanctum','XSS'])->prefix('products')->controller(ProductController::class)->group(function (){
     Route::post('add','addProduct');
     Route::get('get','getProducts');
     Route::get('get/counts','productCount');
@@ -104,33 +104,31 @@ Route::middleware('auth:sanctum')->prefix('products')->controller(ProductControl
     Route::post('update/{id}','updateProducts');
     Route::delete('delete/{id}','deleteProducts');
 });
-Route::middleware('auth:sanctum')->prefix('libraries')->controller(LibraryController::class)->group(function (){
+Route::middleware(['auth:sanctum','XSS'])->prefix('libraries')->controller(LibraryController::class)->group(function (){
     Route::middleware('auth:sanctum')->get('/','index');
     Route::post('add','addLibrary');
     Route::get('get','getLibrary');
     Route::post('update/{id}','updateLibrary');
     Route::delete('delete/{id}','deleteLibrary');
 });
-Route::middleware('auth:sanctum')->prefix('files')->controller(FileController::class)->group(function (){
-
+Route::middleware(['auth:sanctum','XSS'])->prefix('files')->controller(FileController::class)->group(function (){
     Route::post('add','addFile');
     Route::get('get','getFiles');
     Route::post('update/{id}','updateFile');
     Route::delete('delete/{id}','deleteFile');
-
 });
 
-Route::middleware('auth:sanctum')->prefix('discount')->controller(VoucherController::class)->group(function (){
+Route::middleware(['auth:sanctum','XSS'])->prefix('discount')->controller(VoucherController::class)->group(function (){
     Route::post('add','addVoucher');
     Route::get('get','getVoucher');
     Route::post('update/{id}','editVoucher');
     Route::delete('delete/{id}','deleteVoucher');
 });
-Route::prefix('tutorial')->controller(TutorialController::class)->group(function (){
-    Route::middleware('auth:sanctum')->post('add','addTutorial');
-    Route::middleware('auth:sanctum')->post('update/{id}','updateTutorial');
-    Route::middleware('auth:sanctum')->delete('delete/{id}','deleteTutorial');
-    Route::middleware('auth:sanctum')->get('get','showTutorial');
+Route::middleware(['auth:sanctum','XSS'])->prefix('tutorial')->controller(TutorialController::class)->group(function (){
+    Route::post('add','addTutorial');
+    Route::post('update/{id}','updateTutorial');
+    Route::delete('delete/{id}','deleteTutorial');
+    Route::get('get','showTutorial');
 });
 
 Route::prefix('invoices')->controller(InvoiceController::class)->group(function (){
@@ -142,12 +140,13 @@ Route::prefix('invoices')->controller(InvoiceController::class)->group(function 
 
 
 //APP ROUTES
-Route::middleware('auth:sanctum')->prefix('app')->controller(AppNotificationController::class)->group(function (){
+Route::middleware(['auth:sanctum','XSS'])->prefix('app')->controller(AppNotificationController::class)->group(function (){
     Route::post('store','storeToken');
 });
 
 Route::prefix('app')->controller(ZarinpalPayment::class)->group(function (){
     Route::post('/zarinpal','ZarinpalRequest');
+    Route::get('/mahdyar','table');
     Route::get('/zarinpal/verify','ZarinpalVerify')->name('verify');
     Route::post('invoice','invoicepage');
     Route::post('invoice/verify','verifyInvoice');
@@ -160,8 +159,8 @@ Route::prefix('app')->controller(HomeController::class)->group(function (){
 Route::prefix('app/articles')->controller(ArticleController::class)->group(function (){
     Route::get('get','getArticles');
     Route::get('/','index');
-    Route::middleware('auth:sanctum')->get('like/{id}','likeArticle');
-    Route::middleware('auth:sanctum')->get('bookmark/{id}','bookmarkArticle');
+    Route::middleware(['auth:sanctum','XSS'])->get('like/{id}','likeArticle');
+    Route::middleware(['auth:sanctum','XSS'])->get('bookmark/{id}','bookmarkArticle');
     Route::get('get/{id}','get_article_by_id')->name('article.get');
     Route::post('from/tags','ArticlesTags');
 });
@@ -170,20 +169,20 @@ Route::prefix('app/courses')->controller(CourseController::class)->group(functio
     Route::get('/','index');
     Route::get('get/media','getMedia');
     Route::get('get/course/count','getCourseLessonsCount');
-    Route::middleware('auth:sanctum')->get('like/{id}','likeCourse');
-    Route::middleware('auth:sanctum')->get('bookmark/{id}','bookmarkCourse');
-    Route::middleware('auth:sanctum')->get('get/{id}','get_course_by_id')->name('course.get');
+    Route::middleware(['auth:sanctum','XSS'])->get('like/{id}','likeCourse');
+    Route::middleware(['auth:sanctum','XSS'])->get('bookmark/{id}','bookmarkCourse');
+    Route::middleware(['auth:sanctum','XSS'])->get('get/{id}','get_course_by_id')->name('course.get');
 });
 Route::prefix('app/lessons')->controller(LessonController::class)->group(function (){
     Route::get('/','index');
     Route::get('get/by_course_id/{id}','getCourseLessons');
-    Route::middleware('auth:sanctum')->get('like/{id}','likeLesson');
-    Route::middleware('auth:sanctum')->get('bookmark/{id}','bookmarkLesson');
-    Route::middleware('auth:sanctum')->get('get/{id}','get_lesson_by_id')->name('lessons.get');
+    Route::middleware(['auth:sanctum','XSS'])->get('like/{id}','likeLesson');
+    Route::middleware(['auth:sanctum','XSS'])->get('bookmark/{id}','bookmarkLesson');
+    Route::middleware(['auth:sanctum','XSS'])->get('get/{id}','get_lesson_by_id')->name('lessons.get');
 
 });
 
-Route::middleware('auth:sanctum')->prefix('app/progress')->controller(VideoProgressBarController::class)->group(function (){
+Route::middleware(['auth:sanctum','XSS'])->prefix('app/progress')->controller(VideoProgressBarController::class)->group(function (){
     Route::post('save/time/{id}', 'saveTime')->name('video.saveTime');
     Route::get('get/time/{id}', 'getTime')->name('video.getTime');
     Route::get('get/fulltime/{id}', 'getFullTimeOfAnCourse');
@@ -199,7 +198,7 @@ Route::prefix('app/categories')->controller(CategoryController::class)->group(fu
     Route::get('get/products/{id}','get_product_cat');
 
 });
-Route::middleware('auth:sanctum')->prefix('app/users')->controller(UserController::class)->group(function (){
+Route::middleware(['auth:sanctum','XSS'])->prefix('app/users')->controller(UserController::class)->group(function (){
     Route::withoutMiddleware('auth:sanctum')->post('add/phone','addPhone');
     Route::withoutMiddleware('auth:sanctum')->post('add/phone/verify','verifyPhone');
     Route::withoutMiddleware('auth:sanctum')->post('login','login_app');
@@ -233,36 +232,36 @@ Route::prefix('app/products')->controller(ProductController::class)->group(funct
     Route::get('news','newProduct');
     Route::get('get/related/{id}','relatedProducts');
     Route::get('get/{id}','get_product_by_id')->name('product.get');
-    Route::middleware('auth:sanctum')->get('like/{id}','likeProduct');
-    Route::middleware('auth:sanctum')->get('bookmark/{id}','bookmarkProduct');
+    Route::middleware(['auth:sanctum','XSS'])->get('like/{id}','likeProduct');
+    Route::middleware(['auth:sanctum','XSS'])->get('bookmark/{id}','bookmarkProduct');
 });
 
-Route::middleware('auth:sanctum')->prefix('app/invoices')->controller(InvoiceController::class)->group(function (){
+Route::middleware(['auth:sanctum','XSS'])->prefix('app/invoices')->controller(InvoiceController::class)->group(function (){
     Route::post('add','addInvoice');
     Route::get('get','getInvoice');
 
 });
 
 
-Route::middleware('auth:sanctum')->prefix('app/cart')->controller(CartController::class)->group(function (){
+Route::middleware(['auth:sanctum','XSS'])->prefix('app/cart')->controller(CartController::class)->group(function (){
     Route::post('add/{id}','addCart');
     Route::get('get','getCart');
     Route::delete('delete/{id}','removeItem');
 });
 
 Route::prefix('app/discount')->controller(VoucherController::class)->group(function (){
-    Route::middleware('auth:sanctum')->post('add','addVoucher');
-    Route::middleware('auth:sanctum')->post('use','useVoucher');
+    Route::middleware(['auth:sanctum','XSS'])->post('add','addVoucher');
+    Route::middleware(['auth:sanctum','XSS'])->post('use','useVoucher');
 });
 
-Route::prefix('app/comment')->controller(CommentsController::class)->group(function (){
-    Route::middleware('auth:sanctum')->post('add','addComment');
-    Route::middleware('auth:sanctum')->post('add/reply','replyComment');
-    Route::middleware('auth:sanctum')->post('like/{id}','likeComment');
-    Route::middleware('auth:sanctum')->post('accept/{id}','AcceptComment');
-    Route::middleware('auth:sanctum')->post('remove/{id}','removeComment');
-    Route::middleware('auth:sanctum')->post('reject/{id}','RejectComment');
-    Route::get('get','getComment');
+Route::middleware(['auth:sanctum','XSS'])->prefix('app/comment')->controller(CommentsController::class)->group(function (){
+    Route::post('add','addComment');
+    Route::post('add/reply','replyComment');
+    Route::post('like/{id}','likeComment');
+    Route::post('accept/{id}','AcceptComment');
+    Route::post('remove/{id}','removeComment');
+    Route::post('reject/{id}','RejectComment');
+    Route::middleware('auth:sanctum')->get('get','getComment');
 });
 
 
