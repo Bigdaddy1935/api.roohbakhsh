@@ -83,7 +83,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
-            })->orderBy('id','ASC')
+            })
             ->paginate(10);
     }
 }
