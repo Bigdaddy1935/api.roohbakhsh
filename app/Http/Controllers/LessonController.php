@@ -267,6 +267,16 @@ class LessonController extends Controller
 
     }
 
+    public function getMediaLessons($id)
+    {
+        $lessons=$this->lessonRepository->GetLessonsOfAnMedia($id);
+        foreach ($lessons as $lesson){
+            unset($lesson['url_video']);
+        }
+        return response()->json($lessons);
+
+    }
+
 
     /**
      * @param $id

@@ -176,6 +176,7 @@ Route::prefix('app/courses')->controller(CourseController::class)->group(functio
 Route::prefix('app/lessons')->controller(LessonController::class)->group(function (){
     Route::get('/','index');
     Route::get('get/by_course_id/{id}','getCourseLessons');
+    Route::get('get/by_media_id/{id}','getMediaLessons');
     Route::middleware(['auth:sanctum','XSS'])->get('like/{id}','likeLesson');
     Route::middleware(['auth:sanctum','XSS'])->get('bookmark/{id}','bookmarkLesson');
     Route::middleware(['auth:sanctum','XSS'])->get('get/{id}','get_lesson_by_id')->name('lessons.get');

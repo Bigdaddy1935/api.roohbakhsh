@@ -70,4 +70,20 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
     {
         return Lesson::query()->get()->count();
     }
+
+    public function GetLessonsOfAnMedia($id)
+    {
+        $user= auth('sanctum')->id();
+        return   Lesson::query()
+            ->where('course_id',$id)
+            ->with('categories')
+            ->withAggregate('visits','score')
+            ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                $q->where('user_id',$user);
+            }])
+            ->with('progress',function ($q)use ($user){
+                $q->where('user_id',$user);
+            })->orderByDesc('id')
+            ->paginate(10);
+    }
 }
