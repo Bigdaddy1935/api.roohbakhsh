@@ -205,7 +205,7 @@ class ArticleController extends Controller
          * edit categories and tags we get in inputs and save them in pivot table with sync method
          */
         $article->categories()->sync($categories);
-        $article->tag($tags);
+        $article->retag($tags);
         return response()->json([
            'message'=>'مقاله مورد نظر با موفقیت ویرایش شد',
             'article_id'=>$id,
