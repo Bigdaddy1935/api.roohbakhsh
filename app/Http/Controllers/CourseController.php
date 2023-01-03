@@ -6,6 +6,7 @@ use App\Interfaces\CourseRepositoryInterface;
 use App\Interfaces\LessonRepositoryInterface;
 use App\Models\Comment;
 use App\Models\Course;
+use App\Models\Invoice;
 use App\Models\Lesson;
 use App\Models\Product;
 use App\Models\VideoProgressBar;
@@ -162,7 +163,11 @@ protected $result=[];
 
         ];
         if($data['type']=='course'){
-            Product::query()->where('course_id',$id)->delete();
+           $product= Product::query()->where('course_id',$id)->first()->toArray();
+        $pro_id=$product['id'];
+        Invoice::query()->where('order_id',$pro_id)->delete();
+        DB::table('bookmarks')->where('bookmarkable_id',$pro_id)->delete();
+        Product::query()->where('course_id',$id)->delete();
         }
 
         $categories=explode(",",$request->categories);
