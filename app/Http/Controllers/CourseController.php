@@ -163,12 +163,12 @@ protected $result=[];
 
         ];
        if($data['type']=='course') {
-        $product=Product::query()->where('course_id',$id)->firstOrFail()->toArray();
-        if($product){
+
+        if($product=Product::query()->where('course_id',$id)->first()){
             $pro_id=$product['id'];
-            Invoice::query()->whereIn('order_id',$pro_id)->delete();
+            Invoice::query()->where('order_id',$pro_id)->delete();
             DB::table('bookmarks')->where('bookmarkable_id',$pro_id)->delete();
-            Product::query()->where('course_id',$id)->delete();
+           Product::query()->where('course_id',$id)->delete();
         }
        }
 
