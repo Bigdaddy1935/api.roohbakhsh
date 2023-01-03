@@ -157,7 +157,6 @@ class ProductController extends Controller
         $tags=explode(",",$request->tags);
         $categories=explode(",",$request->categories);
         $related_products_id=explode(",",$request->related);
-        $validation=$request->all();
         //find input id and update fields of product
         $data=[
             'type'=>$request->type,
@@ -171,15 +170,17 @@ class ProductController extends Controller
 
 
         $product=$this->productRepository->update($id,$data);
-if($request->related){
-    $product->related()->sync($related_products_id);
-}
+
+        if($data['type']=='course'){
+            $this->productRepository->delete($id);
+        }
+        if($request->related){
+         $product->related()->sync($related_products_id);
+        }
         //save validation into pivot tables
         $product->tag($tags);
         $product->categories()->sync($categories);
-        if($request->type == 'course'){
-            $this->productRepository->delete($id);
-        }
+
         return response()->json([
            'message'=>'محصول مورد نظر با موفقیت ویرایش شد',
            'product_id'=>$id,
