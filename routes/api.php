@@ -57,6 +57,7 @@ Route::middleware(['auth:sanctum','XSS'])->prefix('lessons')->controller(LessonC
     Route::get('get','getLessons');
     Route::get('get/counts','Lcount');
     Route::get('get/{id}','get_lesson_by_id');
+    Route::get('get/by_course_id/{id}','getCourseLessons');
     Route::get('/','index');
     Route::get('take','takeLesson');
     Route::delete('delete/{id}','deleteLesson');

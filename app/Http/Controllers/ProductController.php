@@ -167,13 +167,11 @@ class ProductController extends Controller
             'course_id'=>$request->course_id
         ];
 
-
+       return Product::query()->where('course_id',$request->course_id)->first();
 
         $product=$this->productRepository->update($id,$data);
 
-        if($data['type']=='course'){
-            $this->productRepository->delete($id);
-        }
+
         if($request->related){
          $product->related()->sync($related_products_id);
         }

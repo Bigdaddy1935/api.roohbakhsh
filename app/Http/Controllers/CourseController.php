@@ -7,6 +7,7 @@ use App\Interfaces\LessonRepositoryInterface;
 use App\Models\Comment;
 use App\Models\Course;
 use App\Models\Lesson;
+use App\Models\Product;
 use App\Models\VideoProgressBar;
 use App\QueryFilters\Type;
 use App\QueryFilters\Types;
@@ -160,6 +161,10 @@ protected $result=[];
             'picture'=>$request->picture,
 
         ];
+        if($data['type']=='course'){
+            Product::query()->where('course_id',$id)->delete();
+        }
+
         $categories=explode(",",$request->categories);
         $Course = $this->courseRepository->update($id,$data);
         //sync new categories as old one
