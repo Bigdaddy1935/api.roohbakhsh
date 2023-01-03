@@ -28,7 +28,8 @@ class Lesson extends Model
         'visibility',
         'code',
         'picture',
-        'teacher'
+        'teacher',
+        'url_ads'
 
 
     ];

@@ -175,6 +175,7 @@ class LessonController extends Controller
             'teacher'=>$request->teacher,
             'description'=>$request->description,
             'url_video'=>$request->url_video,
+            'url_ads'=>$request->url_ads,
             'status'=>$request->status,
             'visibility'=>$request->visibility,
             'code'=>$request->code,

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('teacher');
             $table->longText('description')->nullable();
             $table->text('url_video')->nullable();
+            $table->text('url_ads')->nullable();
             $table->boolean('status')->default(false);
             $table->tinyInteger('visibility')->default(false);
             $table->string('code', 100)->default('')->nullable();

@@ -60,13 +60,12 @@ class ProductController extends Controller
         $categories=explode(",",$request->categories);
         $related_product_id=explode(',',$request->related);
 
-
         $product = $this->productRepository->create([
             'tiny_desc'=>$request->tiny_desc,
             'price'=>$request->price,
             'duration'=>$request->duration,
             'type'=>$request->type,
-            'price_discount'=>$request->price_discount,
+            'price_discount'=>$request->price_discount == null ? null :$request->price_discount,
             'course_id'=>$request->course_id,
         ]);
 
@@ -169,6 +168,8 @@ class ProductController extends Controller
             'course_id'=>$request->course_id
         ];
 
+
+
         $product=$this->productRepository->update($id,$data);
 if($request->related){
     $product->related()->sync($related_products_id);
@@ -176,7 +177,9 @@ if($request->related){
         //save validation into pivot tables
         $product->tag($tags);
         $product->categories()->sync($categories);
-
+        if($request->type == 'course'){
+            $this->productRepository->delete($id);
+        }
         return response()->json([
            'message'=>'محصول مورد نظر با موفقیت ویرایش شد',
            'product_id'=>$id,
