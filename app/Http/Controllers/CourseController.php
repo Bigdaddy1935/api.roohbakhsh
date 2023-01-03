@@ -162,15 +162,12 @@ protected $result=[];
             'picture'=>$request->picture,
 
         ];
-
-    if($product=Product::query()->where('course_id',$id)->first()->toArray()){
-    if($data['type']=='course'){
+        if($data['type']=='course'){
+          $product= Product::query()->where('course_id',$id)->firstOrFail()->toArray();
         $pro_id=$product['id'];
-        Invoice::query()->where('order_id',$pro_id)->delete();
+        Invoice::query()->where('order_id',$pro_id)->forceDelete();
         DB::table('bookmarks')->where('bookmarkable_id',$pro_id)->delete();
-        Product::query()->where('course_id',$id)->delete();
-}
-
+        Product::query()->where('course_id',$id)->forceDelete();
         }
 
         $categories=explode(",",$request->categories);
