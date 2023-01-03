@@ -165,9 +165,9 @@ protected $result=[];
         if($data['type']=='course'){
           $product= Product::query()->where('course_id',$id)->firstOrFail()->toArray();
         $pro_id=$product['id'];
-        Invoice::query()->where('order_id',$pro_id)->forceDelete();
+        Invoice::query()->where('order_id',$pro_id)->firstOrFail()->delete();
         DB::table('bookmarks')->where('bookmarkable_id',$pro_id)->delete();
-        Product::query()->where('course_id',$id)->forceDelete();
+        Product::query()->where('course_id',$id)->firstOrFail()->delete();
         }
 
         $categories=explode(",",$request->categories);
