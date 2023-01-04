@@ -46,6 +46,21 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
              })
             ->paginate(10);
     }
+    public function GetLessonsOfAnCourseGet($id)
+    {
+        $user= auth('sanctum')->id();
+        return   Lesson::query()
+            ->where('course_id',$id)
+            ->with('categories')
+            ->withAggregate('visits','score')
+            ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                $q->where('user_id',$user);
+            }])
+            ->with('progress',function ($q)use ($user){
+                $q->where('user_id',$user);
+            })
+            ->get();
+    }
 
     public function GetSpecificLesson($id)
     {
