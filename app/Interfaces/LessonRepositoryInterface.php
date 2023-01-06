@@ -8,6 +8,7 @@ interface LessonRepositoryInterface
     public function GetLessonsOfAnCourse($id);
     public function GetLessonsOfAnCourseGet($id);
     public function GetLessonsOfAnMedia($id);
+    public function GetLessonsOfAllMedias();
     public function GetSpecificLesson($id);
     public function lessonsCount();
 }

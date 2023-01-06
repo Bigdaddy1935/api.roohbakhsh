@@ -101,4 +101,21 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             })->orderBy('id','DESC')
             ->paginate(10);
     }
+
+    public function GetLessonsOfAllMedias()
+    {
+        $user= auth('sanctum')->id();
+        return   Lesson::query()
+            ->whereHas('courses',function ($q){
+                $q->where('type','==','media');
+            })
+            ->with('categories')
+            ->withAggregate('visits','score')
+            ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                $q->where('user_id',$user);
+            }])
+            ->with('progress',function ($q)use ($user){
+                $q->where('user_id',$user);
+            })->orderBy('id','DESC')
+            ->paginate(20);    }
 }
