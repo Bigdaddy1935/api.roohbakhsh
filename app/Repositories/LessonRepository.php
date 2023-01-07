@@ -107,7 +107,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
         $user= auth('sanctum')->id();
         return   Lesson::query()
             ->whereHas('courses',function ($q){
-                $q->where('type','==','media');
+                $q->where('type','=','media');
             })
             ->with('categories')
             ->withAggregate('visits','score')
@@ -117,5 +117,5 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
             })->orderBy('id','DESC')
-            ->paginate(20);    }
+            ->paginate(35);    }
 }
