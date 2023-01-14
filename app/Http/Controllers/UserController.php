@@ -803,6 +803,8 @@ class UserController extends Controller
                 'address'=>'required',
                 'firstname'=>'required',
                 'lastname'=>'required',
+            'amount'=>'required',
+            'authority'=>'required'
             ]);
 
         $data=[
@@ -815,6 +817,8 @@ class UserController extends Controller
             'postal'=>$request->postal,
             'parent_num'=>$request->parent_num,
             'messenger_num'=>$request->messenger_num,
+            'amount'=>$request->amount,
+            'authority'=>$request->authority,
         ];
         $users=$this->userRepository->create($data);
 
