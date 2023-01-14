@@ -73,7 +73,7 @@ class ZarinpalPayment
                 );
                 $client ->sendPatternSms($fromNum, $toNum, $user, $pass, $pattern_code, $input_data);
 
-                User::query()->where('national_code',$request->national_code)->update(['amount'=>$amount,'authority'=>$authority]);
+//                User::query()->where('national_code',$request->national_code)->update(['amount'=>$amount,'authority'=>$authority]);
 
                 return response()->json($receipt->getReferenceId());
             }
