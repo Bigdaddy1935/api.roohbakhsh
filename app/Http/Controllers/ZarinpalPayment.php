@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\ZarinpalRepositoryInterface;
+use App\Models\User;
 use App\Models\Zarinpal;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -71,6 +72,9 @@ class ZarinpalPayment
                     'name'=>$request->parent_num
                 );
                 $client ->sendPatternSms($fromNum, $toNum, $user, $pass, $pattern_code, $input_data);
+
+                User::query()->where('national_code',$request->national_code)->update(['amount'=>$amount,'authority'=>$authority]);
+
                 return response()->json($receipt->getReferenceId());
             }
             // You can show payment referenceId to the user.
