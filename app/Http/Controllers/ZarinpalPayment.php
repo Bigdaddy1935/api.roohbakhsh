@@ -44,8 +44,6 @@ class ZarinpalPayment
             $this->zarinpalRepository->create($data);
 
         })->pay()->toJson();
-
-
     }
 
     /**
