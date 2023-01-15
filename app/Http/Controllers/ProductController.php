@@ -167,7 +167,6 @@ class ProductController extends Controller
             'course_id'=>$request->course_id
         ];
 
-        Product::query()->where('course_id',$request->course_id)->first();
 
         $product=$this->productRepository->update($id,$data);
 
