@@ -33,7 +33,13 @@ class CategoryController extends Controller
             'picture'=>'required'
         ]);
 
-      $data=  $request->all();
+      $data=[
+          'name'=>$request->name,
+          'slug'=>$request->slug,
+          'picture'=>$request->picture,
+          'description'=>$request->description,
+          'parent_id'=>$request->parent_id == null ?null :$request->parent_id,
+      ];
 
       $category= $this->categoryRepository->create($data);
 
