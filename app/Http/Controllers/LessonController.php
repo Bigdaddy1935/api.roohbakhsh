@@ -47,7 +47,8 @@ class LessonController extends Controller
             'user_id'=> 'required',
             'categories'=>'required',
             'teacher'=>'required',
-           'sendNotify'=>'required'
+            'sendNotify'=>'required',
+            'formats'=>'required'
         ]);
 
         $categories=explode(",",$request->categories);
@@ -179,6 +180,7 @@ class LessonController extends Controller
             'status'=>$request->status,
             'visibility'=>$request->visibility,
             'code'=>$request->code,
+            'formats'=>$request->formats,
         ];
 
         //get categories as an array
@@ -319,7 +321,6 @@ class LessonController extends Controller
     public function Lcount()
     {
       $result=  $this->lessonRepository->lessonsCount();
-
       return response()->json([
           'lessonsCount'=>$result
       ]);

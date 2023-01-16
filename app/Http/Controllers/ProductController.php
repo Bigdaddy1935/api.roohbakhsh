@@ -168,6 +168,7 @@ class ProductController extends Controller
         ];
 
 
+
         $product=$this->productRepository->update($id,$data);
 
 

@@ -29,7 +29,8 @@ class Lesson extends Model
         'code',
         'picture',
         'teacher',
-        'url_ads'
+        'url_ads',
+        'formats'
 
 
     ];
