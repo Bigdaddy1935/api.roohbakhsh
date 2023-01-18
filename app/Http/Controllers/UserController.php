@@ -165,6 +165,9 @@ class UserController extends Controller
                   'postal'=>$request->postal,
                   'parent_num'=>$request->parent_num,
                   'messenger_num'=>$request->messenger_num,
+                  'amount'=>$request->amount,
+                  'authority'=>$request->authority,
+                  'city'=>$request->city,
               ];
               $user= $this->userRepository->create($data);
               $user->deposit(40000);
@@ -200,6 +203,9 @@ class UserController extends Controller
               'postal'=>$request->postal,
               'parent_num'=>$request->parent_num,
               'messenger_num'=>$request->messenger_num,
+              'amount'=>$request->amount,
+              'authority'=>$request->authority,
+              'city'=>$request->city,
 
           ];
           $user= $this->userRepository->create($data);
@@ -378,6 +384,9 @@ class UserController extends Controller
                 'postal'=>$request->postal,
                 'parent_num'=>$request->parent_num,
                 'messenger_num'=>$request->messenger_num,
+                'amount'=>$request->amount,
+                'authority'=>$request->authority,
+                'city'=>$request->city,
 
             ];
 
@@ -803,8 +812,9 @@ class UserController extends Controller
                 'address'=>'required',
                 'firstname'=>'required',
                 'lastname'=>'required',
-            'amount'=>'required',
-            'authority'=>'required'
+                'amount'=>'required',
+                'authority'=>'required',
+                'city'=>'required',
             ]);
 
         $data=[
@@ -819,6 +829,7 @@ class UserController extends Controller
             'messenger_num'=>$request->messenger_num,
             'amount'=>$request->amount,
             'authority'=>$request->authority,
+            'city'=>$request->city,
         ];
         $users=$this->userRepository->create($data);
 

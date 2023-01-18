@@ -34,6 +34,7 @@ return new class extends Migration
             $table->datetime('last_login_at')->nullable();
             $table->string('last_login_ip')->nullable();
             $table->text('address')->nullable();
+            $table->string('city')->nullable();
             $table->string('parent_num',20)->unique()->nullable();
             $table->string('postal',10)->unique()->nullable();
             $table->string('amount')->nullable();
