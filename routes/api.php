@@ -52,7 +52,7 @@ Route::middleware(['auth:sanctum','XSS'])->controller(HomeController::class)->gr
 });
 
 
-Route::middleware(['auth:sanctum','XSS'])->prefix('lessons')->controller(LessonController::class)->group(function (){
+Route::middleware('auth:sanctum')->prefix('lessons')->controller(LessonController::class)->group(function (){
     Route::post('add','addLesson');
     Route::get('get','getLessons');
     Route::get('get/counts','Lcount');
