@@ -44,7 +44,7 @@ Route::middleware('auth:sanctum',)->prefix('courses')->controller(CourseControll
 });
 
 
-Route::middleware(['auth:sanctum','XSS'])->controller(HomeController::class)->group(function (){
+Route::middleware('auth:sanctum')->controller(HomeController::class)->group(function (){
     Route::post('/notification','SendNotify');
     Route::get('/notification/get','getNotify');
     Route::delete('/notification/delete/{id}','delNotify');
@@ -64,14 +64,14 @@ Route::middleware('auth:sanctum')->prefix('lessons')->controller(LessonControlle
     Route::post('update/{id}', 'updateLesson');
 
 });
-Route::middleware(['auth:sanctum','XSS'])->prefix('categories')->controller(CategoryController::class)->group(function (){
+Route::middleware('auth:sanctum')->prefix('categories')->controller(CategoryController::class)->group(function (){
     Route::post('add','addCategory');
     Route::get('get','getCategory');
     Route::get('get-all','getAll');
     Route::post('update/{id}','updateCategory');
     Route::delete('delete/{id}','deleteCategory');
 });
-Route::middleware(['auth:sanctum','XSS'])->prefix('articles')->controller(ArticleController::class)->group(function (){
+Route::middleware('auth:sanctum')->prefix('articles')->controller(ArticleController::class)->group(function (){
     Route::post('add','addArticle');
     Route::get('/','index');
     Route::post('like','LikePost');
@@ -84,17 +84,17 @@ Route::middleware(['auth:sanctum','XSS'])->prefix('articles')->controller(Articl
 });
 Route::prefix('users')->controller(UserController::class)->group(function(){
     Route::middleware('XSS')->post('register','register');
-    Route::post('register/mahdyar','MahdyarRegister');
-    Route::post('register/mahdyar/sms','MahdyarSms');
-    Route::middleware(['auth:sanctum','XSS'])->get('get','getUsers');
-    Route::middleware(['auth:sanctum','XSS'])->get('get/counts','UsersCount');
-    Route::middleware(['auth:sanctum','XSS'])->get('/','index');
-    Route::post('login','login_cms');
-    Route::middleware(['auth:sanctum','XSS'])->post('update/{id}','updateUsers');
-    Route::middleware(['auth:sanctum','XSS'])->delete('delete/{id}','deleteUsers');
-    Route::middleware(['auth:sanctum','XSS'])->get('logout','logout');
+    Route::middleware('XSS')->post('register/mahdyar','MahdyarRegister');
+    Route::middleware('XSS')->post('register/mahdyar/sms','MahdyarSms');
+    Route::middleware('auth:sanctum')->get('get','getUsers');
+    Route::middleware('auth:sanctum')->get('get/counts','UsersCount');
+    Route::middleware('auth:sanctum')->get('/','index');
+    Route::middleware('XSS')->post('login','login_cms');
+    Route::middleware('auth:sanctum')->post('update/{id}','updateUsers');
+    Route::middleware('auth:sanctum')->delete('delete/{id}','deleteUsers');
+    Route::middleware('auth:sanctum')->get('logout','logout');
 });
-Route::middleware(['auth:sanctum','XSS'])->prefix('products')->controller(ProductController::class)->group(function (){
+Route::middleware('auth:sanctum')->prefix('products')->controller(ProductController::class)->group(function (){
     Route::post('add','addProduct');
     Route::get('get','getProducts');
     Route::get('get/counts','productCount');
@@ -105,27 +105,27 @@ Route::middleware(['auth:sanctum','XSS'])->prefix('products')->controller(Produc
     Route::post('update/{id}','updateProducts');
     Route::delete('delete/{id}','deleteProducts');
 });
-Route::middleware(['auth:sanctum','XSS'])->prefix('libraries')->controller(LibraryController::class)->group(function (){
+Route::middleware('auth:sanctum')->prefix('libraries')->controller(LibraryController::class)->group(function (){
     Route::middleware('auth:sanctum')->get('/','index');
     Route::post('add','addLibrary');
     Route::get('get','getLibrary');
     Route::post('update/{id}','updateLibrary');
     Route::delete('delete/{id}','deleteLibrary');
 });
-Route::middleware(['auth:sanctum','XSS'])->prefix('files')->controller(FileController::class)->group(function (){
+Route::middleware('auth:sanctum')->prefix('files')->controller(FileController::class)->group(function (){
     Route::post('add','addFile');
     Route::get('get','getFiles');
     Route::post('update/{id}','updateFile');
     Route::delete('delete/{id}','deleteFile');
 });
 
-Route::middleware(['auth:sanctum','XSS'])->prefix('discount')->controller(VoucherController::class)->group(function (){
+Route::middleware('auth:sanctum')->prefix('discount')->controller(VoucherController::class)->group(function (){
     Route::post('add','addVoucher');
     Route::get('get','getVoucher');
     Route::post('update/{id}','editVoucher');
     Route::delete('delete/{id}','deleteVoucher');
 });
-Route::middleware(['auth:sanctum','XSS'])->prefix('tutorial')->controller(TutorialController::class)->group(function (){
+Route::middleware('auth:sanctum')->prefix('tutorial')->controller(TutorialController::class)->group(function (){
     Route::post('add','addTutorial');
     Route::post('update/{id}','updateTutorial');
     Route::delete('delete/{id}','deleteTutorial');
