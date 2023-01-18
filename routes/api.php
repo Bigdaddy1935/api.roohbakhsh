@@ -32,7 +32,7 @@ use Illuminate\Support\Facades\Route;
 
 
 //CMS ROUTES
-Route::middleware(['auth:sanctum','XSS'])->prefix('courses')->controller(CourseController::class)->group(function () {
+Route::middleware('auth:sanctum',)->prefix('courses')->controller(CourseController::class)->group(function () {
     Route::get('get','getCourses');
     Route::get('get/counts','CoursesCounts');
     Route::get('get/{id}','get_course_by_id');
