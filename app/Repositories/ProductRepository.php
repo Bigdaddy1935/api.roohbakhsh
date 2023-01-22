@@ -119,6 +119,9 @@ class ProductRepository extends Repository implements ProductRepositoryInterface
             ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
                 $q->where('user_id',$user);
             }])
+            ->with(['related'=>function ( $q){
+                $q->with('courses');
+            }])
             ->orderBy('id','DESC')->limit(10)->get();
     }
 

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('price');
             $table->integer('price_discount')->nullable();
             $table->string('duration');
-            $table->tinyText('tiny_desc');
+            $table->text('tiny_desc');
             $table->unsignedBigInteger('course_id')->nullable();
             $table->foreign('course_id')
                 ->references('id')
