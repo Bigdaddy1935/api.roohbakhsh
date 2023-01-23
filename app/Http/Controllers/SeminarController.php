@@ -41,9 +41,7 @@ class SeminarController extends Controller
         return response()->json();
     }
 
-    /**
-     * @throws \Exception
-     */
+
     public function ZarinpalPay(Request $request)
     {
 
