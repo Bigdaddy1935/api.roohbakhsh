@@ -51,31 +51,20 @@ class SeminarController extends Controller
             'phone' => 'required|string|max:11|unique:seminars,phone',
         ]);
 
-        $amount=$request->amount;
-        $response = zarinpal()
-            ->merchantId('845b5d38-3c62-11ea-b338-000c295eb8fc') // تعیین مرچنت کد در حین اجرا - اختیاری
-            ->amount($amount) // مبلغ تراکنش
-            ->request()
-            ->description('ثبت نام در سمینار سید کاظم روحبخش') // توضیحات تراکنش
-            ->callbackUrl('https://roohbakhshac.ir/seminar/verify') // آدرس برگشت پس از پرداخت
-            ->send();
+        $data=$request->all();
+        $invoice=new Invoice();
+        $amount=$data['amount'];
+        $invoice->amount($amount);
 
-        if (!$response->success()) {
-            return $response->error()->message();
-        }
+        $url ="https://roohbakhshac.ir/club/verify";
+        return  Payment::callbackUrl($url)->purchase($invoice,function($driver, $transactionId ) use ($amount) {
+            $data=[
+                'amount'=>$amount,
+                'authority'=>$transactionId,
+            ];
+            Zarinpal::query()->create($data);
 
-
-$data=[
-    'amount'=>$amount,
-    'authority'=>$response->authority()
-];
-
-        Zarinpal::query()->create($data);
-
-// هدایت مشتری به درگاه پرداخت
-       return response()->json([
-           'action'=>$response->url()
-       ]);
+        })->pay()->toJson();
     }
 
     public function VerifyZarinpalPaid(Request $request)
