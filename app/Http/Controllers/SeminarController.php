@@ -33,7 +33,7 @@ class SeminarController extends Controller
                 'user_count'=>$request->user_count
             ];
 
-        $registered = Seminar::query()->create($data);
+        $registered = Seminar::create($data);
 
         return response()->json([
             'message' => 'ثبت نام با موفقیت انجام شد',
@@ -63,7 +63,7 @@ class SeminarController extends Controller
                 'amount'=>$amount,
                 'authority'=>$transactionId,
             ];
-            Zarinpal::query()->create($data);
+            Zarinpal::create($data);
 
         })->pay()->toJson();
     }
