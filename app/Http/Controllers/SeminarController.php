@@ -72,7 +72,7 @@ class SeminarController extends Controller
     {
         $authority = $request->input('Authority');
         $zarinpal=DB::table('zarinpals')->where('authority',$authority)->first();
-        $amount=$zarinpal->amount;
+       $amount=$request->amount;
         $response = Payment::amount($amount)->transactionId($authority)->verify();
 
         if ($response) {
