@@ -78,9 +78,9 @@ $data=[
 
     public function VerifyZarinpalPaid(Request $request)
     {
-        $authority = request()->query('Authority'); // دریافت کوئری استرینگ ارسال شده توسط زرین پال
-        $status = request()->query('Status'); // دریافت کوئری استرینگ ارسال شده توسط زرین پال
-        $amount=$request->amount;
+        $authority = $request->input('Authority');
+        $zarinpal=DB::table('zarinpals')->where('authority',$authority)->first();
+        $amount=$zarinpal->amount;
         $response = zarinpal()
             ->merchantId('845b5d38-3c62-11ea-b338-000c295eb8fc') // تعیین مرچنت کد در حین اجرا - اختیاری
             ->amount($amount)
