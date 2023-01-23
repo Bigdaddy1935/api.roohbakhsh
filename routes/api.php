@@ -12,6 +12,7 @@ use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SeminarController;
 use App\Http\Controllers\TutorialController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideoProgressBarController;
@@ -135,9 +136,14 @@ Route::middleware('auth:sanctum')->prefix('tutorial')->controller(TutorialContro
 Route::prefix('invoices')->controller(InvoiceController::class)->group(function (){
    Route::get('total/amount','TotalAmount');
    Route::get('total/sell','TotalSell');
+
 });
 
-
+Route::prefix('seminars')->controller(SeminarController::class)->group(function (){
+   Route::middleware('XSS')->post('register','SeminarRegister');
+   Route::middleware('XSS')->post('invoice','ZarinpalPay');
+   Route::middleware('XSS')->post('invoice/verify','ZarinpalPay');
+});
 
 
 //APP ROUTES
