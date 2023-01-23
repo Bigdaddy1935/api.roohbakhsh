@@ -139,7 +139,7 @@ Route::prefix('invoices')->controller(InvoiceController::class)->group(function 
 
 });
 
-Route::prefix('seminars')->controller(SeminarController::class)->group(function (){
+Route::middleware('cors')->prefix('seminars')->controller(SeminarController::class)->group(function (){
    Route::middleware('XSS')->post('register','SeminarRegister');
    Route::middleware('XSS')->post('invoice','ZarinpalPay');
    Route::middleware('XSS')->post('invoice/verify','ZarinpalPay');

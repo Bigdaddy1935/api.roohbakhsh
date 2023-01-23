@@ -73,7 +73,7 @@ $data=[
         Zarinpal::query()->create($data);
 
 // هدایت مشتری به درگاه پرداخت
-        return $response->redirect();
+        return response()->json($response->redirect())->header('');
     }
 
     public function VerifyZarinpalPaid(Request $request)
