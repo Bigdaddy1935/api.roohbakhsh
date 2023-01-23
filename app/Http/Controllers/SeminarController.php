@@ -21,6 +21,7 @@ class SeminarController extends Controller
             'authority' => 'required',
             'firstname' => 'required',
             'lastname' => 'required',
+            'user_count'=>'required'
         ]);
 
         $data =
@@ -29,6 +30,7 @@ class SeminarController extends Controller
                 'fullname' => $request->firstname . ',' . $request->lastname,
                 'amount' => $request->amount,
                 'authority' => $request->authority,
+                'user_count'=>$request->user_count
             ];
 
         $registered = Seminar::query()->create($data);
@@ -44,6 +46,10 @@ class SeminarController extends Controller
      */
     public function ZarinpalPay(Request $request)
     {
+
+        $request->validate([
+            'phone' => 'required|string|max:11|unique:seminars,phone',
+        ]);
 
         $amount=$request->amount;
         $response = zarinpal()
