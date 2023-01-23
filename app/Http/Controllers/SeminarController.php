@@ -99,7 +99,7 @@ $data=[
                 'name' => $request->lastname
             );
             $client->sendPatternSms($fromNum, $toNum, $user, $pass, $pattern_code, $input_data);
-            return $response->referenceId();
+            return response()->json($response->referenceId());
         }
             return $response->error()->message();
 
