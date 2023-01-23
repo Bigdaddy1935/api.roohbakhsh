@@ -57,7 +57,7 @@ class SeminarController extends Controller
             ->amount($amount) // مبلغ تراکنش
             ->request()
             ->description('ثبت نام در سمینار سید کاظم روحبخش') // توضیحات تراکنش
-            ->callbackUrl('https://roohbakhshac.ir/seminar/tehran') // آدرس برگشت پس از پرداخت
+            ->callbackUrl('https://roohbakhshac.ir/seminar/verify') // آدرس برگشت پس از پرداخت
             ->send();
 
         if (!$response->success()) {
