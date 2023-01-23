@@ -83,14 +83,9 @@ $data=[
         $authority = $request->input('Authority');
         $zarinpal=DB::table('zarinpals')->where('authority',$authority)->first();
         $amount=$zarinpal->amount;
-        $response = zarinpal()
-            ->merchantId('845b5d38-3c62-11ea-b338-000c295eb8fc') // تعیین مرچنت کد در حین اجرا - اختیاری
-            ->amount($amount)
-            ->verification()
-            ->authority($authority)
-            ->send();
+        $response = Payment::amount($amount)->transactionId($authority)->verify();
 
-        if ($response->success()) {
+        if ($response) {
             $client = new SoapClient("https://ippanel.com/class/sms/wsdlservice/server.php?wsdl");
             $user = "ghasem13741374";
             $pass = "uLhN23sHvH20@";
@@ -101,9 +96,11 @@ $data=[
                 'name' => $request->lastname
             );
             $client->sendPatternSms($fromNum, $toNum, $user, $pass, $pattern_code, $input_data);
-            return response()->json($response->referenceId());
+            return response()->json($response->getReferenceId());
         }
-            return $response->error()->message();
+        return response()->json([
+            'message'=>'پرداخت ناموفق'
+        ],404);
 
     }
 }
