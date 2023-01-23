@@ -23,11 +23,14 @@ class SeminarController extends Controller
 
     public function SeminarRegister(Request $request)
     {
+        $request->validate([
+            'phone' => 'required|string|max:11|unique:seminars,phone',
+        ]);
 
-//        $fullname=$request->firstname.','.$request->lastname;
+        $fullname=$request->firstname.','.$request->lastname;
         $data=[
                 'phone' => $request->phone,
-//                'fullname'=>$fullname,
+                'fullname'=>$fullname,
                 'amount' => $request->amount,
                 'authority' => $request->authority,
                 'user_count'=>$request->user_count,
