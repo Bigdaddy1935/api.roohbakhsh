@@ -56,7 +56,7 @@ class SeminarController extends Controller
         $amount=$data['amount'];
         $invoice->amount($amount);
 
-        $url ="https://roohbakhshac.ir/club/verify";
+        $url ="https://roohbakhshac.ir/seminar/verify";
         return  Payment::callbackUrl($url)->purchase($invoice,function($driver, $transactionId ) use ($amount) {
             $data=[
                 'amount'=>$amount,
