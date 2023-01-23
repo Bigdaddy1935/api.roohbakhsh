@@ -73,7 +73,9 @@ $data=[
         Zarinpal::query()->create($data);
 
 // هدایت مشتری به درگاه پرداخت
-        return $response->url();
+       return response()->json([
+           'action'=>$response->url()
+       ]);
     }
 
     public function VerifyZarinpalPaid(Request $request)
