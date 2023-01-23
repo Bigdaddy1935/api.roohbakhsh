@@ -36,12 +36,9 @@ class SeminarController extends Controller
                 'user_count'=>$request->user_count,
             ];
 
-        $registered = $this->seminarRepository->create($data);
+ $this->seminarRepository->create($data);
 
-        return response()->json([
-            'message' => 'ثبت نام با موفقیت انجام شد',
-            'registered' => $registered
-        ]);
+        return response()->json();
     }
 
     /**
