@@ -25,16 +25,12 @@ class SeminarController extends Controller
     {
         $request->validate([
             'phone' => 'required|string|max:11|unique:seminars,phone',
-            'amount' => 'required',
-            'authority' => 'required',
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'user_count'=>'required'
         ]);
 
-        $data =[
+        $fullname=$request->firstname.','.$request->lastname;
+        $data=[
                 'phone' => $request->phone,
-                'fullname'=>$request->firstname.','.$request->lastname,
+                'fullname'=>$fullname,
                 'amount' => $request->amount,
                 'authority' => $request->authority,
                 'user_count'=>$request->user_count,
