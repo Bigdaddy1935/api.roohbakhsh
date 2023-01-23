@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Seminar;
+
 use App\Models\Zarinpal;
 use App\Repositories\SeminarRepository;
 use Illuminate\Http\Request;
@@ -21,22 +21,22 @@ class SeminarController extends Controller
         $this->seminarRepository = $seminarRepository;
     }
 
-    public function SeminarRegister(Request $request)
+    public function SeminarRegister(Request $request): \Illuminate\Http\JsonResponse
     {
         $request->validate([
             'phone' => 'required|string|max:11|unique:seminars,phone',
         ]);
 
-        $fullname=$request->firstname.','.$request->lastname;
+
         $data=[
                 'phone' => $request->phone,
-                'fullname'=>$fullname,
+                'fullname'=>$request->firstname.','.$request->lastname,
                 'amount' => $request->amount,
                 'authority' => $request->authority,
                 'user_count'=>$request->user_count,
             ];
 
- $this->seminarRepository->create($data);
+        $this->seminarRepository->create($data);
 
         return response()->json();
     }
@@ -68,7 +68,7 @@ class SeminarController extends Controller
         })->pay()->toJson();
     }
 
-    public function VerifyZarinpalPaid(Request $request)
+    public function VerifyZarinpalPaid(Request $request): \Illuminate\Http\JsonResponse
     {
         $authority = $request->input('Authority');
         $zarinpal=DB::table('zarinpals')->where('authority',$authority)->first();
