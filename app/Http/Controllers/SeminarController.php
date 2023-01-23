@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Seminar;
 use App\Models\Zarinpal;
+use App\Repositories\SeminarRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Shetabit\Multipay\Invoice;
@@ -12,6 +13,13 @@ use SoapClient;
 
 class SeminarController extends Controller
 {
+
+    protected SeminarRepository $seminarRepository;
+
+    public function __construct(SeminarRepository $seminarRepository)
+    {
+        $this->seminarRepository = $seminarRepository;
+    }
 
     public function SeminarRegister(Request $request)
     {
@@ -32,7 +40,7 @@ class SeminarController extends Controller
                 'user_count'=>$request->user_count,
             ];
 
-        $registered = Seminar::query()->create($data);
+        $registered = $this->seminarRepository->create($data);
 
         return response()->json([
             'message' => 'ثبت نام با موفقیت انجام شد',
