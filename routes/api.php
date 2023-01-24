@@ -142,7 +142,7 @@ Route::prefix('invoices')->controller(InvoiceController::class)->group(function 
 Route::prefix('seminars')->controller(SeminarController::class)->group(function (){
    Route::post('register','SeminarRegister');
    Route::post('invoice','ZarinpalPay');
-   Route::post('invoice/verify','ZarinpalPay');
+   Route::post('invoice/verify','VerifyZarinpalPaid');
 });
 
 

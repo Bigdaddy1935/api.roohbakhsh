@@ -25,6 +25,11 @@ class SeminarController extends Controller
     {
         $request->validate([
             'phone' => 'required|string|max:11|unique:seminars,phone',
+            'firstname'=>'required',
+            'lastname'=>'required',
+            'amount'=>'required',
+            'authority'=>'required',
+            'user_count'=>'required'
         ]);
 
 
@@ -36,9 +41,9 @@ class SeminarController extends Controller
                 'user_count'=>$request->user_count,
             ];
 
-        $this->seminarRepository->create($data);
+      $res=  $this->seminarRepository->create($data);
 
-        return response()->json();
+        return response()->json($res);
     }
 
 
