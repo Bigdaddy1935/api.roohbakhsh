@@ -58,7 +58,7 @@ class SeminarController extends Controller
         $invoice=new Invoice();
         $amount=$data['amount'];
         $invoice->amount($amount);
-        $invoice->detail(['خرید محصول سید کاظم روحبخش'=>'محصول اعتقادی اول']);
+        $invoice->detail(['اکادمی سید کاظم روحبخبش'=>'سمینار تهران']);
 
 
         return  Payment::callbackUrl('https://roohbakhshac.ir/seminar/verify')->purchase($invoice,function($driver, $transactionId ) use ($amount) {
