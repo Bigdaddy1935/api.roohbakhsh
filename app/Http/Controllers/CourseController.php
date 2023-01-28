@@ -320,11 +320,11 @@ protected $result=[];
 
     public function getMedia()
     {
-      $course=  $this->courseRepository->getCourseMedia();
 
-     return response()->json([
+      $course=  $this->courseRepository->getCourseMedia();
+      return response()->json([
          'message'=>$course
-     ]);
+      ]);
     }
 
 
