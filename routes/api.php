@@ -174,6 +174,7 @@ Route::prefix('app/articles')->controller(ArticleController::class)->group(funct
 Route::prefix('app/courses')->controller(CourseController::class)->group(function (){
     Route::get('get','getCourses');
     Route::get('/','index');
+    Route::get('get/{id}','get_course_by_id');
     Route::get('get/media','getMedia');
     Route::get('get/course/count','getCourseLessonsCount');
     Route::middleware(['auth:sanctum','XSS'])->get('like/{id}','likeCourse');
