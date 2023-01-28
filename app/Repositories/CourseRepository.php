@@ -27,7 +27,7 @@ class CourseRepository extends Repository implements CourseRepositoryInterface
             }])
             ->with('lessons')
             ->orderBy('id','DESC')
-            ->paginate(10)->toArray();
+            ->get();
     }
 
     public function GetCoursesData()
