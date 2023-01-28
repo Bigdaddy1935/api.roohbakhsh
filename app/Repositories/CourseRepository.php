@@ -25,9 +25,13 @@ class CourseRepository extends Repository implements CourseRepositoryInterface
             ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
                 $q->where('user_id',$user);
             }])
-            ->with('lessons')
+            ->with('lessons',function ($q) use ($user){
+                $q->withWhereHas('progress',function ($q) use($user) {
+                    $q->where('user_id',$user)->where('percentage','>',0);
+                });
+            })
             ->orderBy('id','DESC')
-            ->get();
+            ->paginate(10)->toArray();
     }
 
     public function GetCoursesData()
