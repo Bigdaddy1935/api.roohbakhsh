@@ -123,7 +123,7 @@ protected $result=[];
         for($i = 0 ; $i < count($course['lessons']); $i++ ){
            $progressTotal +=  $course['lessons'][$i]['progress'][$i]['percentage'];
         }
-        $progressTotal = $progressTotal==0?0:  ($progressTotal / $course['lessons_count']);
+        $progressTotal = $progressTotal==0?0: sprintf("%.2f",($progressTotal / $course['lessons_count']));
         $course['courseProgress'] = $progressTotal;
 
         return response()->json([
