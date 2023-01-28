@@ -177,9 +177,9 @@ Route::prefix('app/courses')->controller(CourseController::class)->group(functio
     Route::get('get/{id}','get_course_by_id');
     Route::get('get/media','getMedia');
     Route::get('get/course/count','getCourseLessonsCount');
-    Route::middleware(['auth:sanctum','XSS'])->get('like/{id}','likeCourse');
-    Route::middleware(['auth:sanctum','XSS'])->get('bookmark/{id}','bookmarkCourse');
-    Route::middleware(['auth:sanctum','XSS'])->get('get/{id}','get_course_by_id')->name('course.get');
+    Route::middleware('auth:sanctum')->get('like/{id}','likeCourse');
+    Route::middleware('auth:sanctum')->get('bookmark/{id}','bookmarkCourse');
+    Route::middleware('auth:sanctum')->get('get/{id}','get_course_by_id')->name('course.get');
 });
 Route::prefix('app/lessons')->controller(LessonController::class)->group(function (){
     Route::get('/','index');
