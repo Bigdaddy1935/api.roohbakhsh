@@ -322,16 +322,9 @@ protected $result=[];
     {
       $course=  $this->courseRepository->getCourseMedia();
 
-        if($course){
-            return response()->json($course);
-        }
-        else{
-            return response()->json([
-
-                'message'=>'رسانه ای ثبت نشده'
-
-            ],401);
-        }
+     return response()->json([
+         'message'=>$course
+     ]);
     }
 
 
