@@ -121,7 +121,7 @@ protected $result=[];
 
         $progressTotal = 0;
         for($i = 0 ; $i < count($course['lessons']); $i++ ){
-           $progressTotal +=  $course['lessons'][$i]['progress'][$i]['percentage'];
+           $progressTotal +=  $course['lessons'][$i]['progress'][0]['percentage'];
         }
         $progressTotal = $progressTotal==0?0: sprintf("%.2f",($progressTotal / $course['lessons_count']));
         $course['courseProgress'] = $progressTotal;
