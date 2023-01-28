@@ -17,9 +17,21 @@ class CourseRepository extends Repository implements CourseRepositoryInterface
     public function getCourseMedia()
     {
         $user= auth('sanctum')->id();
-//        return
-        return Course::all();
-
+        return Course::query()->where('type','=','media')->join('users','users.id','=','courses.course_user_id')
+            ->select('courses.*','users.fullname')
+            ->with('categories')
+            ->withAggregate('visits','score')
+            ->withCount('lessons')
+            ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                $q->where('user_id',$user);
+            }])
+            ->with('lessons',function ($q) use ($user){
+                $q->withWhereHas('progress',function ($q) use($user) {
+                    $q->where('user_id',$user)->where('percentage','>',0);
+                });
+            })
+            ->orderBy('id','DESC')
+            ->paginate(10)->toArray();
     }
 
     public function GetCoursesData()
