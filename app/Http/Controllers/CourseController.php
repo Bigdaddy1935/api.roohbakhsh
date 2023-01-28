@@ -320,11 +320,18 @@ protected $result=[];
 
     public function getMedia()
     {
-
       $course=  $this->courseRepository->getCourseMedia();
-      return response()->json([
-         'message'=>$course
-      ]);
+
+        if($course){
+            return response()->json($course);
+        }
+        else{
+            return response()->json([
+
+                'message'=>'رسانه ای ثبت نشده'
+
+            ],401);
+        }
     }
 
 
