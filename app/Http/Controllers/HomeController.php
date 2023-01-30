@@ -102,11 +102,17 @@ class HomeController extends Controller
 
         $title=$request->title;
         $body=$request->body;
+        $picture=$request->picture;
+        $model_type=$request->model_type;
+        $model_id=$request->model_id;
         $this->appNotificationController->sendWebNotification($title,$body);
 
       $saveNotify=  Notification::query()->create([
             'title'=>$title,
-            'body'=>$body
+            'body'=>$body,
+          'picture'=>$picture,
+          'model_type'=>$model_type,
+          'model_id'=>$model_id,
         ]);
 
 
@@ -139,6 +145,9 @@ class HomeController extends Controller
         $data=[
             'title'=>$request->title,
             'body'=>$request->body,
+            'picture'=>$request->picture,
+            'model_type'=>$request->model_type,
+            'model_id'=>$request->model_id,
         ];
 
        $result= Notification::query()->where('id',$id)->update($data);

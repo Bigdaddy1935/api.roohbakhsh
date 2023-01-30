@@ -17,6 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('body');
+            $table->text('picture');
+            $table->integer('model_id')->unsigned();
+            $table->string('model_type');
             $table->timestamps();
         });
     }
