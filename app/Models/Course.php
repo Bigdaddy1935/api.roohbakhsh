@@ -83,7 +83,7 @@ class Course extends Model
 
     public function notifications()
     {
-        return $this->morphMany(Notification::class, 'model_type');
+        return $this->morphMany(Notification::class, 'model');
     }
 
 }
