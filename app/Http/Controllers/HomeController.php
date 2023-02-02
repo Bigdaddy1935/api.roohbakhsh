@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\SearchRepositoryInterface;
+use App\Models\Article;
+use App\Models\Course;
+use App\Models\Lesson;
 use App\Models\Notification;
+use App\Models\Product;
 use App\Models\Tutorial;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -103,22 +107,52 @@ class HomeController extends Controller
         $title=$request->title;
         $body=$request->body;
         $picture=$request->picture;
-        $model_type=$request->model_type;
-        $model_id=$request->model_id;
+//        $model_type=$request->model_type;
+//        $model_id=$request->model_id;
         $this->appNotificationController->sendWebNotification($title,$body);
 
-      $saveNotify=  Notification::query()->create([
-            'title'=>$title,
-            'body'=>$body,
-          'picture'=>$picture,
-          'model_type'=>$model_type,
-          'model_id'=>$model_id,
-        ]);
+
+        $notify=new Notification;
+        $notify->title=$title;
+        $notify->body=$body;
+        $notify->picture=$picture;
+
+        if($request->course_id != null){
+            $course=Course::query()->find($request->course_id);
+            $course->notifications()->save($notify);
+        }
+        elseif ($request->lesson_id != null){
+            $lesson=Lesson::query()->find($request->lesson_id);
+            $lesson->notifications()->save($notify);
+        }
+        elseif ($request->article_id != null){
+            $article=Article::query()->find($request->article_id);
+            $article->notifications()->save($notify);
+        }elseif ($request->product_id != null){
+            $product=Product::query()->find($request->product_id);
+            $product->notifications()->save($notify);
+        }else
+        {
+
+             Notification::query()->create([
+                'title'=>$title,
+                'body'=>$body,
+                'picture'=>$picture,
+                'model_type'=>$request->model_type,
+                'model_id'=>$request->model_id,
+            ]);
+            return response()->json([
+                'message'=>'news notifications send successfully'
+            ]);
+        }
+
+
+
 
 
         return response()->json([
             'message'=>'اعلان با موفقیت ارسال شد',
-            'notification'=>$saveNotify,
+            'notification'=>$notify,
         ]);
 
     }

@@ -101,4 +101,9 @@ class Product extends Model
         return $this->belongsToMany(Product::class, 'related_products', 'product_id', 'related_product_id');
     }
 
+    public function notifications()
+    {
+        return $this->morphMany(Notification::class, 'model_type');
+    }
+
 }

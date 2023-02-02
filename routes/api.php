@@ -147,7 +147,7 @@ Route::prefix('seminars')->controller(SeminarController::class)->group(function 
 
 
 //APP ROUTES
-Route::middleware(['auth:sanctum','XSS'])->prefix('app')->controller(AppNotificationController::class)->group(function (){
+Route::middleware('auth:sanctum')->prefix('app')->controller(AppNotificationController::class)->group(function (){
     Route::post('store','storeToken');
 });
 

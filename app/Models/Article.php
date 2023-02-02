@@ -58,4 +58,9 @@ class Article extends Model
     {
         return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id');
     }
+
+    public function notifications()
+    {
+        return $this->morphMany(Notification::class, 'model_type');
+    }
 }

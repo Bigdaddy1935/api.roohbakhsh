@@ -81,4 +81,9 @@ class Course extends Model
        return $this->belongsTo(Product::class ,'id','course_id',);
     }
 
+    public function notifications()
+    {
+        return $this->morphMany(Notification::class, 'model_type');
+    }
+
 }

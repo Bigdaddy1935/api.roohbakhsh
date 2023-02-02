@@ -9,5 +9,25 @@ class Notification extends Model
 {
     use HasFactory;
 
-    protected $fillable=['title','body'];
+    protected $guarded=[];
+
+
+
+
+    public function lesson()
+    {
+        return $this->belongsTo(Lesson::class);
+    }
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
+    public function article()
+    {
+        return $this->belongsTo(Article::class);
+    }
 }

@@ -87,4 +87,9 @@ protected $casts=[
     {
         return $this->morphMany(Comment::class, 'commentable')->whereNull('parent_id');
     }
+
+    public function notifications()
+    {
+        return $this->morphMany(Notification::class, 'model_type');
+    }
 }

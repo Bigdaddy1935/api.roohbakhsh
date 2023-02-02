@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 
-class CommentRepository extends Repository implements CommentRepositoryInterface
+class
+CommentRepository extends Repository implements CommentRepositoryInterface
 {
 
     public function model()
