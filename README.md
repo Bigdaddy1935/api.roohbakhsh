@@ -5,7 +5,5 @@ RoohbakhshAc Is  A content-oriented software
 Applications For Seyed Kazem Roohbakhsh fans.
 
 - Backend Developer and Devops: [Emad Ghobeyshavi](https://jobinja.ir/user/MN-1648329).
-- Front-end Developer and UI/UX Designer Reza Madahi.
-
 
 >>>>>>> Emad BigDaddy1935
