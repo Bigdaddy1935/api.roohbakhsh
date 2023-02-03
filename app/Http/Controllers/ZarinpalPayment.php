@@ -64,7 +64,7 @@ class ZarinpalPayment
                 $client = new SoapClient("https://ippanel.com/class/sms/wsdlservice/server.php?wsdl");
                 $user = "ghasem13741374";
                 $pass = "uLhN23sHvH20@";
-                $fromNum = "+98EVENT";
+                $fromNum = "+983000505";
                 $toNum = $request->parent_num;
                 $pattern_code = "cqaovf26yyhqe4m";
                 $input_data = array(
