@@ -13,6 +13,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SeminarController;
+use App\Http\Controllers\ShowcaseController;
 use App\Http\Controllers\TutorialController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideoProgressBarController;
@@ -42,6 +43,10 @@ Route::middleware('auth:sanctum',)->prefix('courses')->controller(CourseControll
     Route::get('/','index');
     Route::post('update/{id}', 'updateCourse');
     Route::delete('delete/{id}','deleteCourse');
+});
+
+Route::middleware('auth:sanctum')->prefix('showcase')->controller(ShowcaseController::class)->group(function (){
+    Route::post('add','addShowcase');
 });
 
 
