@@ -8,6 +8,7 @@
         "php": "^8.0",
         "ext-curl": "*",
         "ext-soap": "*",
+        "alajusticia/laravel-expirable": "^1.6",
         "awssat/laravel-visits": "^4.0",
         "bepsvpt/secure-headers": "^7.3",
         "beyondcode/laravel-vouchers": "*",

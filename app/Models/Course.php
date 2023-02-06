@@ -85,5 +85,9 @@ class Course extends Model
     {
         return $this->morphMany(Notification::class, 'model');
     }
+    public function showcases()
+    {
+        return $this->morphMany(Showcase::class, 'model');
+    }
 
 }
