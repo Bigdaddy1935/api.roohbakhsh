@@ -299,4 +299,11 @@ class ArticleController extends Controller
         $result=$this->articleRepository->ArticlesFromTag($tags,$user);
         return response()->json($result);
     }
+
+    public function list()
+    {
+        $list = $this->articleRepository->ArticleList();
+
+        return response()->json($list);
+    }
 }

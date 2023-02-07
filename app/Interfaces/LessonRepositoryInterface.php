@@ -11,4 +11,5 @@ interface LessonRepositoryInterface
     public function GetLessonsOfAllMedias();
     public function GetSpecificLesson($id);
     public function lessonsCount();
+    public function lessonsList();
 }

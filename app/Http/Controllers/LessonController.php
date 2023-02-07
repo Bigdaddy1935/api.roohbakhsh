@@ -325,4 +325,11 @@ class LessonController extends Controller
           'lessonsCount'=>$result
       ]);
     }
+
+    public function list()
+    {
+      $list=  $this->lessonRepository->lessonsList();
+
+        return response()->json($list);
+    }
 }

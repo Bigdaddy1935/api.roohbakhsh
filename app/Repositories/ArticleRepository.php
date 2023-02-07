@@ -59,4 +59,20 @@ class ArticleRepository extends Repository implements ArticleRepositoryInterface
             ->orderBy('id','DESC')
             ->paginate(10);
     }
+
+    public function ArticleList()
+    {
+        $user= auth('sanctum')->id();
+
+        return   Article::query()
+            ->join('users','users.id','=','articles.user_id')
+            ->select('articles.*','users.fullname')
+            ->with(['tagged','categories'])
+            ->withAggregate('visits','score')
+            ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                $q->where('user_id',$user);
+            }])
+            ->orderBy('id','DESC')
+            ->get();
+    }
 }

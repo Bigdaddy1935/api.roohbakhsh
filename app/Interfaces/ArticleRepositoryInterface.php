@@ -7,6 +7,7 @@ interface ArticleRepositoryInterface
     public function GetArticlesData();
     public function GetSpecificArticle($id);
     public function ArticlesCount();
-
     public function ArticlesFromTag($tags,$user);
+
+    public function ArticleList();
 }
