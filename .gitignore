@@ -1,6 +1,5 @@
 /node_modules
 /storage/*.key
-/vendor
 /public
 .env
 .phpunit.result.cache
