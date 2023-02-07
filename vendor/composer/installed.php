@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '62f805f578a46a8d147260c103119a46dddae44d',
+        'reference' => '6a04531775df26bfa575d4c22edc06dca33b7fe9',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -29,9 +29,9 @@
             'dev_requirement' => false,
         ),
         'bepsvpt/secure-headers' => array(
-            'pretty_version' => '7.3.0',
-            'version' => '7.3.0.0',
-            'reference' => '37abad037e0c608e4434b7777af53fdf430510e8',
+            'pretty_version' => '7.4.0',
+            'version' => '7.4.0.0',
+            'reference' => '639e99c72bdfe3d6f933f0a1e0abe1ca722e2e67',
             'type' => 'library',
             'install_path' => __DIR__ . '/../bepsvpt/secure-headers',
             'aliases' => array(),
@@ -468,7 +468,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '62f805f578a46a8d147260c103119a46dddae44d',
+            'reference' => '6a04531775df26bfa575d4c22edc06dca33b7fe9',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -574,9 +574,9 @@
             'dev_requirement' => true,
         ),
         'monolog/monolog' => array(
-            'pretty_version' => '2.9.0',
-            'version' => '2.9.0.0',
-            'reference' => 'e1c0ae1528ce313a450e5e1ad782765c4a8dd3cb',
+            'pretty_version' => '2.9.1',
+            'version' => '2.9.1.0',
+            'reference' => 'f259e2b15fb95494c83f52d3caad003bbf5ffaa1',
             'type' => 'library',
             'install_path' => __DIR__ . '/../monolog/monolog',
             'aliases' => array(),
@@ -846,8 +846,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0.0 || 2.0.0 || 3.0.0',
-                1 => '1.0|2.0|3.0',
+                0 => '1.0|2.0|3.0',
+                1 => '1.0.0 || 2.0.0 || 3.0.0',
             ),
         ),
         'psr/simple-cache' => array(
@@ -904,7 +904,7 @@
         'ramsey/uuid' => array(
             'pretty_version' => '4.x-dev',
             'version' => '4.9999999.9999999.9999999-dev',
-            'reference' => '25c4faac19549ebfcd3a6a73732dddeb188eaf5a',
+            'reference' => 'd33a8f1023af74aae4071dc98b5955d0b185ab6f',
             'type' => 'library',
             'install_path' => __DIR__ . '/../ramsey/uuid',
             'aliases' => array(),
@@ -1133,9 +1133,9 @@
             'dev_requirement' => false,
         ),
         'spatie/laravel-permission' => array(
-            'pretty_version' => '5.8.0',
-            'version' => '5.8.0.0',
-            'reference' => '9f5a74f858d22ecefd9ee44a0ac64a95fd0bf755',
+            'pretty_version' => '5.9.1',
+            'version' => '5.9.1.0',
+            'reference' => 'a88ed98c8937442737e0c50163682e832d608f13',
             'type' => 'library',
             'install_path' => __DIR__ . '/../spatie/laravel-permission',
             'aliases' => array(),

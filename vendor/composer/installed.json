@@ -153,32 +153,32 @@
         },
         {
             "name": "bepsvpt/secure-headers",
-            "version": "7.3.0",
-            "version_normalized": "7.3.0.0",
+            "version": "7.4.0",
+            "version_normalized": "7.4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bepsvpt/secure-headers.git",
-                "reference": "37abad037e0c608e4434b7777af53fdf430510e8"
+                "reference": "639e99c72bdfe3d6f933f0a1e0abe1ca722e2e67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bepsvpt/secure-headers/zipball/37abad037e0c608e4434b7777af53fdf430510e8",
-                "reference": "37abad037e0c608e4434b7777af53fdf430510e8",
+                "url": "https://api.github.com/repos/bepsvpt/secure-headers/zipball/639e99c72bdfe3d6f933f0a1e0abe1ca722e2e67",
+                "reference": "639e99c72bdfe3d6f933f0a1e0abe1ca722e2e67",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.0 || ^8.0"
             },
             "require-dev": {
-                "ergebnis/composer-normalize": "~2.28",
+                "ergebnis/composer-normalize": "~2.29",
                 "ext-json": "*",
                 "ext-xdebug": "*",
-                "laravel/pint": "~1.2",
-                "orchestra/testbench": "~3.1 || ~4.18 || ~5.20 || ~6.25 || ~7.13",
+                "laravel/pint": "~1.4",
+                "orchestra/testbench": "~3.1 || ~4.18 || ~5.20 || ~6.25 || ~7.19 || ~8.0",
                 "phpstan/phpstan": "~1.9",
-                "phpunit/phpunit": "~5.7 || ~6.5 || ~7.5 || ~8.5 || ~9.5"
+                "phpunit/phpunit": "~5.7 || ~6.5 || ~7.5 || ~8.5 || ~9.5 || ~10.0"
             },
-            "time": "2022-11-20T03:20:37+00:00",
+            "time": "2023-02-06T13:24:48+00:00",
             "type": "library",
             "extra": {
                 "laravel": {
@@ -222,7 +222,7 @@
             ],
             "support": {
                 "issues": "https://github.com/bepsvpt/secure-headers/issues",
-                "source": "https://github.com/bepsvpt/secure-headers/tree/7.3.0"
+                "source": "https://github.com/bepsvpt/secure-headers/tree/7.4.0"
             },
             "funding": [
                 {
@@ -2964,17 +2964,17 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "2.9.0",
-            "version_normalized": "2.9.0.0",
+            "version": "2.9.1",
+            "version_normalized": "2.9.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "e1c0ae1528ce313a450e5e1ad782765c4a8dd3cb"
+                "reference": "f259e2b15fb95494c83f52d3caad003bbf5ffaa1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/e1c0ae1528ce313a450e5e1ad782765c4a8dd3cb",
-                "reference": "e1c0ae1528ce313a450e5e1ad782765c4a8dd3cb",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/f259e2b15fb95494c83f52d3caad003bbf5ffaa1",
+                "reference": "f259e2b15fb95494c83f52d3caad003bbf5ffaa1",
                 "shasum": ""
             },
             "require": {
@@ -3020,7 +3020,7 @@
                 "rollbar/rollbar": "Allow sending log messages to Rollbar",
                 "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
             },
-            "time": "2023-02-05T13:07:32+00:00",
+            "time": "2023-02-06T13:44:46+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -3053,7 +3053,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Seldaek/monolog/issues",
-                "source": "https://github.com/Seldaek/monolog/tree/2.9.0"
+                "source": "https://github.com/Seldaek/monolog/tree/2.9.1"
             },
             "funding": [
                 {
@@ -5117,12 +5117,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ramsey/uuid.git",
-                "reference": "25c4faac19549ebfcd3a6a73732dddeb188eaf5a"
+                "reference": "d33a8f1023af74aae4071dc98b5955d0b185ab6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ramsey/uuid/zipball/25c4faac19549ebfcd3a6a73732dddeb188eaf5a",
-                "reference": "25c4faac19549ebfcd3a6a73732dddeb188eaf5a",
+                "url": "https://api.github.com/repos/ramsey/uuid/zipball/d33a8f1023af74aae4071dc98b5955d0b185ab6f",
+                "reference": "d33a8f1023af74aae4071dc98b5955d0b185ab6f",
                 "shasum": ""
             },
             "require": {
@@ -5163,7 +5163,7 @@
                 "paragonie/random-lib": "Provides RandomLib for use with the RandomLibAdapter",
                 "ramsey/uuid-doctrine": "Allows the use of Ramsey\\Uuid\\Uuid as Doctrine field type."
             },
-            "time": "2023-01-28T17:00:47+00:00",
+            "time": "2023-02-06T21:10:27+00:00",
             "default-branch": true,
             "type": "library",
             "extra": {
@@ -6921,17 +6921,17 @@
         },
         {
             "name": "spatie/laravel-permission",
-            "version": "5.8.0",
-            "version_normalized": "5.8.0.0",
+            "version": "5.9.1",
+            "version_normalized": "5.9.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-permission.git",
-                "reference": "9f5a74f858d22ecefd9ee44a0ac64a95fd0bf755"
+                "reference": "a88ed98c8937442737e0c50163682e832d608f13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/9f5a74f858d22ecefd9ee44a0ac64a95fd0bf755",
-                "reference": "9f5a74f858d22ecefd9ee44a0ac64a95fd0bf755",
+                "url": "https://api.github.com/repos/spatie/laravel-permission/zipball/a88ed98c8937442737e0c50163682e832d608f13",
+                "reference": "a88ed98c8937442737e0c50163682e832d608f13",
                 "shasum": ""
             },
             "require": {
@@ -6939,14 +6939,14 @@
                 "illuminate/container": "^7.0|^8.0|^9.0|^10.0",
                 "illuminate/contracts": "^7.0|^8.0|^9.0|^10.0",
                 "illuminate/database": "^7.0|^8.0|^9.0|^10.0",
-                "php": "^7.3|^8.0|^8.1"
+                "php": "^7.3|^8.0"
             },
             "require-dev": {
                 "orchestra/testbench": "^5.0|^6.0|^7.0|^8.0",
                 "phpunit/phpunit": "^9.4",
                 "predis/predis": "^1.1"
             },
-            "time": "2023-01-14T05:16:37+00:00",
+            "time": "2023-02-06T21:37:02+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -6994,7 +6994,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-permission/issues",
-                "source": "https://github.com/spatie/laravel-permission/tree/5.8.0"
+                "source": "https://github.com/spatie/laravel-permission/tree/5.9.1"
             },
             "funding": [
                 {
