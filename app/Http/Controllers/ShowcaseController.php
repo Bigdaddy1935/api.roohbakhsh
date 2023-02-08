@@ -21,8 +21,9 @@ class ShowcaseController extends Controller
 
         if($request->course_id != null){
             $course=Course::query()->find($request->course_id);
+            $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
             $course->showcases()->save($showcase);
-            $showcase->expiresAt(Carbon::now()->addSeconds($request->ends_at));
+
         }
         elseif ($request->lesson_id != null){
             $lesson=Lesson::query()->find($request->lesson_id);
@@ -57,5 +58,17 @@ class ShowcaseController extends Controller
             'message'=>'showcase added successfully'
         ]);
 
+    }
+
+    public function getShowcase()
+    {
+        $notexpire=Showcase::query()->get();
+
+        $expire=Showcase::query()->onlyExpired()->get();
+
+        return response()->json([
+            'NotExpired'=>$notexpire,
+            'Expired'=>$expire,
+        ]);
     }
 }

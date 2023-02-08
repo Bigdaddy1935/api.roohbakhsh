@@ -11,6 +11,8 @@ class Showcase extends Model
 {
     use HasFactory , Expirable;
 
+    protected $guarded=[];
+
     const EXPIRES_AT = 'ends_at';
 
     public function lesson()
