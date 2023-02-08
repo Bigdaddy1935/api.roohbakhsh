@@ -11,6 +11,8 @@ class Showcase extends Model
 {
     use HasFactory , Expirable;
 
+    const EXPIRES_AT = 'ends_at';
+
     public function lesson()
     {
         return $this->belongsTo(Lesson::class);

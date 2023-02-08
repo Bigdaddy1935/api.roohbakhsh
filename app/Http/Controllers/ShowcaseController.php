@@ -22,7 +22,7 @@ class ShowcaseController extends Controller
         if($request->course_id != null){
             $course=Course::query()->find($request->course_id);
             $course->showcases()->save($showcase);
-            $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
+            $showcase->expiresAt(Carbon::now()->addSeconds($request->ends_at));
         }
         elseif ($request->lesson_id != null){
             $lesson=Lesson::query()->find($request->lesson_id);
