@@ -22,26 +22,26 @@ class ShowcaseController extends Controller
         if($request->course_id != null){
             $course=Course::query()->find($request->course_id);
             $course->showcases()->save($showcase);
-            $showcase->expiresAt(Carbon::now()->addHours($request->expire));
+            $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
         }
         elseif ($request->lesson_id != null){
             $lesson=Lesson::query()->find($request->lesson_id);
-            $showcase->expiresAt(Carbon::now()->addHours($request->expire));
+            $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
             $lesson->showcases()->save($showcase);
 
         }
         elseif ($request->article_id != null){
             $article=Article::query()->find($request->article_id);
-            $showcase->expiresAt(Carbon::now()->addHours($request->expire));
+            $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
             $article->showcases()->save($showcase);
 
         }elseif ($request->product_id != null){
             $product=Product::query()->find($request->product_id);
-            $showcase->expiresAt(Carbon::now()->addHours($request->expire));
+            $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
             $product->showcases()->save($showcase);
         }else {
 
-            $showcase->expiresAt(Carbon::now()->addHours($request->expires));
+            $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
             Showcase::query()->create([
                 'picture'=>$request->picture,
                 'url'=>$request->url,
