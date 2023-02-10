@@ -48,7 +48,8 @@ Route::middleware('auth:sanctum',)->prefix('courses')->controller(CourseControll
 Route::middleware('auth:sanctum')->prefix('showcase')->controller(ShowcaseController::class)->group(function (){
     Route::post('add','addShowcase');
     Route::get('get','getShowcase');
-    Route::delete('delete','deleteShowcase');
+    Route::delete('delete/{id}','deleteShowcase');
+    Route::post('update/{id}','updateShowcase');
 });
 
 

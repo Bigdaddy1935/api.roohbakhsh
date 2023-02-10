@@ -94,4 +94,20 @@ class ShowcaseController extends Controller
         ]);
 
     }
+
+    public function updateShowcase(Request $request,$id)
+    {
+
+        $data=[
+            'model_type'=>$request->model_type,
+            'model_id'=>$request->model_id,
+            'picture'=>$request->picture,
+            'url'=>$request->url,
+            'ends_at'=>$request->ends_at,
+        ];
+        $showcase=Showcase::query()->where('id',$id)->update($data);
+
+        return response()->json($data);
+
+    }
 }
