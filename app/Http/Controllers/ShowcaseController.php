@@ -32,7 +32,7 @@ class ShowcaseController extends Controller
                 'picture'=>$request->picture,
                 'model_type'=>'App\Models\Media',
                 'model_id'=>$request->media_id,
-                'ends_at'=>$request->ends_at,
+                'ends_at'=>$showcase->ends_at,
             ]);
 
         }
@@ -57,7 +57,7 @@ class ShowcaseController extends Controller
             Showcase::query()->create([
                 'picture'=>$request->picture,
                 'url'=>$request->url,
-                'ends_at'=>$request->ends_at,
+                'ends_at'=>$showcase->ends_at
             ]);
 
             return response()->json([
