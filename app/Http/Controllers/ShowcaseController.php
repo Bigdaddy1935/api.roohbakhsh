@@ -8,6 +8,7 @@ use App\Models\Lesson;
 use App\Models\Product;
 use App\Models\Showcase;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ShowcaseController extends Controller
@@ -23,6 +24,16 @@ class ShowcaseController extends Controller
             $course=Course::query()->find($request->course_id);
             $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
             $course->showcases()->save($showcase);
+
+        }
+        elseif($request->media_id != null){
+            $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
+            Showcase::query()->create([
+                'picture'=>$request->picture,
+                'model_type'=>'App\Models\Media',
+                'model_id'=>$request->media_id,
+                'ends_at'=>$request->ends_at,
+            ]);
 
         }
         elseif ($request->lesson_id != null){
@@ -70,5 +81,17 @@ class ShowcaseController extends Controller
             'NotExpired'=>$notexpire,
             'Expired'=>$expire,
         ]);
+    }
+
+    public function deleteShowcase($id): JsonResponse
+    {
+        $ids=explode(",",$id);
+        Showcase::destroy($ids);
+
+        return response()->json([
+            'message'=>'ویترین مورد نظر با موفقیت حذف شد',
+            'showcase_id'=>$ids,
+        ]);
+
     }
 }
