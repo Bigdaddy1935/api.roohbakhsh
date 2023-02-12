@@ -27,8 +27,8 @@ class ShowcaseController extends Controller
 
             if($request->ends_at != null){
                 $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
-                $course->showcases()->save($showcase);
             }
+            $showcase->expiresAt(Carbon::now()->addMonths(6));
             $course->showcases()->save($showcase);
         }
         elseif($request->media_id != null){
@@ -36,7 +36,7 @@ class ShowcaseController extends Controller
             if($request->ends_at != null){
                 $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
             }
-
+            $showcase->expiresAt(Carbon::now()->addMonths(6));
             Showcase::query()->create([
                 'picture'=>$request->picture,
                 'model_type'=>'App\Models\Media',
@@ -50,7 +50,7 @@ class ShowcaseController extends Controller
             if($request->ends_at != null){
                 $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
             }
-
+            $showcase->expiresAt(Carbon::now()->addMonths(6));
             $lesson->showcases()->save($showcase);
 
         }
@@ -59,6 +59,7 @@ class ShowcaseController extends Controller
             if($request->ends_at != null){
                 $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
             }
+            $showcase->expiresAt(Carbon::now()->addMonths(6));
             $article->showcases()->save($showcase);
 
         }elseif ($request->product_id != null){
@@ -66,12 +67,14 @@ class ShowcaseController extends Controller
             if($request->ends_at != null){
                 $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
             }
+            $showcase->expiresAt(Carbon::now()->addMonths(6));
             $product->showcases()->save($showcase);
         }else {
 
             if($request->ends_at != null){
                 $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
             }
+            $showcase->expiresAt(Carbon::now()->addMonths(6));
             Showcase::query()->create([
                 'picture'=>$request->picture,
                 'url'=>$request->url,
