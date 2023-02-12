@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Showcase extends Model
 {
-    use HasFactory , Expirable;
+    use HasFactory ,Expirable;
 
     protected $guarded=[];
 

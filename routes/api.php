@@ -161,6 +161,10 @@ Route::middleware('auth:sanctum')->prefix('app')->controller(AppNotificationCont
     Route::post('store','storeToken');
 });
 
+Route::prefix('app/showcase')->controller(ShowcaseController::class)->group(function () {
+    Route::get('get', 'getShowcase');
+});
+
 Route::prefix('app')->controller(ZarinpalPayment::class)->group(function (){
     Route::post('/zarinpal','ZarinpalRequest');
     Route::get('/mahdyar','table');

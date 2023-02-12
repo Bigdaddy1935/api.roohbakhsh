@@ -86,11 +86,11 @@ class ShowcaseController extends Controller
     public function deleteShowcase($id): JsonResponse
     {
         $ids=explode(",",$id);
-        Showcase::destroy($ids);
+      $res= Showcase::destroy($ids);
 
         return response()->json([
             'message'=>'ویترین مورد نظر با موفقیت حذف شد',
-            'showcase_id'=>$ids,
+            'showcase_id'=>$res,
         ]);
 
     }
