@@ -20,14 +20,23 @@ class ShowcaseController extends Controller
        $showcase->url=$request->url;
        $showcase->ends_at=$request->ends_at;
 
+
+
         if($request->course_id != null){
             $course=Course::query()->find($request->course_id);
-            $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
-            $course->showcases()->save($showcase);
 
+            if($request->ends_at != null){
+                $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
+                $course->showcases()->save($showcase);
+            }
+            $course->showcases()->save($showcase);
         }
         elseif($request->media_id != null){
-            $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
+
+            if($request->ends_at != null){
+                $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
+            }
+
             Showcase::query()->create([
                 'picture'=>$request->picture,
                 'model_type'=>'App\Models\Media',
@@ -38,22 +47,31 @@ class ShowcaseController extends Controller
         }
         elseif ($request->lesson_id != null){
             $lesson=Lesson::query()->find($request->lesson_id);
-            $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
+            if($request->ends_at != null){
+                $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
+            }
+
             $lesson->showcases()->save($showcase);
 
         }
         elseif ($request->article_id != null){
             $article=Article::query()->find($request->article_id);
-            $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
+            if($request->ends_at != null){
+                $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
+            }
             $article->showcases()->save($showcase);
 
         }elseif ($request->product_id != null){
             $product=Product::query()->find($request->product_id);
-            $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
+            if($request->ends_at != null){
+                $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
+            }
             $product->showcases()->save($showcase);
         }else {
 
-            $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
+            if($request->ends_at != null){
+                $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
+            }
             Showcase::query()->create([
                 'picture'=>$request->picture,
                 'url'=>$request->url,
