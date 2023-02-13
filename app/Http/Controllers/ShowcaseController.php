@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\ShowcaseRepositoryInterface;
 use App\Models\Article;
+use App\Models\Cart;
 use App\Models\Course;
+use App\Models\Invoice;
 use App\Models\Lesson;
 use App\Models\Product;
 use App\Models\Showcase;
@@ -13,6 +16,14 @@ use Illuminate\Http\Request;
 
 class ShowcaseController extends Controller
 {
+
+    protected ShowcaseRepositoryInterface $showcaseRepository;
+
+    public function __construct(ShowcaseRepositoryInterface $showcaseRepository)
+    {
+
+        $this->showcaseRepository = $showcaseRepository;
+    }
     public function addShowcase(Request $request)
     {
        $showcase= new Showcase;
@@ -94,12 +105,13 @@ class ShowcaseController extends Controller
 
     public function getShowcase()
     {
-        $notexpire=Showcase::query()->get();
 
-        $expire=Showcase::query()->onlyExpired()->get();
+        $NotExpire= $this->showcaseRepository->getNotExpired();
+
+        $expire= $this->showcaseRepository->getExpired();
 
         return response()->json([
-            'NotExpired'=>$notexpire,
+            'NotExpired'=>$NotExpire,
             'Expired'=>$expire,
         ]);
     }

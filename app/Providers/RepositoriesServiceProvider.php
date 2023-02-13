@@ -13,6 +13,7 @@ use App\Interfaces\LibraryRepositoryInterface;
 use App\Interfaces\ProductRepositoryInterface;
 use App\Interfaces\ProgressRepositoryInterface;
 use App\Interfaces\SearchRepositoryInterface;
+use App\Interfaces\ShowcaseRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
 use App\Interfaces\VoucherRepositoryInterface;
 use App\Interfaces\ZarinpalRepositoryInterface;
@@ -27,6 +28,7 @@ use App\Repositories\LibraryRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\ProgressRepository;
 use App\Repositories\SearchRepository;
+use App\Repositories\ShowcaseRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\VoucherRepository;
 use App\Repositories\ZarinpalPeymentRepository;
@@ -65,5 +67,6 @@ class RepositoriesServiceProvider extends ServiceProvider
         $this->app->bind(VoucherRepositoryInterface::class,VoucherRepository::class);
         $this->app->bind(CommentRepositoryInterface::class,CommentRepository::class);
         $this->app->bind(SearchRepositoryInterface::class,SearchRepository::class);
+        $this->app->bind(ShowcaseRepositoryInterface::class,ShowcaseRepository::class);
     }
 }
