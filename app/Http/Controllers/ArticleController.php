@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Interfaces\ArticleRepositoryInterface;
 use App\Models\Article;
 use App\Models\Comment;
+use App\Models\Notification;
 use App\Models\Tag;
 use App\QueryFilters\Categories;
 use App\QueryFilters\Sort;
@@ -74,6 +75,11 @@ class ArticleController extends Controller
          $article->tag($tags);
         if($request->sendNotify){
             $this->appNotificationController->sendWebNotification('اکادمی سید کاظم روحبخش'," مقاله {$request->title} اضافه شد ");
+            $notify=new Notification;
+            $notify->title='اکادمی سید کاظم روح بخش';
+            $notify->body=" مقاله {$request->title} اضافه شد ";
+            $notify->picture=$request->picture;
+            $article->notifications()->save($notify);
         }
 
 

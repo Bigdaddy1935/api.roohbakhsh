@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Interfaces\CourseRepositoryInterface;
 use App\Interfaces\ProductRepositoryInterface;
+use App\Models\Notification;
 use App\Models\Product;
 use App\QueryFilters\Categories;
 use App\QueryFilters\Sort;
@@ -78,6 +79,11 @@ class ProductController extends Controller
 
         if($request->sendNotify){
             $this->appNotificationController->sendWebNotification('اکادمی سید کاظم روحبخش'," محصول {$request->title} اضافه شد ");
+            $notify=new Notification;
+            $notify->title='اکادمی سید کاظم روح بخش';
+            $notify->body=" محصول {$request->title} اضافه شد ";
+            $notify->picture=$request->picture;
+            $product->notifications()->save($notify);
         }
         return response()->json($product,201);
   }

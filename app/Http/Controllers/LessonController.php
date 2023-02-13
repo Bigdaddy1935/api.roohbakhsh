@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Interfaces\LessonRepositoryInterface;
 use App\Models\Comment;
 use App\Models\Lesson;
+use App\Models\Notification;
 use App\Models\VideoProgressBar;
 use App\QueryFilters\Categories;
 use App\QueryFilters\Course_id;
@@ -58,6 +59,11 @@ class LessonController extends Controller
 
         if($request->sendNotify){
             $this->appNotificationController->sendWebNotification('اکادمی سید کاظم روحبخش'," درس {$request->title} اضافه شد ");
+            $notify=new Notification;
+            $notify->title='اکادمی سید کاظم روح بخش';
+            $notify->body=" درس {$request->title} اضافه شد ";
+            $notify->picture=$request->picture;
+            $lessons->notifications()->save($notify);
         }
         $lessons->categories()->attach($categories);
         return response()->json($lessons,201);
