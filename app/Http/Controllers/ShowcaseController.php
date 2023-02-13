@@ -42,20 +42,7 @@ class ShowcaseController extends Controller
             $showcase->expiresAt(Carbon::now()->addMonths(6));
             $course->showcases()->save($showcase);
         }
-        elseif($request->media_id != null){
 
-            if($request->ends_at != null){
-                $showcase->expiresAt(Carbon::now()->addHours($request->ends_at));
-            }
-            $showcase->expiresAt(Carbon::now()->addMonths(6));
-            Showcase::query()->create([
-                'picture'=>$request->picture,
-                'model_type'=>'App\Models\Media',
-                'model_id'=>$request->media_id,
-                'ends_at'=>$showcase->ends_at,
-            ]);
-
-        }
         elseif ($request->lesson_id != null){
             $lesson=Lesson::query()->find($request->lesson_id);
             if($request->ends_at != null){

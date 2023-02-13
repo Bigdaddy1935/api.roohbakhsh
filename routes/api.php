@@ -176,6 +176,7 @@ Route::prefix('app')->controller(HomeController::class)->group(function (){
     Route::post('/search','search')->name('search');
     Route::get('/tutorial','showTutorial');
     Route::post('/notification','SendNotify');
+    Route::post('/notification/get','getNotify');
 });
 Route::prefix('app/articles')->controller(ArticleController::class)->group(function (){
     Route::get('get','getArticles');
