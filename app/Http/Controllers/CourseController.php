@@ -66,12 +66,25 @@ protected $result=[];
             //save categories in pivot table
         $course->categories()->attach($categories);
         if($request->sendNotify){
-            $this->appNotificationController->sendWebNotification('اکادمی سید کاظم روح بخش'," دوره {$request->course_title} اضافه شد ");
-            $notify=new Notification;
-            $notify->title='اکادمی سید کاظم روح بخش';
-            $notify->body=" دوره {$request->course_title} اضافه شد ";
-            $notify->picture=$request->picture;
-            $course->notifications()->save($notify);
+            if($request->type == 'media'){
+                $type='رسانه';
+                $this->appNotificationController->sendWebNotification('اکادمی سید کاظم روح بخش'," دوره {$request->course_title} اضافه شد ");
+                $notify=new Notification;
+                $notify->title='اکادمی سید کاظم روح بخش';
+                $notify->body=" {$type} {$request->course_title} اضافه شد ";
+                $notify->picture=$request->picture;
+                $course->notifications()->save($notify);
+            }
+            else{
+                $type='دوره';
+                $this->appNotificationController->sendWebNotification('اکادمی سید کاظم روح بخش'," دوره {$request->course_title} اضافه شد ");
+                $notify=new Notification;
+                $notify->title='اکادمی سید کاظم روح بخش';
+                $notify->body=" {$type} {$request->course_title} اضافه شد ";
+                $notify->picture=$request->picture;
+                $course->notifications()->save($notify);
+            }
+
         }
 
         return response()->json($course, 201);
