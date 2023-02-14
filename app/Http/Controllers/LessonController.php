@@ -52,13 +52,19 @@ class LessonController extends Controller
             'formats'=>'required'
         ]);
         $related_lessons_id=explode(',',$request->related);
+        $names = explode(',' , $request->name);
+
 
         $categories=explode(",",$request->categories);
         $data=$request->all();
          $lessons=  $this->lessonRepository->create($data);
 
         if($request->related){
-            $lessons->related()->attach($related_lessons_id, ['name'=>$request->name]);
+          for($i=0;$i<count($names);$i++){
+                    $lessons->related()->attach($related_lessons_id[$i],['name'=>$names[$i]]);
+                }
+
+
         }
 
 
@@ -197,10 +203,13 @@ class LessonController extends Controller
         //get categories as an array
         $categories=explode(",",$request->categories);
         $related_lessons_id=explode(",",$request->related);
+        $names=explode(",",$request->name);
      $lesson=  $this->lessonRepository->update($id,$data);
 
         if($request->related){
-            $lesson->related()->sync($related_lessons_id,['name'=>$request->name]);
+            for($i=0;$i<count($names);$i++){
+                $lesson->related()->sync($related_lessons_id[$i],['name'=>$names[$i]]);
+            }
         }
 
 

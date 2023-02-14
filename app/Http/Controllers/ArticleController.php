@@ -63,13 +63,16 @@ class ArticleController extends Controller
         $categories=explode(",",$request->categories);
         $tags = explode(",", $request->tags);
         $related_articles_id=explode(',',$request->related);
+        $names=explode(',',$request->related);
         /**
          *save input request on articles table
          */
         $article = $this->articleRepository->create($input);
 
         if($request->related){
-            $article->related()->attach($related_articles_id, ['name'=>$request->name]);
+            for($i=0;$i<count($names);$i++){
+                $article->related()->attach($related_articles_id[$i],['name'=>$names[$i]]);
+            }
         }
         /**
          * save categories and tags on pivot tables
@@ -209,11 +212,14 @@ class ArticleController extends Controller
         $tags = explode(",", $request->tags);
         $categories=explode(",",$request->categories);
         $related_articles_id=explode(",",$request->related);
+        $names=explode(",",$request->name);
 
         $article= $this->articleRepository->update($id,$data);
 
         if($request->related){
-            $article->related()->sync($related_articles_id,['name'=>$request->name]);
+            for($i=0;$i<count($names);$i++) {
+                $article->related()->sync($related_articles_id[$i], ['name' => $names[$i]]);
+            }
         }
 
         /**
