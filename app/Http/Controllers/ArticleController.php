@@ -62,12 +62,15 @@ class ArticleController extends Controller
         $input = $request->all();
         $categories=explode(",",$request->categories);
         $tags = explode(",", $request->tags);
-
+        $related_articles_id=explode(',',$request->related);
         /**
          *save input request on articles table
          */
         $article = $this->articleRepository->create($input);
 
+        if($request->related){
+            $article->related()->attach($related_articles_id, ['name'=>$request->name]);
+        }
         /**
          * save categories and tags on pivot tables
          */
@@ -205,7 +208,13 @@ class ArticleController extends Controller
         ];
         $tags = explode(",", $request->tags);
         $categories=explode(",",$request->categories);
+        $related_articles_id=explode(",",$request->related);
+
         $article= $this->articleRepository->update($id,$data);
+
+        if($request->related){
+            $article->related()->sync($related_articles_id,['name'=>$request->name]);
+        }
 
         /**
          * edit categories and tags we get in inputs and save them in pivot table with sync method
@@ -216,7 +225,6 @@ class ArticleController extends Controller
            'message'=>'مقاله مورد نظر با موفقیت ویرایش شد',
             'article_id'=>$id,
             'article'=>$fields
-
         ]);
 
 

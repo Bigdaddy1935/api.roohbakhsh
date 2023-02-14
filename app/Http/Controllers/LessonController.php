@@ -58,9 +58,6 @@ class LessonController extends Controller
          $lessons=  $this->lessonRepository->create($data);
 
         if($request->related){
-
-
-
             $lessons->related()->attach($related_lessons_id, ['name'=>$request->name]);
         }
 
@@ -203,8 +200,7 @@ class LessonController extends Controller
      $lesson=  $this->lessonRepository->update($id,$data);
 
         if($request->related){
-            DB::table('related_lessons')->update(['name'=>$request->name]);
-            $lesson->related()->sync($related_lessons_id);
+            $lesson->related()->sync($related_lessons_id,['name'=>$request->name]);
         }
 
 
