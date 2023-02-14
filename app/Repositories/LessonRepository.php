@@ -27,7 +27,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
                  }])
              ->with(['progress'=>function ($q)use ($user){
                  $q->where('user_id',$user);
-             }])
+             }])->with('related')
             ->paginate(10);
     }
 
@@ -43,7 +43,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
           }])
              ->with('progress',function ($q)use ($user){
                  $q->where('user_id',$user);
-             })
+             })->with('related')
             ->paginate(10);
     }
     public function GetLessonsOfAnCourseGet($id)
@@ -58,7 +58,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
-            })
+            })->with('related')
             ->get();
     }
 
@@ -77,7 +77,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
            }])
            ->with(['progress'=>function ($q)use ($user){
                $q->where('user_id',$user);
-           }])
+           }])->with('related')
             ->findOrFail($id);
     }
 
@@ -98,7 +98,8 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
-            })->orderBy('id','DESC')
+            })->with('related')
+            ->orderBy('id','DESC')
             ->paginate(20);
     }
 
@@ -116,7 +117,8 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
-            })->orderBy('id','DESC')
+            })->with('related')
+            ->orderBy('id','DESC')
             ->paginate(35);    }
 
     public function lessonsList()
@@ -132,7 +134,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])
             ->with(['progress'=>function ($q)use ($user){
                 $q->where('user_id',$user);
-            }])
+            }])->with('related')
             ->get();
     }
 }

@@ -51,10 +51,18 @@ class LessonController extends Controller
             'sendNotify'=>'required',
             'formats'=>'required'
         ]);
+        $related_lessons_id=explode(',',$request->related);
 
         $categories=explode(",",$request->categories);
         $data=$request->all();
          $lessons=  $this->lessonRepository->create($data);
+
+        if($request->related){
+
+
+
+            $lessons->related()->attach($related_lessons_id, ['name'=>$request->name]);
+        }
 
 
         if($request->sendNotify){
@@ -191,7 +199,13 @@ class LessonController extends Controller
 
         //get categories as an array
         $categories=explode(",",$request->categories);
+        $related_lessons_id=explode(",",$request->related);
      $lesson=  $this->lessonRepository->update($id,$data);
+
+        if($request->related){
+            DB::table('related_lessons')->update(['name'=>$request->name]);
+            $lesson->related()->sync($related_lessons_id);
+        }
 
 
 

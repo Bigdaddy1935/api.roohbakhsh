@@ -97,4 +97,8 @@ protected $casts=[
     {
         return $this->morphMany(Showcase::class, 'model');
     }
+    public function related()
+    {
+        return $this->belongsToMany(Lesson::class,'related_lessons','lesson_id','related_lesson_id')->withPivot('lesson_id','related_lesson_id','name');
+    }
 }
