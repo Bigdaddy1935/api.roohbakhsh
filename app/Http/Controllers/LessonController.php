@@ -63,8 +63,6 @@ class LessonController extends Controller
           for($i=0;$i<count($names);$i++){
                     $lessons->related()->attach($related_lessons_id[$i],['name'=>$names[$i]]);
                 }
-
-
         }
 
 
@@ -206,11 +204,14 @@ class LessonController extends Controller
         $names=explode(",",$request->name);
      $lesson=  $this->lessonRepository->update($id,$data);
 
+        $lesson->related()->detach();
+
         if($request->related){
             for($i=0;$i<count($names);$i++){
-                $lesson->related()->syncWithPivotValues($related_lessons_id[$i],['name'=>$names[$i]]);
+                $lesson->related()->attach($related_lessons_id[$i],['name'=>$names[$i]]);
             }
         }
+
 
 
 
