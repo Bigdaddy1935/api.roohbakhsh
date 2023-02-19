@@ -218,7 +218,7 @@ class ArticleController extends Controller
 
         if($request->related){
             for($i=0;$i<count($names);$i++) {
-                $article->related()->sync($related_articles_id[$i], ['name' => $names[$i]]);
+                $article->related()->syncWithPivotValues($related_articles_id[$i], ['name' => $names[$i]]);
             }
         }
 

@@ -208,7 +208,7 @@ class LessonController extends Controller
 
         if($request->related){
             for($i=0;$i<count($names);$i++){
-                $lesson->related()->sync($related_lessons_id[$i],['name'=>$names[$i]]);
+                $lesson->related()->syncWithPivotValues($related_lessons_id[$i],['name'=>$names[$i]]);
             }
         }
 
