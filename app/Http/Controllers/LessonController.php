@@ -334,8 +334,9 @@ class LessonController extends Controller
         visits($lesson_id)->seconds(15*60)->increment();
         $view_count= visits($lesson_id)->count();
 
-
         $lesson=$this->lessonRepository->GetSpecificLesson($id);
+
+        $lesson->incrementViewCount();
 
 
        return response()->json([

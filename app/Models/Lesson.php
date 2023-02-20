@@ -101,4 +101,10 @@ protected $casts=[
     {
         return $this->belongsToMany(Lesson::class,'related_lessons','lesson_id','related_lesson_id')->withPivot('lesson_id','related_lesson_id','name');
     }
+
+    public function incrementViewCount() {
+        $this->views++;
+        return $this->save();
+    }
+
 }
