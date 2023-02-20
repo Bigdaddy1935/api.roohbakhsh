@@ -74,7 +74,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
            }])
            ->withExists(['likers as like'=>function($q)use ($user){
                $q->where('user_id',$user);
-           }])
+           }])->withCount('likers as like_count')
            ->with(['progress'=>function ($q)use ($user){
                $q->where('user_id',$user);
            }])->with('related')
@@ -95,7 +95,9 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             ->withAggregate('visits','score')
             ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
                 $q->where('user_id',$user);
-            }])
+            }])->withExists(['likers as like'=>function($q)use ($user){
+                $q->where('user_id',$user);
+            }])->withCount('likers as like_count')
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
             })->with('related')
