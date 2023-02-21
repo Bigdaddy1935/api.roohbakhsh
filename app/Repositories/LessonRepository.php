@@ -77,8 +77,6 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
            }])->withCount('likers as like_count')
            ->with(['progress'=>function ($q)use ($user){
                $q->where('user_id',$user);
-           }])->with(['spiders'=>function($q){
-               $q->whereHas('course');
            }])
            ->withCount(['comments'=>function($q){
                $q->where('status','=',1);
