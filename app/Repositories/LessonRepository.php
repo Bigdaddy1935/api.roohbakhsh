@@ -27,7 +27,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
                  }])
              ->with(['progress'=>function ($q)use ($user){
                  $q->where('user_id',$user);
-             }])->with('related')
+             }])
             ->paginate(10);
     }
 
@@ -43,7 +43,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
           }])
              ->with('progress',function ($q)use ($user){
                  $q->where('user_id',$user);
-             })->with('related')
+             })
             ->paginate(10);
     }
     public function GetLessonsOfAnCourseGet($id)
@@ -58,7 +58,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
-            })->with('related')
+            })
             ->get();
     }
 
@@ -77,7 +77,9 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
            }])->withCount('likers as like_count')
            ->with(['progress'=>function ($q)use ($user){
                $q->where('user_id',$user);
-           }])->with('related')
+           }])->with(['spiders'=>function($q){
+               $q->whereHas('course');
+           }])
            ->withCount(['comments'=>function($q){
                $q->where('status','=',1);
            }])
@@ -103,7 +105,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])->withCount('likers as like_count')
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
-            })->with('related')
+            })
             ->orderBy('id','DESC')
             ->paginate(20);
     }
@@ -122,7 +124,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
-            })->with('related')
+            })
             ->orderBy('id','DESC')
             ->paginate(35);    }
 
