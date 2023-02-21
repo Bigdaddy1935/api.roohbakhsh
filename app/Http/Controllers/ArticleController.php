@@ -63,7 +63,7 @@ class ArticleController extends Controller
         $categories=explode(",",$request->categories);
         $tags = explode(",", $request->tags);
         $related_articles_id=explode(',',$request->related);
-        $names=explode(',',$request->related);
+        $names=explode(',',$request->name);
         /**
          *save input request on articles table
          */
@@ -216,9 +216,11 @@ class ArticleController extends Controller
 
         $article= $this->articleRepository->update($id,$data);
 
+        $article->related()->detach();
+
         if($request->related){
             for($i=0;$i<count($names);$i++) {
-                $article->related()->syncWithPivotValues($related_articles_id[$i], ['name' => $names[$i]]);
+                $article->related()->attach($related_articles_id[$i], ['name' => $names[$i]]);
             }
         }
 
