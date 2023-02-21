@@ -78,7 +78,9 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
            ->with(['progress'=>function ($q)use ($user){
                $q->where('user_id',$user);
            }])->with('related')
-           ->withCount('comments')
+           ->withCount(['comments'=>function($q){
+               $q->where('status','=',1);
+           }])
             ->findOrFail($id);
     }
 
