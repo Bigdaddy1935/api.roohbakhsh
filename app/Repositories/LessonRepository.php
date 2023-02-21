@@ -141,7 +141,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])
             ->with(['progress'=>function ($q)use ($user){
                 $q->where('user_id',$user);
-            }])->with('related')
+            }])
             ->get();
     }
 }
