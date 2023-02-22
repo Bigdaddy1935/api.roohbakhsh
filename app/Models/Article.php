@@ -71,6 +71,10 @@ class Article extends Model
 
     public function related()
     {
-        return $this->belongsToMany(Article::class, 'related_articles','article_id','related_article_id')->withPivot('name','article_id','related_article_id');
+        return $this->belongsToMany(Article::class, 'article_related', 'article_id', 'related_article_id')->withPivot('name');
+    }
+    public function lesson(): BelongsToMany
+    {
+        return $this->belongsToMany(Lesson::class);
     }
 }

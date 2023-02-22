@@ -80,7 +80,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
            }])
            ->withCount(['comments'=>function($q){
                $q->where('status','=',1);
-           }])
+           }])->with('related',)->with('article')
             ->findOrFail($id);
     }
 

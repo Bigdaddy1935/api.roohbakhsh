@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 
 use App\Interfaces\LessonRepositoryInterface;
+use App\Models\Article;
 use App\Models\Comment;
+use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\Notification;
+use App\Models\Product;
+use App\Models\Spider;
 use App\Models\VideoProgressBar;
 use App\QueryFilters\Categories;
 use App\QueryFilters\Course_id;
@@ -51,19 +55,35 @@ class LessonController extends Controller
             'sendNotify'=>'required',
             'formats'=>'required'
         ]);
-        $related_lessons_id=explode(',',$request->related);
-        $names = explode(',' , $request->name);
+
 
 
         $categories=explode(",",$request->categories);
         $data=$request->all();
          $lessons=  $this->lessonRepository->create($data);
 
-        if($request->related){
-          for($i=0;$i<count($names);$i++){
-                    $lessons->related()->attach($related_lessons_id[$i],['name'=>$names[$i]]);
-                }
-        }
+         $related_lessons_id=explode(",",$request->related_lessons_id);
+         $lesson_names=explode(",",$request->lesson_names);
+
+         $related_articles_id=explode(",",$request->related_articles_id);
+         $article_names=explode(",",$request->article_names);
+
+         if($related_articles_id != null){
+             for ($i=0;$i<count($article_names);$i++){
+                 $lessons->article()->attach([$related_articles_id[$i]=>['name'=>$article_names[$i]]]);
+             }
+         }
+
+         if($related_lessons_id != null){
+             for ($i=0;$i<count($lesson_names);$i++){
+                 $lessons->related()->attach([$related_lessons_id[$i]=>['name'=>$lesson_names[$i]]]);
+             }
+         }
+
+
+
+
+
 
 
         if($request->sendNotify){
@@ -200,18 +220,27 @@ class LessonController extends Controller
 
         //get categories as an array
         $categories=explode(",",$request->categories);
-        $related_lessons_id=explode(",",$request->related);
-        $names=explode(",",$request->name);
      $lesson=  $this->lessonRepository->update($id,$data);
 
-        $lesson->related()->detach();
+        $related_lessons_id=explode(",",$request->related_lessons_id);
+        $lesson_names=explode(",",$request->lesson_names);
 
-        if($request->related){
-            for($i=0;$i<count($names);$i++){
-                $lesson->related()->attach($related_lessons_id[$i],['name'=>$names[$i]]);
+        $related_articles_id=explode(",",$request->related_articles_id);
+        $article_names=explode(",",$request->article_names);
+
+        if($related_articles_id != null){
+            $lesson->article()->detach();
+            for ($i=0;$i<count($article_names);$i++){
+                $lesson->article()->attach([$related_articles_id[$i]=>['name'=>$article_names[$i]]]);
             }
         }
 
+        if($related_lessons_id != null){
+            $lesson->article()->detach();
+            for ($i=0;$i<count($lesson_names);$i++){
+                $lesson->related()->attach([$related_lessons_id[$i]=>['name'=>$lesson_names[$i]]]);
+            }
+        }
 
 
 
@@ -336,11 +365,16 @@ class LessonController extends Controller
 
         $lesson=$this->lessonRepository->GetSpecificLesson($id);
 
+
+
+
+
         $lesson->incrementViewCount();
 
 
        return response()->json([
            'lessons'=>$lesson,
+
            'visits_score'=>$view_count
        ]);
     }

@@ -73,7 +73,6 @@ protected $casts=[
     }
 
 
-
     public function visits(): Relation
     {
         return visits($this)->relation();
@@ -97,9 +96,14 @@ protected $casts=[
     {
         return $this->morphMany(Showcase::class, 'model');
     }
+
     public function related()
     {
-        return $this->belongsToMany(Lesson::class,'related_lessons','lesson_id','related_lesson_id')->withPivot('lesson_id','related_lesson_id','name');
+        return $this->belongsToMany(Lesson::class, 'lesson_related', 'lesson_id', 'related_lesson_id')->withPivot('name');
+    }
+    public function article(): BelongsToMany
+    {
+        return $this->belongsToMany(Article::class);
     }
 
     public function incrementViewCount() {

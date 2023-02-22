@@ -62,18 +62,31 @@ class ArticleController extends Controller
         $input = $request->all();
         $categories=explode(",",$request->categories);
         $tags = explode(",", $request->tags);
-        $related_articles_id=explode(',',$request->related);
-        $names=explode(',',$request->name);
+
         /**
          *save input request on articles table
          */
         $article = $this->articleRepository->create($input);
 
-        if($request->related){
-            for($i=0;$i<count($names);$i++){
-                $article->related()->attach($related_articles_id[$i],['name'=>$names[$i]]);
+        $related_lessons_id=explode(",",$request->related_lessons_id);
+        $lesson_names=explode(",",$request->lesson_names);
+
+        $related_articles_id=explode(",",$request->related_articles_id);
+        $article_names=explode(",",$request->article_names);
+
+        if($related_articles_id != null){
+            for ($i=0;$i<count($article_names);$i++){
+                $article->related()->attach([$related_articles_id[$i]=>['name'=>$article_names[$i]]]);
             }
         }
+
+        if($related_lessons_id != null){
+            for ($i=0;$i<count($lesson_names);$i++){
+                $article->lesson()->attach([$related_lessons_id[$i]=>['name'=>$lesson_names[$i]]]);
+            }
+        }
+
+
         /**
          * save categories and tags on pivot tables
          */
@@ -211,18 +224,30 @@ class ArticleController extends Controller
         ];
         $tags = explode(",", $request->tags);
         $categories=explode(",",$request->categories);
-        $related_articles_id=explode(",",$request->related);
-        $names=explode(",",$request->name);
-
         $article= $this->articleRepository->update($id,$data);
 
-        $article->related()->detach();
 
-        if($request->related){
-            for($i=0;$i<count($names);$i++) {
-                $article->related()->attach($related_articles_id[$i], ['name' => $names[$i]]);
+        $related_lessons_id=explode(",",$request->related_lessons_id);
+        $lesson_names=explode(",",$request->lesson_names);
+
+        $related_articles_id=explode(",",$request->related_articles_id);
+        $article_names=explode(",",$request->article_names);
+
+        if($related_articles_id != null){
+            $article->related()->detach();
+            for ($i=0;$i<count($article_names);$i++){
+                $article->related()->attach([$related_articles_id[$i]=>['name'=>$article_names[$i]]]);
             }
         }
+
+        if($related_lessons_id != null){
+            $article->lesson()->detach();
+            for ($i=0;$i<count($lesson_names);$i++){
+                $article->lesson()->attach([$related_lessons_id[$i]=>['name'=>$lesson_names[$i]]]);
+            }
+        }
+
+
 
         /**
          * edit categories and tags we get in inputs and save them in pivot table with sync method

@@ -110,4 +110,5 @@ class Product extends Model
         return $this->morphMany(Showcase::class, 'model');
     }
 
+
 }
