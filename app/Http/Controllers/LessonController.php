@@ -229,16 +229,14 @@ class LessonController extends Controller
         $article_names=explode(",",$request->article_names);
 
 
-
+        $lesson->related()->detach();
         if($request->related_lessons_id != null){
-            $lesson->related()->detach();
             for ($i=0;$i<count($lesson_names);$i++){
                 $lesson->related()->attach($related_lessons_id[$i],['name'=>$lesson_names[$i]]);
             }
         }
-
+        $lesson->article()->detach();
         if($request->related_articles_id != null){
-            $lesson->article()->detach();
             for ($i=0;$i<count($article_names);$i++){
                 $lesson->article()->attach([$related_articles_id[$i]=>['name'=>$article_names[$i]]]);
             }
