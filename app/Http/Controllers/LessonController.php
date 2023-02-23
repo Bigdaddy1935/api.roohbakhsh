@@ -68,13 +68,13 @@ class LessonController extends Controller
          $related_articles_id=explode(",",$request->related_articles_id);
          $article_names=explode(",",$request->article_names);
 
-         if($related_articles_id != null){
+         if($request->related_articles_id != null){
              for ($i=0;$i<count($article_names);$i++){
                  $lessons->article()->attach([$related_articles_id[$i]=>['name'=>$article_names[$i]]]);
              }
          }
 
-         if($related_lessons_id != null){
+         if($request->related_lessons_id != null){
              for ($i=0;$i<count($lesson_names);$i++){
                  $lessons->related()->attach([$related_lessons_id[$i]=>['name'=>$lesson_names[$i]]]);
              }
@@ -220,7 +220,7 @@ class LessonController extends Controller
 
         //get categories as an array
         $categories=explode(",",$request->categories);
-     $lesson=  $this->lessonRepository->update($id,$data);
+        $lesson=  $this->lessonRepository->update($id,$data);
 
         $related_lessons_id=explode(",",$request->related_lessons_id);
         $lesson_names=explode(",",$request->lesson_names);
@@ -228,17 +228,19 @@ class LessonController extends Controller
         $related_articles_id=explode(",",$request->related_articles_id);
         $article_names=explode(",",$request->article_names);
 
-        if($related_articles_id != null){
-            $lesson->article()->detach();
-            for ($i=0;$i<count($article_names);$i++){
-                $lesson->article()->attach([$related_articles_id[$i]=>['name'=>$article_names[$i]]]);
+
+
+        if($request->related_lessons_id != null){
+            $lesson->related()->detach();
+            for ($i=0;$i<count($lesson_names);$i++){
+                $lesson->related()->attach($related_lessons_id[$i],['name'=>$lesson_names[$i]]);
             }
         }
 
-        if($related_lessons_id != null){
+        if($request->related_articles_id != null){
             $lesson->article()->detach();
-            for ($i=0;$i<count($lesson_names);$i++){
-                $lesson->related()->attach([$related_lessons_id[$i]=>['name'=>$lesson_names[$i]]]);
+            for ($i=0;$i<count($article_names);$i++){
+                $lesson->article()->attach([$related_articles_id[$i]=>['name'=>$article_names[$i]]]);
             }
         }
 

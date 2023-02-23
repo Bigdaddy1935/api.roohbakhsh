@@ -75,6 +75,6 @@ class Article extends Model
     }
     public function lesson(): BelongsToMany
     {
-        return $this->belongsToMany(Lesson::class);
+        return $this->belongsToMany(Lesson::class,'article_lesson','article_id','lesson_id')->withPivot('name');
     }
 }

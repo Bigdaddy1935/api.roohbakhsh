@@ -74,13 +74,13 @@ class ArticleController extends Controller
         $related_articles_id=explode(",",$request->related_articles_id);
         $article_names=explode(",",$request->article_names);
 
-        if($related_articles_id != null){
+        if($request->related_articles_id != null){
             for ($i=0;$i<count($article_names);$i++){
                 $article->related()->attach([$related_articles_id[$i]=>['name'=>$article_names[$i]]]);
             }
         }
 
-        if($related_lessons_id != null){
+        if($request->related_lessons_id != null){
             for ($i=0;$i<count($lesson_names);$i++){
                 $article->lesson()->attach([$related_lessons_id[$i]=>['name'=>$lesson_names[$i]]]);
             }
@@ -233,14 +233,14 @@ class ArticleController extends Controller
         $related_articles_id=explode(",",$request->related_articles_id);
         $article_names=explode(",",$request->article_names);
 
-        if($related_articles_id != null){
+        if($request->related_articles_id != null){
             $article->related()->detach();
             for ($i=0;$i<count($article_names);$i++){
                 $article->related()->attach([$related_articles_id[$i]=>['name'=>$article_names[$i]]]);
             }
         }
 
-        if($related_lessons_id != null){
+        if($request->related_lessons_id != null){
             $article->lesson()->detach();
             for ($i=0;$i<count($lesson_names);$i++){
                 $article->lesson()->attach([$related_lessons_id[$i]=>['name'=>$lesson_names[$i]]]);

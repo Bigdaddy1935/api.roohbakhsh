@@ -36,8 +36,8 @@ class ArticleRepository extends Repository implements ArticleRepositoryInterface
             ->select('articles.*','users.fullname')
             ->with('tagged')
             ->with('categories')
-         ->with('related')
-         ->with('lesson')
+            ->with('related')
+            ->with('lesson')
             ->findOrFail($id);
     }
 

@@ -103,7 +103,7 @@ protected $casts=[
     }
     public function article(): BelongsToMany
     {
-        return $this->belongsToMany(Article::class);
+        return $this->belongsToMany(Article::class,'article_lesson','lesson_id','article_id')->withPivot('name');
     }
 
     public function incrementViewCount() {
