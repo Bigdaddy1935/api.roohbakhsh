@@ -350,7 +350,47 @@ class LessonController extends Controller
 
         return response()->json($lessons);
     }
+    public function getMahdyarLessons($id)
+    {
+        $lessons=$this->lessonRepository->GetLessonsOfAnMahdyar($id);
+        return response()->json($lessons);
 
+    }
+
+    public function getAllMahdyarLessons()
+    {
+        $lessons=$this->lessonRepository->GetLessonsOfAllMahdyar();
+
+        return response()->json($lessons);
+    }
+
+    public function getKolbeLessons($id)
+    {
+        $lessons=$this->lessonRepository->GetLessonsOfAnKolbe($id);
+        return response()->json($lessons);
+
+    }
+
+    public function getAllKolbeLessons()
+    {
+        $lessons=$this->lessonRepository->GetLessonsOfAllKolbe();
+
+        return response()->json($lessons);
+    }
+
+    public function getTvLessons($id)
+    {
+        $lessons=$this->lessonRepository->GetLessonsOfAnTv($id);
+        return response()->json($lessons);
+
+    }
+
+    public function getAllTvLessons()
+    {
+        $lessons=$this->lessonRepository->GetLessonsOfAllTv();
+
+        return response()->json($lessons);
+    }
 
     /**
      * @param $id

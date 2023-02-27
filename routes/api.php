@@ -200,6 +200,12 @@ Route::prefix('app/lessons')->controller(LessonController::class)->group(functio
     Route::get('/','index');
     Route::get('get/by_course_id/{id}','getCourseLessons');
     Route::get('get/by_media_id/{id}','getMediaLessons');
+    Route::get('get/by_mahdyar/{id}','getMahdyarLessons');
+    Route::get('get/by_kolbe_id/{id}','getKolbeLessons');
+    Route::get('get/by_tv_id/{id}','getTvLessons');
+    Route::get('get/all_tv','getAllTvLessons');
+    Route::get('get/all_mahdyar','getAllMahdyarLessons');
+    Route::get('get/all_kolbe','getAllKolbeLessons');
     Route::get('get/all_media','getAllLessonsMedia');
     Route::middleware(['auth:sanctum','XSS'])->get('like/{id}','likeLesson');
     Route::middleware(['auth:sanctum','XSS'])->get('bookmark/{id}','bookmarkLesson');
