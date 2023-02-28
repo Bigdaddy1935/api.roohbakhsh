@@ -224,19 +224,19 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
     {
         $user= auth('sanctum')->id();
         return   Lesson::query()
-            ->whereHas('courses',function ($q){
-                $q->where('type','=','tv');
-            })
+            ->where('course_id',$id)
             ->with('categories')
             ->withAggregate('visits','score')
             ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
                 $q->where('user_id',$user);
-            }])
+            }])->withExists(['likers as like'=>function($q)use ($user){
+                $q->where('user_id',$user);
+            }])->withCount('likers as like_count')
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
             })
             ->orderBy('id','DESC')
-            ->paginate(35);
+            ->paginate(20);
     }
 
     public function GetLessonsOfAllTv()
