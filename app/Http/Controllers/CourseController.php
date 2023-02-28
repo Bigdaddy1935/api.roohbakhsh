@@ -352,6 +352,51 @@ protected $result=[];
             ],401);
         }
     }
+    public function getMahdyar()
+    {
+      $course=  $this->courseRepository->getCourseMahdyar();
+
+        if($course){
+            return response()->json($course);
+        }
+        else{
+            return response()->json([
+
+                'message'=>'مهدیاری ثبت نشده'
+
+            ],401);
+        }
+    }
+    public function getKolbe()
+    {
+      $course=  $this->courseRepository->getCourseKolbe();
+
+        if($course){
+            return response()->json($course);
+        }
+        else{
+            return response()->json([
+
+                'message'=>'کلبه ثبت نشده'
+
+            ],401);
+        }
+    }
+    public function getTv()
+    {
+      $course=  $this->courseRepository->getCourseTv();
+
+        if($course){
+            return response()->json($course);
+        }
+        else{
+            return response()->json([
+
+                'message'=>'صدا و سیما ثبت نشده'
+
+            ],401);
+        }
+    }
 
 
 

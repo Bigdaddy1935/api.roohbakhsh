@@ -190,7 +190,10 @@ Route::prefix('app/courses')->controller(CourseController::class)->group(functio
     Route::get('get','getCourses');
     Route::get('/','index');
     Route::get('get/{id}','get_course_by_id');
-    Route::post('get/medias','getMedia');
+    Route::post('get/academy','getMedia');
+    Route::post('get/mahdyar','getMahdyar');
+    Route::post('get/kolbe','getKolbe');
+    Route::post('get/tv','getTv');
     Route::get('get/course/count','getCourseLessonsCount');
     Route::middleware('auth:sanctum')->get('like/{id}','likeCourse');
     Route::middleware('auth:sanctum')->get('bookmark/{id}','bookmarkCourse');
