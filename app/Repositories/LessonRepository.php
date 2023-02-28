@@ -225,7 +225,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
         $user= auth('sanctum')->id();
         return   Lesson::query()
             ->whereHas('courses',function ($q){
-                $q->where('type','=','mahdyar');
+                $q->where('type','=','tv');
             })
             ->with('categories')
             ->withAggregate('visits','score')
