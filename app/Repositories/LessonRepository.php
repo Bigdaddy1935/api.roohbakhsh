@@ -34,17 +34,20 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
     public function GetLessonsOfAnCourse($id)
     {
         $user= auth('sanctum')->id();
-         return   Lesson::query()
+        return   Lesson::query()
             ->where('course_id',$id)
             ->with('categories')
             ->withAggregate('visits','score')
             ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
-              $q->where('user_id',$user);
-          }])
-             ->with('progress',function ($q)use ($user){
-                 $q->where('user_id',$user);
-             })
-            ->paginate(10);
+                $q->where('user_id',$user);
+            }])->withExists(['likers as like'=>function($q)use ($user){
+                $q->where('user_id',$user);
+            }])->withCount('likers as like_count')
+            ->with('progress',function ($q)use ($user){
+                $q->where('user_id',$user);
+            })
+            ->orderBy('id','DESC')
+            ->paginate(20);
     }
     public function GetLessonsOfAnCourseGet($id)
     {
