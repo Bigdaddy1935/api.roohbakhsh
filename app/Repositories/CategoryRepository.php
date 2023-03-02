@@ -27,7 +27,7 @@ class CategoryRepository extends Repository implements CategoryRepositoryInterfa
     public function Get_Course_With_Their_Cat($id)
     {
         $user= auth('sanctum')->id();
-      return  Course::query()->withWhereHas('categories',function ($q) use ($id){
+      return  Course::query()->where('type','=','course')->withWhereHas('categories',function ($q) use ($id){
             $q->where('id',$id);
         })
             ->join('users','users.id','=','courses.course_user_id')
