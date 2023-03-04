@@ -173,6 +173,7 @@ Route::prefix('app')->controller(ZarinpalPayment::class)->group(function (){
     Route::post('invoice/verify','verifyInvoice');
 });
 Route::prefix('app')->controller(HomeController::class)->group(function (){
+    Route::post('version','CheckVersion');
     Route::post('/search','search')->name('search');
     Route::get('/tutorial','showTutorial');
     Route::post('/notification','SendNotify');

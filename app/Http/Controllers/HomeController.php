@@ -237,5 +237,16 @@ class HomeController extends Controller
     }
 
 
+    public function CheckVersion(Request $request)
+    {
+
+       $version= $request->version;
+
+       if($version == '2.0.0'){
+           return response()->json(true);
+       }
+       return response()->json(false);
+    }
+
 
 }
