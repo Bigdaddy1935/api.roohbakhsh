@@ -243,9 +243,9 @@ class HomeController extends Controller
        $version= $request->version;
 
        if($version == '2.0.0'){
-           return response()->json(true);
+           return true;
        }
-       return response()->json(false);
+       return false;
     }
 
 
