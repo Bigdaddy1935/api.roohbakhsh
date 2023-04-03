@@ -17,7 +17,7 @@ class CustomPayController extends Controller
         $amount=$data['amount'];
         $invoice->amount($amount);
 
-        return  Payment::callbackUrl('https://roohbakhshac.ir/seminar/verify')->purchase($invoice,function($driver, $transactionId ) use ($amount) {
+        return  Payment::callbackUrl('poshtybanman://myapp.com')->purchase($invoice,function($driver, $transactionId ) use ($amount) {
             $data=[
                 'amount'=>$amount,
                 'authority'=>$transactionId,
