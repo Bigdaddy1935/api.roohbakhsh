@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CustomPay;
 use Illuminate\Http\Request;
 use Shetabit\Multipay\Invoice;
 use Shetabit\Payment\Facade\Payment;
@@ -16,12 +17,12 @@ class CustomPayController extends Controller
         $amount=$data['amount'];
         $invoice->amount($amount);
 
-        return  Payment::callbackUrl('poshtybanman://myapp.com')->purchase($invoice,function($driver, $transactionId ) use ($amount) {
+        return  Payment::callbackUrl('https://roohbakhshac.ir/seminar/verify')->purchase($invoice,function($driver, $transactionId ) use ($amount) {
             $data=[
                 'amount'=>$amount,
                 'authority'=>$transactionId,
             ];
-            \App\Models\CustomPay::query()->create($data);
+            CustomPay::query()->create($data);
 
         })->pay()->toJson();
     }
