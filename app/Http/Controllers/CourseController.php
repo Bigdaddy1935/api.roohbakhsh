@@ -179,6 +179,7 @@ protected $result=[];
             'course_status'=>$request->course_status,
             'navigation'=>$request->navigation,
             'picture'=>$request->picture,
+            'intro'=>$request->intro,
 
         ];
        if($data['type']=='course') {

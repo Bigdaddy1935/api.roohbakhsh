@@ -5,6 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CustomPay;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
@@ -161,6 +162,7 @@ Route::middleware('auth:sanctum')->prefix('app')->controller(AppNotificationCont
     Route::post('store','storeToken');
 });
 
+
 Route::prefix('app/showcase')->controller(ShowcaseController::class)->group(function () {
     Route::get('get', 'getShowcase');
 });
@@ -275,6 +277,11 @@ Route::middleware(['auth:sanctum','XSS'])->prefix('app/invoices')->controller(In
     Route::post('add','addInvoice');
     Route::get('get','getInvoice');
 
+});
+
+Route::middleware('auth:sanctum')->prefix('app/CustomPay')->controller(CustomPay::class)->group(function (){
+    Route::post('add','CustomPayInvoice');
+    Route::post('verify','CustomPayVerify');
 });
 
 
