@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Shetabit\Multipay\Invoice;
 use Shetabit\Payment\Facade\Payment;
 
-class CustomPay extends Controller
+class CustomPayController extends Controller
 {
 
     public function CustomPayInvoice(Request $request)

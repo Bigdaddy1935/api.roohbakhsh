@@ -5,7 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\CourseController;
-use App\Http\Controllers\CustomPay;
+use App\Http\Controllers\CustomPayController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
@@ -14,7 +14,6 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SeminarController;
-use App\Http\Controllers\ShowcaseController;
 use App\Http\Controllers\TutorialController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideoProgressBarController;
@@ -46,13 +45,6 @@ Route::middleware('auth:sanctum',)->prefix('courses')->controller(CourseControll
     Route::delete('delete/{id}','deleteCourse');
 });
 
-Route::middleware('auth:sanctum')->prefix('showcase')->controller(ShowcaseController::class)->group(function (){
-    Route::post('add','addShowcase');
-    Route::get('get','getShowcase');
-    Route::delete('delete/{id}','deleteShowcase');
-    Route::post('update/{id}','updateShowcase');
-});
-
 
 Route::middleware('auth:sanctum')->controller(HomeController::class)->group(function (){
     Route::post('/notification','SendNotify');
@@ -69,7 +61,6 @@ Route::middleware('auth:sanctum')->prefix('lessons')->controller(LessonControlle
     Route::get('get/{id}','get_lesson_by_id');
     Route::get('get/by_course_id/{id}','getCourseLessonsWithoutPaginate');
     Route::get('/','index');
-    Route::get('list','list');
     Route::get('take','takeLesson');
     Route::delete('delete/{id}','deleteLesson');
     Route::post('update/{id}', 'updateLesson');
@@ -87,7 +78,6 @@ Route::middleware('auth:sanctum')->prefix('articles')->controller(ArticleControl
     Route::get('/','index');
     Route::post('like','LikePost');
     Route::post('bookmark','bookmarkPost');
-    Route::get('list','list');
     Route::post('update/{id}','updateArticle');
     Route::get('get','getArticles');
     Route::get('get/counts','ArticlesCount');
@@ -162,11 +152,6 @@ Route::middleware('auth:sanctum')->prefix('app')->controller(AppNotificationCont
     Route::post('store','storeToken');
 });
 
-
-Route::prefix('app/showcase')->controller(ShowcaseController::class)->group(function () {
-    Route::get('get', 'getShowcase');
-});
-
 Route::prefix('app')->controller(ZarinpalPayment::class)->group(function (){
     Route::post('/zarinpal','ZarinpalRequest');
     Route::get('/mahdyar','table');
@@ -175,11 +160,9 @@ Route::prefix('app')->controller(ZarinpalPayment::class)->group(function (){
     Route::post('invoice/verify','verifyInvoice');
 });
 Route::prefix('app')->controller(HomeController::class)->group(function (){
-    Route::post('version','CheckVersion');
     Route::post('/search','search')->name('search');
     Route::get('/tutorial','showTutorial');
     Route::post('/notification','SendNotify');
-    Route::post('/notification/get','getNotify');
 });
 Route::prefix('app/articles')->controller(ArticleController::class)->group(function (){
     Route::get('get','getArticles');
@@ -193,10 +176,7 @@ Route::prefix('app/courses')->controller(CourseController::class)->group(functio
     Route::get('get','getCourses');
     Route::get('/','index');
     Route::get('get/{id}','get_course_by_id');
-    Route::post('get/academy','getMedia');
-    Route::post('get/mahdyar','getMahdyar');
-    Route::post('get/kolbe','getKolbe');
-    Route::post('get/tv','getTv');
+    Route::post('get/medias','getMedia');
     Route::get('get/course/count','getCourseLessonsCount');
     Route::middleware('auth:sanctum')->get('like/{id}','likeCourse');
     Route::middleware('auth:sanctum')->get('bookmark/{id}','bookmarkCourse');
@@ -206,12 +186,6 @@ Route::prefix('app/lessons')->controller(LessonController::class)->group(functio
     Route::get('/','index');
     Route::get('get/by_course_id/{id}','getCourseLessons');
     Route::get('get/by_media_id/{id}','getMediaLessons');
-    Route::get('get/by_mahdyar/{id}','getMahdyarLessons');
-    Route::get('get/by_kolbe_id/{id}','getKolbeLessons');
-    Route::get('get/by_tv_id/{id}','getTvLessons');
-    Route::get('get/all_tv','getAllTvLessons');
-    Route::get('get/all_mahdyar','getAllMahdyarLessons');
-    Route::get('get/all_kolbe','getAllKolbeLessons');
     Route::get('get/all_media','getAllLessonsMedia');
     Route::middleware(['auth:sanctum','XSS'])->get('like/{id}','likeLesson');
     Route::middleware(['auth:sanctum','XSS'])->get('bookmark/{id}','bookmarkLesson');
@@ -279,7 +253,7 @@ Route::middleware(['auth:sanctum','XSS'])->prefix('app/invoices')->controller(In
 
 });
 
-Route::middleware('auth:sanctum')->prefix('app/CustomPay')->controller(CustomPay::class)->group(function (){
+Route::middleware('auth:sanctum')->prefix('app/CustomPay')->controller(CustomPayController::class)->group(function (){
     Route::post('add','CustomPayInvoice');
     Route::post('verify','CustomPayVerify');
 });
