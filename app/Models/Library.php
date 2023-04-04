@@ -16,6 +16,7 @@ class Library extends Model
         'size',
         'picture',
         'type',
+        'desc'
 
     ];
 

@@ -58,6 +58,7 @@ class LibraryController extends Controller
              'size'=>$request->size,
              'picture'=>$url,
              'type'=>$request->type,
+            'desc'=>$request->desc == null ? null : $request->desc,
             ];
         $library = $this->libraryRepository->create($data);
         return response()->json($library,201);
