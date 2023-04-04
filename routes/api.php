@@ -7,6 +7,7 @@ use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CustomPayController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LessonController;
@@ -144,6 +145,13 @@ Route::prefix('seminars')->controller(SeminarController::class)->group(function 
    Route::post('register','SeminarRegister');
    Route::post('invoice','ZarinpalPay');
    Route::post('invoice/verify','VerifyZarinpalPaid');
+});
+
+Route::middleware('auth:sanctum')->prefix('gallery')->controller(GalleryController::class)->group(function (){
+    Route::post('add','addGallery');
+    Route::post('update/{id}','editGallery');
+    Route::get('get','getGallery');
+    Route::delete('delete/{id}','deleteGallery');
 });
 
 

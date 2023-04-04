@@ -7,6 +7,7 @@ use App\Interfaces\CartRepositoryInterface;
 use App\Interfaces\CategoryRepositoryInterface;
 use App\Interfaces\CommentRepositoryInterface;
 use App\Interfaces\CourseRepositoryInterface;
+use App\Interfaces\GalleryRepositoryInterface;
 use App\Interfaces\InvoiceRepositoryInterface;
 use App\Interfaces\LessonRepositoryInterface;
 use App\Interfaces\LibraryRepositoryInterface;
@@ -22,6 +23,7 @@ use App\Repositories\CartRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\CommentRepository;
 use App\Repositories\CourseRepository;
+use App\Repositories\GalleryRepository;
 use App\Repositories\InvoiceRepository;
 use App\Repositories\LessonRepository;
 use App\Repositories\LibraryRepository;
@@ -68,5 +70,6 @@ class RepositoriesServiceProvider extends ServiceProvider
         $this->app->bind(CommentRepositoryInterface::class,CommentRepository::class);
         $this->app->bind(SearchRepositoryInterface::class,SearchRepository::class);
         $this->app->bind(ShowcaseRepositoryInterface::class,ShowcaseRepository::class);
+        $this->app->bind(GalleryRepositoryInterface::class,GalleryRepository::class);
     }
 }

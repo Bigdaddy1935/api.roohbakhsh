@@ -19,6 +19,11 @@ class Library extends Model
 
     ];
 
+    public function galleries()
+    {
+        return $this->belongsToMany(Gallery::class);
+    }
+
 
 
 }
