@@ -15,6 +15,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\LibraryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SeminarController;
+use App\Http\Controllers\ShowcaseController;
 use App\Http\Controllers\TutorialController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VideoProgressBarController;
@@ -155,6 +156,14 @@ Route::middleware('auth:sanctum')->prefix('gallery')->controller(GalleryControll
 });
 
 
+Route::middleware('auth:sanctum')->prefix('showcase')->controller(ShowcaseController::class)->group(function (){
+   Route::post('add','addShowcase');
+   Route::get('get','getShowcase');
+   Route::delete('delete/{id}','deleteShowcase');
+   Route::post('update/{id}','updateShowcase');
+});
+
+
 //APP ROUTES
 Route::middleware('auth:sanctum')->prefix('app')->controller(AppNotificationController::class)->group(function (){
     Route::post('store','storeToken');
@@ -184,7 +193,10 @@ Route::prefix('app/courses')->controller(CourseController::class)->group(functio
     Route::get('get','getCourses');
     Route::get('/','index');
     Route::get('get/{id}','get_course_by_id');
-    Route::post('get/medias','getMedia');
+    Route::get('get/medias','getMedia');
+    Route::get('get/tv','getTv');
+    Route::get('get/mahdyar','getMahdyar');
+    Route::get('get/kolbe','getKolbe');
     Route::get('get/course/count','getCourseLessonsCount');
     Route::middleware('auth:sanctum')->get('like/{id}','likeCourse');
     Route::middleware('auth:sanctum')->get('bookmark/{id}','bookmarkCourse');
@@ -286,6 +298,10 @@ Route::middleware(['auth:sanctum','XSS'])->prefix('app/comment')->controller(Com
     Route::post('remove/{id}','removeComment');
     Route::post('reject/{id}','RejectComment');
     Route::middleware('auth:sanctum')->get('get','getComment');
+});
+
+Route::middleware('auth:sanctum')->prefix('app/showcase')->controller(ShowcaseController::class)->group(function (){
+    Route::get('get','getShowcase');
 });
 
 
