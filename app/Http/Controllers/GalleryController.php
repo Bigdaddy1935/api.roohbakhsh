@@ -29,6 +29,7 @@ class GalleryController extends Controller
        $gallery=$this->galleryRepository->create([
            'name'=>$request->name,
            'picture'=>$request->picture,
+           'desc'=>$request->desc == null ?null : $request->desc,
        ]);
 
 
@@ -54,6 +55,7 @@ class GalleryController extends Controller
         $data=[
           'name'=>$request->name,
           'picture'=>$request->picture,
+            'desc'=>$request->desc,
         ];
         $libraries=explode(",",$request->library_id);
         $gallery=$this->galleryRepository->update($id,$data);
