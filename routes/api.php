@@ -193,10 +193,10 @@ Route::prefix('app/courses')->controller(CourseController::class)->group(functio
     Route::get('get','getCourses');
     Route::get('/','index');
     Route::get('get/{id}','get_course_by_id');
-    Route::get('get/medias','getMedia');
-    Route::get('get/tv','getTv');
-    Route::get('get/mahdyar','getMahdyar');
-    Route::get('get/kolbe','getKolbe');
+    Route::post('get/medias','getMedia');
+    Route::post('get/tv','getTv');
+    Route::post('get/mahdyar','getMahdyar');
+    Route::post('get/kolbe','getKolbe');
     Route::get('get/course/count','getCourseLessonsCount');
     Route::middleware('auth:sanctum')->get('like/{id}','likeCourse');
     Route::middleware('auth:sanctum')->get('bookmark/{id}','bookmarkCourse');
@@ -313,10 +313,10 @@ Route::middleware('auth:sanctum')->prefix('app/showcase')->controller(ShowcaseCo
 
 
 
-//SITE ROUTES
-Route::middleware('auth:sanctum')->prefix('tickets')->controller(TicketsController::class)->group(function (){
-    Route::post('add','addTicket');
-    Route::post('add/department','addDepartment');
-    Route::get('get','getTickets');
-    // delete and update
-});
+////SITE ROUTES
+//Route::middleware('auth:sanctum')->prefix('tickets')->controller(TicketsController::class)->group(function (){
+//    Route::post('add','addTicket');
+//    Route::post('add/department','addDepartment');
+//    Route::get('get','getTickets');
+//    // delete and update
+//});
