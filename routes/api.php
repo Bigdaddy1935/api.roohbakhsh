@@ -64,6 +64,7 @@ Route::middleware('auth:sanctum')->prefix('lessons')->controller(LessonControlle
     Route::get('get/by_course_id/{id}','getCourseLessonsWithoutPaginate');
     Route::get('/','index');
     Route::get('take','takeLesson');
+    Route::get('list','list');
     Route::delete('delete/{id}','deleteLesson');
     Route::post('update/{id}', 'updateLesson');
 
@@ -80,6 +81,7 @@ Route::middleware('auth:sanctum')->prefix('articles')->controller(ArticleControl
     Route::get('/','index');
     Route::post('like','LikePost');
     Route::post('bookmark','bookmarkPost');
+    Route::get('list','list');
     Route::post('update/{id}','updateArticle');
     Route::get('get','getArticles');
     Route::get('get/counts','ArticlesCount');
