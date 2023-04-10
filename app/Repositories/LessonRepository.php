@@ -27,7 +27,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
                  }])
              ->with(['progress'=>function ($q)use ($user){
                  $q->where('user_id',$user);
-             }])
+             }])->with('related',)->with('article')
             ->paginate(10);
     }
 
@@ -45,7 +45,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])->withCount('likers as like_count')
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
-            })
+            })->with('related',)->with('article')
             ->orderBy('id','DESC')
             ->paginate(20);
     }
@@ -61,7 +61,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
-            })
+            })->with('related',)->with('article')
             ->get();
     }
 
@@ -106,7 +106,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])->withCount('likers as like_count')
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
-            })
+            })->with('related',)->with('article')
             ->orderBy('id','DESC')
             ->paginate(20);
     }
@@ -126,6 +126,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
             })
+            ->with('related',)->with('article')
             ->orderBy('id','DESC')
             ->paginate(35);
     }
@@ -144,6 +145,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             ->with(['progress'=>function ($q)use ($user){
                 $q->where('user_id',$user);
             }])
+            ->with('related',)->with('article')
             ->get();
     }
 
@@ -162,6 +164,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
             })
+            ->with('related',)->with('article')
             ->orderBy('id','DESC')
             ->paginate(20);
     }
@@ -180,7 +183,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])->withCount('likers as like_count')
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
-            })
+            })->with('related',)->with('article')
             ->orderBy('id','DESC')
             ->paginate(20);
     }
@@ -199,7 +202,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
-            })
+            })->with('related',)->with('article')
             ->orderBy('id','DESC')
             ->paginate(35);
     }
@@ -218,7 +221,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
-            })
+            })->with('related',)->with('article')
             ->orderBy('id','DESC')
             ->paginate(35);
     }
@@ -237,7 +240,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])->withCount('likers as like_count')
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
-            })
+            })->with('related',)->with('article')
             ->orderBy('id','DESC')
             ->paginate(20);
     }
@@ -256,7 +259,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
-            })
+            })->with('related',)->with('article')
             ->orderBy('id','DESC')
             ->paginate(35);
     }
