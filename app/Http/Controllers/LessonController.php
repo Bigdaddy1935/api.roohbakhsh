@@ -61,8 +61,10 @@ class LessonController extends Controller
         $categories=explode(",",$request->categories);
         $data=$request->all();
          $lessons=  $this->lessonRepository->create($data);
+         $tags = explode(",", $request->tags);
 
-         $related_lessons_id=explode(",",$request->related_lessons_id);
+
+        $related_lessons_id=explode(",",$request->related_lessons_id);
          $lesson_names=explode(",",$request->lesson_names);
 
          $related_articles_id=explode(",",$request->related_articles_id);
@@ -95,6 +97,7 @@ class LessonController extends Controller
             $lessons->notifications()->save($notify);
         }
         $lessons->categories()->attach($categories);
+        $lessons->tag($tags);
         return response()->json($lessons,201);
 
     }
@@ -220,6 +223,8 @@ class LessonController extends Controller
 
         //get categories as an array
         $categories=explode(",",$request->categories);
+        $tags = explode(",", $request->tags);
+
         $lesson=  $this->lessonRepository->update($id,$data);
 
         $related_lessons_id=explode(",",$request->related_lessons_id);
@@ -246,6 +251,7 @@ class LessonController extends Controller
 
         //sync new categories with old one
         $lesson->categories()->sync($categories);
+        $lesson->retag($tags);
 
         return response()->json([
             'message'=>'درس مورد نظر با موفقیت ویرایش شد',
@@ -432,5 +438,13 @@ class LessonController extends Controller
       $list=  $this->lessonRepository->lessonsList();
 
         return response()->json($list);
+    }
+
+    public function LessonsTags(Request $request)
+    {
+        $tags=$request->tags;
+        $user=auth('sanctum')->id();
+        $result=$this->lessonRepository->LessonsFromTag($tags,$user);
+        return response()->json($result);
     }
 }

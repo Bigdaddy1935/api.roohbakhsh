@@ -63,6 +63,9 @@ Route::middleware('auth:sanctum')->prefix('lessons')->controller(LessonControlle
     Route::get('get/{id}','get_lesson_by_id');
     Route::get('get/by_course_id/{id}','getCourseLessonsWithoutPaginate');
     Route::get('/','index');
+    Route::get('get/by_tv_id/{id}','getTvLessons');
+    Route::get('get/by_kolbe_id/{id}','getKolbeLessons');
+    Route::get('get/by_mahdyar_id/{id}','getMahdyarLessons');
     Route::get('take','takeLesson');
     Route::get('list','list');
     Route::delete('delete/{id}','deleteLesson');
@@ -208,7 +211,11 @@ Route::prefix('app/lessons')->controller(LessonController::class)->group(functio
     Route::get('/','index');
     Route::get('get/by_course_id/{id}','getCourseLessons');
     Route::get('get/by_media_id/{id}','getMediaLessons');
+    Route::get('get/by_tv_id/{id}','getTvLessons');
+    Route::get('get/by_kolbe_id/{id}','getKolbeLessons');
+    Route::get('get/by_mahdyar_id/{id}','getMahdyarLessons');
     Route::get('get/all_media','getAllLessonsMedia');
+    Route::post('from/tags','LessonsTags');
     Route::middleware(['auth:sanctum','XSS'])->get('like/{id}','likeLesson');
     Route::middleware(['auth:sanctum','XSS'])->get('bookmark/{id}','bookmarkLesson');
     Route::middleware(['auth:sanctum','XSS'])->get('get/{id}','get_lesson_by_id')->name('lessons.get');

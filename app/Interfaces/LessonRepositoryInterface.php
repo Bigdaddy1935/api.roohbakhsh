@@ -16,6 +16,7 @@ interface LessonRepositoryInterface
     public function GetLessonsOfAllMahdyar();
     public function GetLessonsOfAllKolbe();
     public function GetSpecificLesson($id);
+    public function LessonsFromTag($tags,$user);
     public function lessonsCount();
     public function lessonsList();
 }

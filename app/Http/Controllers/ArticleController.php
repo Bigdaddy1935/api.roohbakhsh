@@ -7,7 +7,6 @@ use App\Interfaces\ArticleRepositoryInterface;
 use App\Models\Article;
 use App\Models\Comment;
 use App\Models\Notification;
-use App\Models\Tag;
 use App\QueryFilters\Categories;
 use App\QueryFilters\Sort;
 use App\QueryFilters\Status;
