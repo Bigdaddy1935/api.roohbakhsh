@@ -241,7 +241,7 @@ class ArticleController extends Controller
         $article->lesson()->detach();
         if($request->related_lessons_id != null){
             for ($i=0;$i<count($lesson_names);$i++){
-                $article->lesson()->sync([$related_lessons_id[$i]=>['name'=>$lesson_names[$i]]]);
+                $article->lesson()->attach([$related_lessons_id[$i]=>['name'=>$lesson_names[$i]]]);
             }
         }
 
