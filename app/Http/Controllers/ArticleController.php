@@ -235,7 +235,7 @@ class ArticleController extends Controller
         $article->related()->detach();
         if($request->related_articles_id != null){
             for ($i=0;$i<count($article_names);$i++){
-                $article->related()->attach([$related_articles_id[$i]=>['name'=>$article_names[$i]]]);
+                $article->related()->attach($related_articles_id[$i],['name'=>$article_names[$i]]);
             }
         }
         $article->lesson()->detach();
