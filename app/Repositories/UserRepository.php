@@ -146,6 +146,6 @@ class UserRepository extends Repository implements UserRepositoryInterface
 
     public function GetTeachersAndAuthors()
     {
-        return User::query()->where('approved','==',1)->orWhere('teacher','==',1)->get();
+        return User::query()->where('approved','=',1)->orWhere('teacher','=',1)->get();
     }
 }

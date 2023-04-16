@@ -18,7 +18,6 @@ interface UserRepositoryInterface
     public function GetIdentificationUser($identification);
     public function UserPurchasedProductsCount($user_id);
     public function UserPurchasedProducts($user_id);
-
     public function GetTeachersAndAuthors();
 
 }
