@@ -329,7 +329,7 @@ class UserController extends Controller
     {
 
 
-        $getUsers=$this->userRepository->all();
+        $getUsers=$this->userRepository->GetTeachersAndAuthors();
 
         if(!$getUsers)
         {
