@@ -257,10 +257,7 @@ class LessonController extends Controller
                 ]);
             }
         }
-        elseif (isEmpty($request->article_ids) ){
-            ArticleRelatedForLesson::query()->where('lesson_id','=',$id)->delete();
 
-        }
 
         $lesson_ids=explode(",",$request->lesson_ids);
         $lesson_names=explode(",",$request->lesson_names);
