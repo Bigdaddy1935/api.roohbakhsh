@@ -58,6 +58,8 @@ class CategoryRepository extends Repository implements CategoryRepositoryInterfa
             ->paginate(10);
     }
 
+
+
     public function Get_Article_With_Their_Cat($id)
     {
         $user= auth('sanctum')->id();
@@ -95,4 +97,20 @@ class CategoryRepository extends Repository implements CategoryRepositoryInterfa
     }
 
 
+    public function Get_Podcast_With_Their_Cat($id)
+    {
+        $user= auth('sanctum')->id();
+        return Lesson::query()->where('formats','=','sound')->withWhereHas('categories',function ($q) use ($id){
+            $q->where('id',$id);
+        })
+            ->join('users','users.id','=','lessons.user_id')
+            ->select('lessons.*','users.fullname')
+            ->with('categories')
+            ->withAggregate('visits','score')
+            ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                $q->where('user_id',$user);
+            }])
+            ->orderBy('id','DESC')
+            ->paginate(10);
+    }
 }
