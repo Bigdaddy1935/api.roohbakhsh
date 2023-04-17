@@ -69,12 +69,14 @@ class Article extends Model
         return $this->morphMany(Showcase::class, 'model');
     }
 
-    public function related()
+    public function relatedArticles()
     {
         return $this->belongsToMany(Article::class, 'article_related', 'article_id', 'related_article_id')->withPivot('name');
     }
-    public function lesson(): BelongsToMany
+
+    public function relatedLessons()
     {
-        return $this->belongsToMany(Lesson::class,'article_lesson','article_id','lesson_id')->withPivot('name');
+        return $this->hasMany(LessonRelatedForArticle::class);
     }
+
 }

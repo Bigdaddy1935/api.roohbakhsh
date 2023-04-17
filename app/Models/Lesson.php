@@ -95,18 +95,20 @@ protected $casts=[
         return $this->morphMany(Showcase::class, 'model');
     }
 
-    public function related()
+    public function relatedLessons()
     {
         return $this->belongsToMany(Lesson::class, 'lesson_related', 'lesson_id', 'related_lesson_id')->withPivot('name');
     }
-    public function article(): BelongsToMany
-    {
-        return $this->belongsToMany(Article::class,'article_lesson','lesson_id','article_id')->withPivot('name');
-    }
+
 
     public function incrementViewCount() {
         $this->views++;
         return $this->save();
+    }
+
+    public function relatedArticles()
+    {
+        return $this->hasMany(ArticleRelatedForLesson::class);
     }
 
 }

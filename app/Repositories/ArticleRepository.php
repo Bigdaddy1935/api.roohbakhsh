@@ -25,8 +25,8 @@ class ArticleRepository extends Repository implements ArticleRepositoryInterface
              ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
           $q->where('user_id',$user);
              }])
-              ->with('related')
-              ->with('lesson')
+              ->with('relatedArticles')
+              ->with('relatedLessons')
               ->orderBy('id','DESC')
             ->paginate(10);
     }
@@ -38,8 +38,8 @@ class ArticleRepository extends Repository implements ArticleRepositoryInterface
             ->select('articles.*','users.fullname')
             ->with('tagged')
             ->with('categories')
-            ->with('related')
-            ->with('lesson')
+            ->with('relatedArticles')
+            ->with('relatedLessons')
             ->findOrFail($id);
     }
 
@@ -60,8 +60,8 @@ class ArticleRepository extends Repository implements ArticleRepositoryInterface
             ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
                 $q->where('user_id',$user);
             }])
-            ->with('related')
-            ->with('lesson')
+            ->with('relatedArticles')
+            ->with('relatedLessons')
             ->orderBy('id','DESC')
             ->paginate(10);
     }

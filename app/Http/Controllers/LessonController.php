@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Interfaces\LessonRepositoryInterface;
 use App\Models\Article;
+use App\Models\ArticleRelatedForLesson;
 use App\Models\Comment;
 use App\Models\Course;
 use App\Models\Lesson;
@@ -23,6 +24,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Facades\DB;
+use function PHPUnit\Framework\isEmpty;
 
 
 class LessonController extends Controller
@@ -63,22 +65,33 @@ class LessonController extends Controller
          $lessons=  $this->lessonRepository->create($data);
          $tags = explode(",", $request->tags);
 
+         $id=  $lessons->id;
 
-        $related_lessons_id=explode(",",$request->related_lessons_id);
-         $lesson_names=explode(",",$request->lesson_names);
+         $article_names=explode(',',$request->article_names);
+         $article_ids=explode(',',$request->article_ids);
 
-         $related_articles_id=explode(",",$request->related_articles_id);
-         $article_names=explode(",",$request->article_names);
 
-         if($request->related_articles_id != null){
-             for ($i=0;$i<count($article_names);$i++){
-                 $lessons->article()->attach([$related_articles_id[$i]=>['name'=>$article_names[$i]]]);
+
+         if($request->article_ids != null){
+             for($i=0;$i<count($article_ids);$i++){
+                 ArticleRelatedForLesson::query()->create([
+                     'article_name'=>$article_names[$i],
+                     'article_id'=>$article_ids[$i],
+                     'lesson_id'=>$id
+                 ]);
              }
          }
 
-         if($request->related_lessons_id != null){
+
+
+
+        $lesson_ids=explode(",",$request->lesson_ids);
+        $lesson_names=explode(",",$request->lesson_names);
+
+
+         if($request->lesson_ids != null){
              for ($i=0;$i<count($lesson_names);$i++){
-                 $lessons->related()->attach([$related_lessons_id[$i]=>['name'=>$lesson_names[$i]]]);
+                 $lessons->relatedLessons()->attach([$lesson_ids[$i]=>['name'=>$lesson_names[$i]]]);
              }
          }
 
@@ -227,23 +240,35 @@ class LessonController extends Controller
 
         $lesson=  $this->lessonRepository->update($id,$data);
 
-        $related_lessons_id=explode(",",$request->related_lessons_id);
-        $lesson_names=explode(",",$request->lesson_names);
-
-        $related_articles_id=explode(",",$request->related_articles_id);
-        $article_names=explode(",",$request->article_names);
+        $article_names=explode(',',$request->article_names);
+        $article_ids=explode(',',$request->article_ids);
 
 
-        $lesson->related()->detach();
-        if($request->related_lessons_id != null){
-            for ($i=0;$i<count($lesson_names);$i++){
-                $lesson->related()->attach($related_lessons_id[$i],['name'=>$lesson_names[$i]]);
+
+
+
+        if($request->article_ids != null){
+            ArticleRelatedForLesson::query()->where('lesson_id','=',$id)->delete();
+            for($i=0;$i<count($article_ids);$i++){
+                ArticleRelatedForLesson::query()->create([
+                    'article_name'=>$article_names[$i],
+                    'article_id'=>$article_ids[$i],
+                    'lesson_id'=>$id
+                ]);
             }
         }
-        $lesson->article()->detach();
-        if($request->related_articles_id != null){
-            for ($i=0;$i<count($article_names);$i++){
-                $lesson->article()->attach([$related_articles_id[$i]=>['name'=>$article_names[$i]]]);
+        elseif (isEmpty($request->article_ids) ){
+            ArticleRelatedForLesson::query()->where('lesson_id','=',$id)->delete();
+
+        }
+
+        $lesson_ids=explode(",",$request->lesson_ids);
+        $lesson_names=explode(",",$request->lesson_names);
+
+        $lesson->relatedLessons()->detach();
+        if($request->lesson_ids != null){
+            for ($i=0;$i<count($lesson_names);$i++){
+                $lesson->relatedLessons()->attach($lesson_ids[$i],['name'=>$lesson_names[$i]]);
             }
         }
 

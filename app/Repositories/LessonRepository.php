@@ -27,7 +27,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
                  }])
              ->with(['progress'=>function ($q)use ($user){
                  $q->where('user_id',$user);
-             }])->with('related',)->with('article')
+             }])->with('relatedLessons',)->with('relatedArticles')
             ->paginate(10);
     }
 
@@ -45,7 +45,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])->withCount('likers as like_count')
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
-            })->with('related',)->with('article')
+            })->with('relatedLessons',)->with('relatedArticles')
             ->orderBy('id','DESC')
             ->paginate(20);
     }
@@ -61,7 +61,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
-            })->with('related',)->with('article')
+            })->with('relatedLessons',)->with('relatedArticles')
             ->get();
     }
 
@@ -83,7 +83,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
            }])
            ->withCount(['comments'=>function($q){
                $q->where('status','=',1);
-           }])->with('related',)->with('article')
+           }])->with('relatedLessons',)->with('relatedArticles')
             ->findOrFail($id);
     }
 
@@ -106,7 +106,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])->withCount('likers as like_count')
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
-            })->with('related',)->with('article')
+            })->with('relatedLessons',)->with('relatedArticles')
             ->orderBy('id','DESC')
             ->paginate(20);
     }
@@ -126,7 +126,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
             })
-            ->with('related',)->with('article')
+            ->with('relatedLessons',)->with('relatedArticles')
             ->orderBy('id','DESC')
             ->paginate(35);
     }
@@ -151,7 +151,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
             })
-            ->with('related',)->with('article')
+            ->with('relatedLessons',)->with('relatedArticles')
             ->orderBy('id','DESC')
             ->paginate(20);
     }
@@ -170,7 +170,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])->withCount('likers as like_count')
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
-            })->with('related',)->with('article')
+            })->with('relatedLessons',)->with('relatedArticles')
             ->orderBy('id','DESC')
             ->paginate(20);
     }
@@ -189,7 +189,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
-            })->with('related',)->with('article')
+            })->with('relatedLessons',)->with('relatedArticles')
             ->orderBy('id','DESC')
             ->paginate(35);
     }
@@ -208,7 +208,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
-            })->with('related',)->with('article')
+            })->with('relatedLessons',)->with('relatedArticles')
             ->orderBy('id','DESC')
             ->paginate(35);
     }
@@ -227,7 +227,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])->withCount('likers as like_count')
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
-            })->with('related',)->with('article')
+            })->with('relatedLessons',)->with('relatedArticles')
             ->orderBy('id','DESC')
             ->paginate(20);
     }
@@ -246,7 +246,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])
             ->with('progress',function ($q)use ($user){
                 $q->where('user_id',$user);
-            })->with('related',)->with('article')
+            })->with('relatedLessons',)->with('relatedArticles')
             ->orderBy('id','DESC')
             ->paginate(35);
     }
@@ -264,7 +264,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             }])
             ->with(['progress'=>function ($q)use ($user){
                 $q->where('user_id',$user);
-            }])->with('related',)->with('article')
+            }])->with('relatedLessons',)->with('relatedArticles')
             ->paginate(10);
     }
 }
