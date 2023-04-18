@@ -27,7 +27,7 @@ class ArticleRepository extends Repository implements ArticleRepositoryInterface
              }])
               ->with('relatedArticles')
               ->with('relatedLessons',function ($q){
-                  $q->join('lessons','lessons.id','=','lesson_related_for_articles.id')->select('lessons.title','lesson_related_for_articles.*');
+                  $q->join('lessons','lessons.id','=','lesson_related_for_articles.lesson_id')->select('lessons.title','lesson_related_for_articles.*');
               })
               ->orderBy('id','DESC')
             ->paginate(10);
@@ -42,7 +42,7 @@ class ArticleRepository extends Repository implements ArticleRepositoryInterface
             ->with('categories')
             ->with('relatedArticles')
             ->with('relatedLessons',function ($q){
-                $q->join('lessons','lessons.id','=','lesson_related_for_articles.id')->select('lessons.title','lesson_related_for_articles.*');
+                $q->join('lessons','lessons.id','=','lesson_related_for_articles.lesson_id')->select('lessons.title','lesson_related_for_articles.*');
             })
             ->findOrFail($id);
     }
@@ -66,7 +66,7 @@ class ArticleRepository extends Repository implements ArticleRepositoryInterface
             }])
             ->with('relatedArticles')
             ->with('relatedLessons',function ($q){
-                $q->join('lessons','lessons.id','=','lesson_related_for_articles.id')->select('lessons.title','lesson_related_for_articles.*');
+                $q->join('lessons','lessons.id','=','lesson_related_for_articles.lesson_id')->select('lessons.title','lesson_related_for_articles.*');
             })
             ->orderBy('id','DESC')
             ->paginate(10);
