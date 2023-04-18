@@ -216,6 +216,7 @@ Route::prefix('app/lessons')->controller(LessonController::class)->group(functio
     Route::get('get/by_mahdyar_id/{id}','getMahdyarLessons');
     Route::get('get/all_media','getAllLessonsMedia');
     Route::post('from/tags','LessonsTags');
+    Route::get('all/podcasts','getPodcasts');
     Route::middleware(['auth:sanctum','XSS'])->get('like/{id}','likeLesson');
     Route::middleware(['auth:sanctum','XSS'])->get('bookmark/{id}','bookmarkLesson');
     Route::middleware(['auth:sanctum','XSS'])->get('get/{id}','get_lesson_by_id')->name('lessons.get');

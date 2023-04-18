@@ -102,12 +102,16 @@ class CategoryRepository extends Repository implements CategoryRepositoryInterfa
         $user= auth('sanctum')->id();
         return Lesson::query()->where('formats','=','sound')->withWhereHas('categories',function ($q) use ($id){
             $q->where('id',$id);
+        })->withWhereHas('courses',function ($q){
+            $q->where('type','=','podcast')->where('course_title','=','پادکست');
         })
             ->join('users','users.id','=','lessons.user_id')
             ->select('lessons.*','users.fullname')
             ->with('categories')
             ->withAggregate('visits','score')
             ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                $q->where('user_id',$user);
+            }]) ->with(['progress'=>function ($q)use ($user){
                 $q->where('user_id',$user);
             }])
             ->orderBy('id','DESC')

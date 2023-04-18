@@ -19,4 +19,5 @@ interface LessonRepositoryInterface
     public function LessonsFromTag($tags,$user);
     public function lessonsCount();
     public function lessonsList();
+    public function GetAllPodcast();
 }

@@ -469,4 +469,11 @@ class LessonController extends Controller
         $result=$this->lessonRepository->LessonsFromTag($tags,$user);
         return response()->json($result);
     }
+
+    public function getPodcasts()
+    {
+        $podcasts=$this->lessonRepository->GetAllPodcast();
+
+        return response()->json($podcasts);
+    }
 }
