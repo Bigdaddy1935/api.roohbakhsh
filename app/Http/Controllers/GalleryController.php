@@ -18,23 +18,20 @@ class GalleryController extends Controller
 
     public function addGallery(Request $request)
     {
-     $data=  $request->validate([
+     $request->validate([
            'name'=>'required',
            'picture'=>'required',
            'library_id'=>'required',
        ]);
 
-       $libraries_id=explode(',',$request->library_id);
+        $library_ids = array_map(null , $request->library_id);
 
        $gallery=$this->galleryRepository->create([
            'name'=>$request->name,
            'picture'=>$request->picture,
-           'desc'=>$request->desc == null ?null : $request->desc,
        ]);
 
-
-
-       $gallery->libraries()->attach($libraries_id);
+       $gallery->libraries()->attach($library_ids);
 
        return response()->json([
            'data'=>$gallery,
@@ -55,7 +52,7 @@ class GalleryController extends Controller
         $data=[
           'name'=>$request->name,
           'picture'=>$request->picture,
-            'desc'=>$request->desc,
+
         ];
         $libraries=explode(",",$request->library_id);
         $gallery=$this->galleryRepository->update($id,$data);
