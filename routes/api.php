@@ -223,6 +223,11 @@ Route::prefix('app/lessons')->controller(LessonController::class)->group(functio
 
 });
 
+Route::prefix('app/gallery')->controller(GalleryController::class)->group(function (){
+    Route::get('get','getGallery');
+});
+
+
 Route::middleware(['auth:sanctum','XSS'])->prefix('app/progress')->controller(VideoProgressBarController::class)->group(function (){
     Route::post('save/time/{id}', 'saveTime')->name('video.saveTime');
     Route::get('get/time/{id}', 'getTime')->name('video.getTime');
