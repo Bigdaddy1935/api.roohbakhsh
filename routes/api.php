@@ -313,7 +313,8 @@ Route::middleware(['auth:sanctum','XSS'])->prefix('app/comment')->controller(Com
     Route::post('accept/{id}','AcceptComment');
     Route::post('remove/{id}','removeComment');
     Route::post('reject/{id}','RejectComment');
-    Route::middleware('auth:sanctum')->get('get','getComment');
+    Route::middleware('auth:sanctum')->get('get/accepted','GetAccepted');
+    Route::middleware('auth:sanctum')->get('get/rejected','GetRejected');
 });
 
 Route::middleware('auth:sanctum')->prefix('app/showcase')->controller(ShowcaseController::class)->group(function (){

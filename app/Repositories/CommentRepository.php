@@ -29,9 +29,39 @@ CommentRepository extends Repository implements CommentRepositoryInterface
             ->withCount('likers as like_count')
             ->whereNull('parent_id')
             ->orderBy('id','DESC')
-            ->get();
+            ->paginate(10);
     }
 
 
+    public function AcceptedComments()
+    {
+        $user= auth()->id();
+        return Comment::query()
+            ->where('status','=',1)
+            ->with('replies')
+            ->with('user')
+            ->withExists(['likers as like'=>function($q)use ($user){
+                $q->where('user_id',$user);
+            }])
+            ->withCount('likers as like_count')
+            ->whereNull('parent_id')
+            ->orderBy('id','DESC')
+            ->paginate(10);
+    }
 
+    public function rejectedComments()
+    {
+        $user= auth()->id();
+        return Comment::query()
+            ->where('status','=',0)
+            ->with('replies')
+            ->with('user')
+            ->withExists(['likers as like'=>function($q)use ($user){
+                $q->where('user_id',$user);
+            }])
+            ->withCount('likers as like_count')
+            ->whereNull('parent_id')
+            ->orderBy('id','DESC')
+            ->paginate(10);
+    }
 }

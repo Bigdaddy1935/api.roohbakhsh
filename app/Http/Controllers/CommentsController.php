@@ -73,6 +73,18 @@ class CommentsController extends Controller
         return response()->json($comment);
     }
 
+    public function GetAccepted(): JsonResponse
+    {
+        $comment=$this->commentRepository->AcceptedComments();
+
+        return response()->json($comment);
+    }
+    public function GetRejected(): JsonResponse
+    {
+        $comment=$this->commentRepository->rejectedComments();
+
+        return response()->json($comment);
+    }
 
     public function likeComment($id): JsonResponse
     {
