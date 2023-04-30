@@ -353,6 +353,18 @@ class LessonController extends Controller
 
     }
 
+    public function GetLessonsOfAnCourseWithFullProgress($id)
+    {
+        $lessons=$this->lessonRepository->GetLessonsOfAnCourseFullProgress($id);
+        foreach ($lessons as $lesson){
+            unset($lesson['url_video']);
+        }
+
+        return response()->json($lessons);
+
+
+    }
+
     public function getCourseLessonsWithoutPaginate($id): JsonResponse
     {
 

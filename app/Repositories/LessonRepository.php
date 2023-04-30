@@ -314,5 +314,27 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             })
             ->paginate(10);
     }
+
+    public function GetLessonsOfAnCourseFullProgress($id)
+    {
+        $user= auth('sanctum')->id();
+        return   Lesson::query()
+            ->withWhereHas('progress',function ($q)use ($user){
+                $q->where('user_id',$user)->where('percentage','=','100');
+            })
+            ->where('course_id',$id)
+            ->with('categories')
+            ->withAggregate('visits','score')
+            ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                $q->where('user_id',$user);
+            }])->withExists(['likers as like'=>function($q)use ($user){
+                $q->where('user_id',$user);
+            }])->withCount('likers as like_count')
+           ->with('relatedLessons',)->with('relatedArticles',function ($q){
+                $q->join('articles','articles.id','=','article_related_for_lessons.article_id')->select('articles.title','article_related_for_lessons.*');
+            })
+            ->orderBy('id','DESC')
+            ->paginate(20);
+    }
 }
 

@@ -6,6 +6,7 @@ interface LessonRepositoryInterface
 {
     public function GetLessonData();
     public function GetLessonsOfAnCourse($id);
+    public function GetLessonsOfAnCourseFullProgress($id);
     public function GetLessonsOfAnCourseGet($id);
     public function GetLessonsOfAnMedia($id);
     public function GetLessonsOfAnMahdyar($id);

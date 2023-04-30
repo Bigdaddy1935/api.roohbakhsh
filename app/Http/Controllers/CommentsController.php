@@ -134,6 +134,17 @@ class CommentsController extends Controller
 
     }
 
+    public function GetCommentsByType(Request $request ,$id)
+    {
+       $type= $request->type;
+
+
+
+     $result= $this->commentRepository->getSpecificComments($id,$type);
+
+     return response()->json($result);
+    }
+
 
 
 
