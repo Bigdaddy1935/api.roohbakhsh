@@ -59,9 +59,28 @@ class CommentsController extends Controller
         $reply->body = $request->body;
         $reply->user_id=auth()->id();
         $reply->parent_id = $request->input('comment_id');
-        $lesson = Lesson::query()->find($request->input('lesson_id'));
 
-        $lesson->comments()->save($reply);
+
+        if($request->course_id != null){
+            $course=Course::query()->find($request->input('course_id'));
+            $course->comments()->save($reply);
+        }
+        elseif ($request->lesson_id != null){
+            $lesson=Lesson::query()->find($request->input('lesson_id'));
+            $lesson->comments()->save($reply);
+        }
+        elseif ($request->article_id != null){
+            $article=Article::query()->find($request->input('article_id'));
+            $article->comments()->save($reply);
+        }elseif ($request->product_id != null){
+            $product=Product::query()->find($request->input('product_id'));
+            $product->comments()->save($reply);
+        }else
+        {
+            return response()->json('give me fucking id',422);
+        }
+
+
         return response()->json($reply);
 
     }
@@ -143,6 +162,18 @@ class CommentsController extends Controller
      $result= $this->commentRepository->getSpecificComments($id,$type);
 
      return response()->json($result);
+    }
+
+    public function GetAcceptedCommentsByTYpe(Request $request , $id)
+    {
+
+        $type= $request->type;
+
+
+
+        $result= $this->commentRepository->getSpecificAcceptedComments($id,$type);
+
+        return response()->json($result);
     }
 
 

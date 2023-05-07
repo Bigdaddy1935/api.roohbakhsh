@@ -50,7 +50,6 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             })->with('relatedLessons',)->with('relatedArticles',function ($q){
                 $q->join('articles','articles.id','=','article_related_for_lessons.article_id')->select('articles.title','article_related_for_lessons.*');
             })
-            ->orderBy('id','DESC')
             ->paginate(20);
     }
     public function GetLessonsOfAnCourseGet($id)
@@ -250,7 +249,6 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             })->with('relatedLessons',)->with('relatedArticles',function ($q){
                 $q->join('articles','articles.id','=','article_related_for_lessons.article_id')->select('articles.title','article_related_for_lessons.*');
             })
-            ->orderBy('id','DESC')
             ->paginate(20);
     }
 
@@ -271,7 +269,6 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             })->with('relatedLessons',)->with('relatedArticles',function ($q){
                 $q->join('articles','articles.id','=','article_related_for_lessons.article_id')->select('articles.title','article_related_for_lessons.*');
             })
-            ->orderBy('id','DESC')
             ->paginate(35);
     }
 
@@ -333,7 +330,29 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
            ->with('relatedLessons',)->with('relatedArticles',function ($q){
                 $q->join('articles','articles.id','=','article_related_for_lessons.article_id')->select('articles.title','article_related_for_lessons.*');
             })
-            ->orderBy('id','DESC')
+            ->paginate(20);
+    }
+
+    public function GetLessonsOfAnCourseNotCompleted($id)
+    {
+        $user= auth('sanctum')->id();
+        return   Lesson::query()
+            ->withWhereHas('progress',function ($q)use ($user){
+                $q->where('user_id',$user)->where('percentage','!=','100');
+            })
+            ->where('course_id',$id)
+            ->with('categories')
+            ->withAggregate('visits','score')
+            ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                $q->where('user_id',$user);
+            }])->withExists(['likers as like'=>function($q)use ($user){
+                $q->where('user_id',$user);
+            }])->withCount('likers as like_count')
+            ->with('progress',function ($q)use ($user){
+                $q->where('user_id',$user);
+            })->with('relatedLessons',)->with('relatedArticles',function ($q){
+                $q->join('articles','articles.id','=','article_related_for_lessons.article_id')->select('articles.title','article_related_for_lessons.*');
+            })
             ->paginate(20);
     }
 }

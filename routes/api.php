@@ -217,8 +217,9 @@ Route::prefix('app/lessons')->controller(LessonController::class)->group(functio
     Route::get('get/by_mahdyar_id/{id}','getMahdyarLessons');
     Route::get('get/all_media','getAllLessonsMedia');
     Route::post('from/tags','LessonsTags');
-    Route::get('all/podcasts','getPodcasts');
+    Route::get('get/all/podcast','getPodcasts');
     Route::get('get/learned/by_course_id/{id}','GetLessonsOfAnCourseWithFullProgress');
+    Route::get('get/learning/by_course_id/{id}','GetLessonsOfAnCourseNotCompletedProgress');
     Route::middleware(['auth:sanctum','XSS'])->get('like/{id}','likeLesson');
     Route::middleware(['auth:sanctum','XSS'])->get('bookmark/{id}','bookmarkLesson');
     Route::middleware(['auth:sanctum','XSS'])->get('get/{id}','get_lesson_by_id')->name('lessons.get');
@@ -315,7 +316,8 @@ Route::middleware(['auth:sanctum','XSS'])->prefix('app/comment')->controller(Com
     Route::post('accept/{id}','AcceptComment');
     Route::post('remove/{id}','removeComment');
     Route::post('reject/{id}','RejectComment');
-    Route::post('get/typ e/{id}','GetCommentsByType');
+    Route::post('get/type/{id}','GetCommentsByType');
+    Route::post('get/accepted/type/{id}','GetAcceptedCommentsByTYpe');
     Route::middleware('auth:sanctum')->get('get/accepted','GetAccepted');
     Route::middleware('auth:sanctum')->get('get','getComment');
     Route::middleware('auth:sanctum')->get('get/rejected','GetRejected');

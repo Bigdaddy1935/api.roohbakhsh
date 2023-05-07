@@ -349,6 +349,18 @@ class LessonController extends Controller
          unset($lesson['url_video']);
      }
 
+
+        return response()->json($lessons);
+
+    }
+
+    public function GetLessonsOfAnCourseNotCompletedProgress($id)
+    {
+        $lessons=$this->lessonRepository->GetLessonsOfAnCourseNotCompleted($id);
+
+        foreach ($lessons as $lesson){
+            unset($lesson['url_video']);
+        }
         return response()->json($lessons);
 
     }
