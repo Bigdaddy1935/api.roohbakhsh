@@ -17,9 +17,6 @@ class Like extends Model
         'deleted' => Unliked::class,
     ];
 
-    /**
-     * @param array $attributes
-     */
     public function __construct(array $attributes = [])
     {
         $this->table = \config('like.likes_table');
@@ -34,7 +31,6 @@ class Like extends Model
         self::saving(function ($like) {
             $userForeignKey = \config('like.user_foreign_key');
             $like->{$userForeignKey} = $like->{$userForeignKey} ?: auth()->id();
-
 
             if (\config('like.uuids')) {
                 $like->{$like->getKeyName()} = $like->{$like->getKeyName()} ?: (string) Str::orderedUuid();
@@ -64,9 +60,6 @@ class Like extends Model
     }
 
     /**
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string                                $type
-     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeWithType(Builder $query, string $type)

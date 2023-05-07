@@ -8,6 +8,7 @@ use App\Models\Comment;
 use App\Models\Course;
 use App\Models\Invoice;
 use App\Models\Lesson;
+use App\Models\Notification;
 use App\Models\Product;
 use App\Models\VideoProgressBar;
 use App\QueryFilters\Type;
@@ -65,7 +66,25 @@ protected $result=[];
             //save categories in pivot table
         $course->categories()->attach($categories);
         if($request->sendNotify){
-            $this->appNotificationController->sendWebNotification('اکادمی سید کاظم روحبخش'," دوره {$request->course_title} اضافه شد ");
+            if($request->type == 'media'){
+                $type='رسانه';
+                $this->appNotificationController->sendWebNotification('اکادمی سید کاظم روح بخش'," دوره {$request->course_title} اضافه شد ");
+                $notify=new Notification;
+                $notify->title='اکادمی سید کاظم روح بخش';
+                $notify->body=" {$type} {$request->course_title} اضافه شد ";
+                $notify->picture=$request->picture;
+                $course->notifications()->save($notify);
+            }
+            else{
+                $type='دوره';
+                $this->appNotificationController->sendWebNotification('اکادمی سید کاظم روح بخش'," دوره {$request->course_title} اضافه شد ");
+                $notify=new Notification;
+                $notify->title='اکادمی سید کاظم روح بخش';
+                $notify->body=" {$type} {$request->course_title} اضافه شد ";
+                $notify->picture=$request->picture;
+                $course->notifications()->save($notify);
+            }
+
         }
 
         return response()->json($course, 201);
@@ -160,6 +179,7 @@ protected $result=[];
             'course_status'=>$request->course_status,
             'navigation'=>$request->navigation,
             'picture'=>$request->picture,
+            'intro'=>$request->intro,
 
         ];
        if($data['type']=='course') {
@@ -329,6 +349,51 @@ protected $result=[];
             return response()->json([
 
                 'message'=>'رسانه ای ثبت نشده'
+
+            ],401);
+        }
+    }
+    public function getMahdyar()
+    {
+      $course=  $this->courseRepository->getCourseMahdyar();
+
+        if($course){
+            return response()->json($course);
+        }
+        else{
+            return response()->json([
+
+                'message'=>'مهدیاری ثبت نشده'
+
+            ],401);
+        }
+    }
+    public function getKolbe()
+    {
+      $course=  $this->courseRepository->getCourseKolbe();
+
+        if($course){
+            return response()->json($course);
+        }
+        else{
+            return response()->json([
+
+                'message'=>'کلبه ثبت نشده'
+
+            ],401);
+        }
+    }
+    public function getTv()
+    {
+      $course=  $this->courseRepository->getCourseTv();
+
+        if($course){
+            return response()->json($course);
+        }
+        else{
+            return response()->json([
+
+                'message'=>'صدا و سیما ثبت نشده'
 
             ],401);
         }

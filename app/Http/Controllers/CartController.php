@@ -73,7 +73,7 @@ class CartController extends Controller
     {
         $user_id=auth()->id();
         $cart= $this->cartRepository->CartList($user_id);
-        $total= $this->cartRepository->CartTotal();
+        $total= $this->cartRepository->CartTotal($user_id);
        return response()->json([
            'cart'=>$cart,
            'total'=>$total

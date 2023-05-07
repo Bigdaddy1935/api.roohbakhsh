@@ -12,5 +12,8 @@ interface CourseRepositoryInterface
     public function CourseSeeFull($user);
     public function CurrentCourseSee($user);
     public function getCourseMedia();
+    public function getCourseKolbe();
+    public function getCourseMahdyar();
+    public function getCourseTv();
 
 }

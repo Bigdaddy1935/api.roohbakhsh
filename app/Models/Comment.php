@@ -22,7 +22,7 @@ class Comment extends Model
 
     public function lesson()
     {
-        return $this->belongsTo(Lesson::class);
+        return $this->belongsTo(Lesson::class,'commentable_id','id','');
     }
     public function product()
     {
@@ -32,6 +32,11 @@ class Comment extends Model
     public function replies(): HasMany
     {
         return $this->hasMany(Comment::class, 'parent_id')->with('user');
+    }
+
+    public function commentable()
+    {
+        return $this->morphTo();
     }
 
 

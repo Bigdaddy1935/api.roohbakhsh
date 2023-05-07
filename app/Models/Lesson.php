@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Conner\Tagging\Taggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use LaravelInteraction\Bookmark\Concerns\Bookmarkable;
 use Overtrue\LaravelLike\Traits\Likeable;
@@ -14,7 +16,7 @@ use Spatie\Searchable\SearchResult;
 
 class Lesson extends Model
 {
-    use HasFactory,Likeable,Bookmarkable;
+    use HasFactory,Likeable,Bookmarkable,Taggable;
 
     protected $fillable=[
 
@@ -51,14 +53,10 @@ protected $casts=[
         return $this->belongsTo(User::class ,'user_id');
     }
 
-    /**
-     * @return BelongsToMany
-     *
-     * lessons belongs to many tags
-     */
-    public function tags(): BelongsToMany
+
+    public function tags(): MorphToMany
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->morphToMany('App\Tag', 'taggable');
     }
 
     /**
@@ -71,7 +69,6 @@ protected $casts=[
     {
         return    $this->belongsToMany(Category::class);
     }
-
 
 
     public function visits(): Relation
@@ -90,6 +87,28 @@ protected $casts=[
 
     public function notifications()
     {
-        return $this->morphMany(Notification::class, 'model_type');
+        return $this->morphMany(Notification::class, 'model');
     }
+
+    public function showcases()
+    {
+        return $this->morphMany(Showcase::class, 'model');
+    }
+
+    public function relatedLessons()
+    {
+        return $this->belongsToMany(Lesson::class, 'lesson_related', 'lesson_id', 'related_lesson_id')->withPivot('name');
+    }
+
+
+    public function incrementViewCount() {
+        $this->views++;
+        return $this->save();
+    }
+
+    public function relatedArticles()
+    {
+        return $this->hasMany(ArticleRelatedForLesson::class);
+    }
+
 }

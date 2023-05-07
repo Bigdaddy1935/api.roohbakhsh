@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Interfaces\CourseRepositoryInterface;
 use App\Interfaces\ProductRepositoryInterface;
+use App\Models\Notification;
 use App\Models\Product;
 use App\QueryFilters\Categories;
 use App\QueryFilters\Sort;
@@ -47,7 +48,6 @@ class ProductController extends Controller
 
         $this->validate($request, [
             'tiny_desc'=>'required',
-            'price'=>'required',
             'duration'=>'required',
             'course_id'=>'required',
             'categories'=>'required',
@@ -62,7 +62,7 @@ class ProductController extends Controller
 
         $product = $this->productRepository->create([
             'tiny_desc'=>$request->tiny_desc,
-            'price'=>$request->price,
+            'price'=>$request->price == null ? null :$request->price,
             'duration'=>$request->duration,
             'type'=>$request->type,
             'price_discount'=>$request->price_discount == null ? null :$request->price_discount,
@@ -78,6 +78,11 @@ class ProductController extends Controller
 
         if($request->sendNotify){
             $this->appNotificationController->sendWebNotification('اکادمی سید کاظم روحبخش'," محصول {$request->title} اضافه شد ");
+            $notify=new Notification;
+            $notify->title='اکادمی سید کاظم روح بخش';
+            $notify->body=" محصول {$request->title} اضافه شد ";
+            $notify->picture=$request->picture;
+            $product->notifications()->save($notify);
         }
         return response()->json($product,201);
   }
@@ -160,7 +165,7 @@ class ProductController extends Controller
         //find input id and update fields of product
         $data=[
             'type'=>$request->type,
-            'price'=>$request->price,
+            'price'=>$request->price == null ? null :$request->price,
             'price_discount'=>$request->price_discount == null ? null :$request->price_discount,
             'duration'=>$request->duration,
             'tiny_desc'=>$request->tiny_desc,

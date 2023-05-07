@@ -16,8 +16,14 @@ class Library extends Model
         'size',
         'picture',
         'type',
+        'desc'
 
     ];
+
+    public function galleries()
+    {
+        return $this->belongsToMany(Gallery::class);
+    }
 
 
 

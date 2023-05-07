@@ -2,6 +2,33 @@
 
 All notable changes to `laravel-searchable` will be documented in this file
 
+## 1.11.1 - 2023-01-24
+
+### What's Changed
+
+- Add PHP 8.2 Support by @patinthehat in https://github.com/spatie/laravel-searchable/pull/135
+- fix: use mixin for static analysis by @ju5t in https://github.com/spatie/laravel-searchable/pull/139
+
+### New Contributors
+
+- @patinthehat made their first contribution in https://github.com/spatie/laravel-searchable/pull/135
+- @ju5t made their first contribution in https://github.com/spatie/laravel-searchable/pull/139
+
+**Full Changelog**: https://github.com/spatie/laravel-searchable/compare/1.11.0...1.11.1
+
+## 1.11.0 - 2022-01-13
+
+## What's Changed
+
+- Update code block syntax by @grantholle in https://github.com/spatie/laravel-searchable/pull/126
+- Add support for Laravel 9
+
+## New Contributors
+
+- @grantholle made their first contribution in https://github.com/spatie/laravel-searchable/pull/126
+
+**Full Changelog**: https://github.com/spatie/laravel-searchable/compare/1.10.0...1.11.0
+
 ## 1.10.0 - 2021-06-24
 
 - Allow searching with special characters (#117)

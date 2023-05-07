@@ -15,6 +15,8 @@ class InstallCommand extends Command
 
     protected bool $shouldPublishConfigFile = false;
 
+    protected bool $shouldPublishAssets = false;
+
     protected bool $shouldPublishMigrations = false;
 
     protected bool $askToRunMigrations = false;
@@ -51,6 +53,14 @@ class InstallCommand extends Command
                 '--tag' => "{$this->package->shortName()}-config",
             ]);
         }
+        
+        if ($this->shouldPublishAssets) {
+            $this->comment('Publishing assets...');
+
+            $this->callSilently("vendor:publish", [
+                '--tag' => "{$this->package->shortName()}-assets",
+            ]);
+        }
 
         if ($this->shouldPublishMigrations) {
             $this->comment('Publishing migration...');
@@ -69,6 +79,8 @@ class InstallCommand extends Command
         }
 
         if ($this->copyServiceProviderInApp) {
+            $this->comment('Publishing service provider...');
+
             $this->copyServiceProviderInApp();
         }
 
@@ -98,6 +110,13 @@ class InstallCommand extends Command
     public function publishConfigFile(): self
     {
         $this->shouldPublishConfigFile = true;
+
+        return $this;
+    }
+    
+    public function publishAssets(): self
+    {
+        $this->shouldPublishAssets = true;
 
         return $this;
     }

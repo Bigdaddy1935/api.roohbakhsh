@@ -153,6 +153,13 @@ class CategoryController extends Controller
 
         return response()->json($cat);
     }
+
+    public function get_podcast_cat($id)
+    {
+        $cat=$this->categoryRepository->Get_Podcast_With_Their_Cat($id);
+
+        return response()->json($cat);
+    }
     public function get_article_cat($id): JsonResponse
     {
 

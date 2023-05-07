@@ -137,4 +137,64 @@ class CourseRepository extends Repository implements CourseRepositoryInterface
 
         })->withCount('lessons')->get()->toArray();
     }
+
+    public function getCourseKolbe()
+    {
+        $user= auth('sanctum')->id();
+        return Course::query()->where('type','=','kolbe')->join('users','users.id','=','courses.course_user_id')
+            ->select('courses.*','users.fullname')
+            ->with('categories')
+            ->withAggregate('visits','score')
+            ->withCount('lessons')
+            ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                $q->where('user_id',$user);
+            }])
+            ->with('lessons',function ($q) use ($user){
+                $q->withWhereHas('progress',function ($q) use($user) {
+                    $q->where('user_id',$user)->where('percentage','>',0);
+                });
+            })
+            ->orderBy('id','DESC')
+            ->paginate(10)->toArray();
+    }
+
+    public function getCourseMahdyar()
+    {
+        $user= auth('sanctum')->id();
+        return Course::query()->where('type','=','mahdyar')->join('users','users.id','=','courses.course_user_id')
+            ->select('courses.*','users.fullname')
+            ->with('categories')
+            ->withAggregate('visits','score')
+            ->withCount('lessons')
+            ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                $q->where('user_id',$user);
+            }])
+            ->with('lessons',function ($q) use ($user){
+                $q->withWhereHas('progress',function ($q) use($user) {
+                    $q->where('user_id',$user)->where('percentage','>',0);
+                });
+            })
+            ->orderBy('id','DESC')
+            ->paginate(10)->toArray();
+    }
+
+    public function getCourseTv()
+    {
+        $user= auth('sanctum')->id();
+        return Course::query()->where('type','=','tv')->join('users','users.id','=','courses.course_user_id')
+            ->select('courses.*','users.fullname')
+            ->with('categories')
+            ->withAggregate('visits','score')
+            ->withCount('lessons')
+            ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                $q->where('user_id',$user);
+            }])
+            ->with('lessons',function ($q) use ($user){
+                $q->withWhereHas('progress',function ($q) use($user) {
+                    $q->where('user_id',$user)->where('percentage','>',0);
+                });
+            })
+            ->orderBy('id','DESC')
+            ->paginate(10)->toArray();
+    }
 }
