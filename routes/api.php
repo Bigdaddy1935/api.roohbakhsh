@@ -323,7 +323,7 @@ Route::middleware(['auth:sanctum','XSS'])->prefix('app/comment')->controller(Com
     Route::middleware('auth:sanctum')->get('get/rejected','GetRejected');
 });
 
-Route::middleware('auth:sanctum')->prefix('app/showcase')->controller(ShowcaseController::class)->group(function (){
+Route::prefix('app/showcase')->controller(ShowcaseController::class)->group(function (){
     Route::get('get','getShowcase');
 });
 
