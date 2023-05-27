@@ -74,6 +74,6 @@ class ArticleRepository extends Repository implements ArticleRepositoryInterface
 
     public function ArticleList()
     {
-       return Article::all();
+       return Article::query()->orderBy('title')->get();
     }
 }

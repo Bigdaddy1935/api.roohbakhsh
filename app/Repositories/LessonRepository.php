@@ -144,7 +144,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
 
     public function lessonsList()
     {
-       return Lesson::all();
+       return Lesson::query()->orderBy('title')->get();
     }
 
     public function GetLessonsOfAnMahdyar($id)
