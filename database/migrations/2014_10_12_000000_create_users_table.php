@@ -37,6 +37,7 @@ return new class extends Migration
             $table->longText('about_me')->nullable();
             $table->text('bio_photo')->nullable();
             $table->string('city')->nullable();
+            $table->string('state')->nullable();
             $table->string('parent_num',20)->unique()->nullable();
             $table->string('postal',10)->unique()->nullable();
             $table->string('amount')->nullable();

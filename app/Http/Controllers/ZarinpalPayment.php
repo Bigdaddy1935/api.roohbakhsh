@@ -37,11 +37,11 @@ class ZarinpalPayment
         $invoice->amount($amount);
         $invoice->detail(['خرید محصول سید کاظم روحبخش'=>'محصول اعتقادی اول']);
 
-      return  Payment::purchase($invoice,function($driver, $transactionId ) use ($amount) {
-          $data=[
-              'amount'=>$amount,
-              'authority'=>$transactionId,
-          ];
+        return  Payment::purchase($invoice,function($driver, $transactionId ) use ($amount) {
+            $data=[
+                'amount'=>$amount,
+                'authority'=>$transactionId,
+            ];
             $this->zarinpalRepository->create($data);
 
         })->pay()->toJson();
@@ -57,27 +57,28 @@ class ZarinpalPayment
         $zarinpal=DB::table('zarinpals')->where('authority',$authority)->first();
         $amount=$zarinpal->amount;
 
-            $receipt = Payment::amount($amount)->transactionId($authority)->verify();
+        $receipt = Payment::amount($amount)->transactionId($authority)->verify();
 
-            if($receipt){
-                $token=$receipt->getReferenceId();
-                $client = new SoapClient("https://ippanel.com/class/sms/wsdlservice/server.php?wsdl");
-                $user = "ghasem13741374";
-                $pass = "uLhN23sHvH20@";
-                $fromNum = "+983000505";
-                $toNum = $request->parent_num;
-                $pattern_code = "cqaovf26yyhqe4m";
-                $input_data = array(
-                    "verification-code" => $token,
-                    'name'=>$request->parent_num
-                );
-                $client ->sendPatternSms($fromNum, $toNum, $user, $pass, $pattern_code, $input_data);
+        if($receipt){
+            $token=$receipt->getReferenceId();
+            $client = new SoapClient("https://ippanel.com/class/sms/wsdlservice/server.php?wsdl");
+            $user = "ghasem13741374";
+            $pass = "uLhN23sHvH20@";
+            $fromNum = "+983000505";
+            $toNum = $request->parent_num;
+            $pattern_code = "cqaovf26yyhqe4m";
+            $input_data = array(
+                "verification-code" => $token,
+                'username'=>$request->username,
+                'password'=>$request->password,
+            );
+            $client ->sendPatternSms($fromNum, $toNum, $user, $pass, $pattern_code, $input_data);
 
 //                User::query()->where('national_code',$request->national_code)->update(['amount'=>$amount,'authority'=>$authority]);
 
-                return response()->json($receipt->getReferenceId());
-            }
-            // You can show payment referenceId to the user.
+            return response()->json($receipt->getReferenceId());
+        }
+        // You can show payment referenceId to the user.
         return response()->json([
             'message'=>'پرداخت ناموفق'
         ],404);
@@ -87,6 +88,6 @@ class ZarinpalPayment
 
     public function table()
     {
-       return Zarinpal::all();
+        return Zarinpal::all();
     }
 }
