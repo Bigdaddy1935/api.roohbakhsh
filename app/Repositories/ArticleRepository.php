@@ -25,6 +25,10 @@ class ArticleRepository extends Repository implements ArticleRepositoryInterface
              ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
           $q->where('user_id',$user);
              }])
+              ->with('relatedArticles')
+              ->with('relatedLessons',function ($q){
+                  $q->join('lessons','lessons.id','=','lesson_related_for_articles.lesson_id')->select('lessons.title','lesson_related_for_articles.*');
+              })
               ->orderBy('id','DESC')
             ->paginate(10);
     }
@@ -36,6 +40,10 @@ class ArticleRepository extends Repository implements ArticleRepositoryInterface
             ->select('articles.*','users.fullname')
             ->with('tagged')
             ->with('categories')
+            ->with('relatedArticles')
+            ->with('relatedLessons',function ($q){
+                $q->join('lessons','lessons.id','=','lesson_related_for_articles.lesson_id')->select('lessons.title','lesson_related_for_articles.*');
+            })
             ->findOrFail($id);
     }
 
@@ -56,7 +64,16 @@ class ArticleRepository extends Repository implements ArticleRepositoryInterface
             ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
                 $q->where('user_id',$user);
             }])
+            ->with('relatedArticles')
+            ->with('relatedLessons',function ($q){
+                $q->join('lessons','lessons.id','=','lesson_related_for_articles.lesson_id')->select('lessons.title','lesson_related_for_articles.*');
+            })
             ->orderBy('id','DESC')
             ->paginate(10);
+    }
+
+    public function ArticleList()
+    {
+       return Article::query()->orderBy('title')->get();
     }
 }

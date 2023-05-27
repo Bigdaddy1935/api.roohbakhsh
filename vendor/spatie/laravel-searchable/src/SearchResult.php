@@ -11,19 +11,18 @@ class SearchResult
     public $title;
 
     /** @var null|string */
-    public $free;
+    public $url;
 
     /** @var string */
     public $type;
 
-    public $picture;
-
-    public function __construct(Searchable $searchable, string $title, ?string $free = null , $picture)
+    public function __construct(Searchable $searchable, string $title, ?string $url = null)
     {
         $this->searchable = $searchable;
+
         $this->title = $title;
-        $this->free = $free;
-        $this->picture=$picture;
+
+        $this->url = $url;
     }
 
     public function setType(string $type): self

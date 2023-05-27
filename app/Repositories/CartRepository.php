@@ -25,9 +25,9 @@ class CartRepository extends Repository implements CartRepositoryInterface
        return Cart::query()->where('user_id',$user_id)->get();
     }
 
-    public function CartTotal()
+    public function CartTotal($user_id)
     {
-      return  Cart::query()->sum('price');
+      return  Cart::query()->where('user_id',$user_id)->sum('price');
     }
 
     public function discount()

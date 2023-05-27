@@ -23,5 +23,10 @@ class Tag extends Model
         return $this->morphedByMany('App\Article', 'taggable');
     }
 
+    public function lessons(): MorphToMany
+    {
+        return $this->morphedByMany('App\Lesson', 'taggable');
+    }
+
 
 }

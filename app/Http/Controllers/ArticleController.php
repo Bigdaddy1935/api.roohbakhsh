@@ -6,7 +6,10 @@ namespace App\Http\Controllers;
 use App\Interfaces\ArticleRepositoryInterface;
 use App\Models\Article;
 use App\Models\Comment;
-use App\Models\Tag;
+use App\Models\Lesson;
+use App\Models\LessonRelatedForArticle;
+use App\Models\Notification;
+use App\Models\Spider;
 use App\QueryFilters\Categories;
 use App\QueryFilters\Sort;
 use App\QueryFilters\Status;
@@ -67,6 +70,36 @@ class ArticleController extends Controller
          */
         $article = $this->articleRepository->create($input);
 
+        $id=$article->id;
+        $lesson_ids=explode(",",$request->lesson_ids);
+        $lesson_names=explode(",",$request->lesson_names);
+
+
+        if($request->lesson_ids != null){
+            for($i=0;$i<count($lesson_ids);$i++){
+                LessonRelatedForArticle::query()->create([
+                    'lesson_name'=>$lesson_names[$i],
+                    'lesson_id'=>$lesson_ids[$i],
+                    'article_id'=>$id
+                ]);
+            }
+        }
+
+
+
+
+        $article_names=explode(',',$request->article_names);
+        $article_ids=explode(',',$request->article_ids);
+
+        if($request->article_ids != null){
+            for ($i=0;$i<count($article_names);$i++){
+                $article->relatedArticles()->attach([$article_ids[$i]=>['name'=>$article_names[$i]]]);
+            }
+        }
+
+
+
+
         /**
          * save categories and tags on pivot tables
          */
@@ -74,6 +107,11 @@ class ArticleController extends Controller
          $article->tag($tags);
         if($request->sendNotify){
             $this->appNotificationController->sendWebNotification('اکادمی سید کاظم روحبخش'," مقاله {$request->title} اضافه شد ");
+            $notify=new Notification;
+            $notify->title='اکادمی سید کاظم روح بخش';
+            $notify->body=" مقاله {$request->title} اضافه شد ";
+            $notify->picture=$request->picture;
+            $article->notifications()->save($notify);
         }
 
 
@@ -117,6 +155,8 @@ class ArticleController extends Controller
         visits($article_id)->seconds(15*60)->increment();
         $view_count= visits($article_id)->count();
         $article=$this->articleRepository->GetSpecificArticle($id);
+
+
 
 
         return response()->json([
@@ -198,8 +238,40 @@ class ArticleController extends Controller
             'code'=>$request->code,
         ];
         $tags = explode(",", $request->tags);
+
         $categories=explode(",",$request->categories);
+
         $article= $this->articleRepository->update($id,$data);
+
+        $lesson_ids=explode(",",$request->lesson_ids);
+        $lesson_names=explode(",",$request->lesson_names);
+
+
+
+        if($request->lesson_ids != null){
+            LessonRelatedForArticle::query()->where('article_id','=',$id)->delete();
+            for($i=0;$i<count($lesson_ids);$i++){
+                LessonRelatedForArticle::query()->create([
+                    'lesson_name'=>$lesson_names[$i],
+                    'lesson_id'=>$lesson_ids[$i],
+                    'article_id'=>$id
+                ]);
+            }
+        }
+
+
+        $article_names=explode(',',$request->article_names);
+        $article_ids=explode(',',$request->article_ids);
+
+        $article->relatedArticles()->detach();
+        if($request->article_ids != null){
+            for ($i=0;$i<count($article_names);$i++){
+                $article->relatedArticles()->attach($article_ids[$i],['name'=>$article_names[$i]]);
+            }
+        }
+
+
+
 
         /**
          * edit categories and tags we get in inputs and save them in pivot table with sync method
@@ -210,7 +282,6 @@ class ArticleController extends Controller
            'message'=>'مقاله مورد نظر با موفقیت ویرایش شد',
             'article_id'=>$id,
             'article'=>$fields
-
         ]);
 
 
@@ -298,5 +369,12 @@ class ArticleController extends Controller
         $user= auth('sanctum')->id();
         $result=$this->articleRepository->ArticlesFromTag($tags,$user);
         return response()->json($result);
+    }
+
+    public function list()
+    {
+        $list = $this->articleRepository->ArticleList();
+
+        return response()->json($list);
     }
 }

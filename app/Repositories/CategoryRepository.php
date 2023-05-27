@@ -27,7 +27,7 @@ class CategoryRepository extends Repository implements CategoryRepositoryInterfa
     public function Get_Course_With_Their_Cat($id)
     {
         $user= auth('sanctum')->id();
-      return  Course::query()->withWhereHas('categories',function ($q) use ($id){
+      return  Course::query()->where('type','=','course')->withWhereHas('categories',function ($q) use ($id){
             $q->where('id',$id);
         })
             ->join('users','users.id','=','courses.course_user_id')
@@ -57,6 +57,8 @@ class CategoryRepository extends Repository implements CategoryRepositoryInterfa
            ->orderBy('id','DESC')
             ->paginate(10);
     }
+
+
 
     public function Get_Article_With_Their_Cat($id)
     {
@@ -95,4 +97,24 @@ class CategoryRepository extends Repository implements CategoryRepositoryInterfa
     }
 
 
+    public function Get_Podcast_With_Their_Cat($id)
+    {
+        $user= auth('sanctum')->id();
+        return Lesson::query()->where('formats','=','sound')->withWhereHas('categories',function ($q) use ($id){
+            $q->where('id',$id);
+        })->withWhereHas('courses',function ($q){
+            $q->where('type','=','podcast')->where('course_title','=','پادکست');
+        })
+            ->join('users','users.id','=','lessons.user_id')
+            ->select('lessons.*','users.fullname')
+            ->with('categories')
+            ->withAggregate('visits','score')
+            ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                $q->where('user_id',$user);
+            }]) ->with(['progress'=>function ($q)use ($user){
+                $q->where('user_id',$user);
+            }])
+            ->orderBy('id','DESC')
+            ->paginate(10);
+    }
 }

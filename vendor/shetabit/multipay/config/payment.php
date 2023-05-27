@@ -103,13 +103,15 @@ return [
             'sandbox' => false, // set it to true for test environments
         ],
         'irankish' => [
-            'apiPurchaseUrl' => 'https://ikc.shaparak.ir/XToken/Tokens.xml',
-            'apiPaymentUrl' => 'https://ikc.shaparak.ir/TPayment/Payment/index/',
-            'apiVerificationUrl' => 'https://ikc.shaparak.ir/XVerify/Verify.xml',
-            'merchantId' => '',
-            'sha1Key' => '',
+            'apiPurchaseUrl' => 'https://ikc.shaparak.ir/api/v3/tokenization/make',
+            'apiPaymentUrl' => 'https://ikc.shaparak.ir/iuiv3/IPG/Index/',
+            'apiVerificationUrl' => 'https://ikc.shaparak.ir/api/v3/confirmation/purchase',
             'callbackUrl' => 'http://yoursite.com/path/to',
             'description' => 'payment using irankish',
+            'terminalId' => '',
+            'password' => '',
+            'acceptorId' => '',
+            'pubKey' => ''
         ],
         'nextpay' => [
             'apiPurchaseUrl' => 'https://nextpay.org/nx/gateway/token',
@@ -209,6 +211,14 @@ return [
             'merchantId' => '',
             'callbackUrl' => '',
             'description' => 'payment using saman',
+        ],
+        'sep' => [
+            'apiGetToken' => 'https://sep.shaparak.ir/onlinepg/onlinepg',
+            'apiPaymentUrl' => 'https://sep.shaparak.ir/OnlinePG/OnlinePG',
+            'apiVerificationUrl' => 'https://sep.shaparak.ir/verifyTxnRandomSessionkey/ipg/VerifyTransaction',
+            'terminalId' => '',
+            'callbackUrl' => '',
+            'description' => 'Saman Electronic Payment for Saderat & Keshavarzi',
         ],
         'sepehr' => [
             'apiGetToken' => 'https://mabna.shaparak.ir:8081/V1/PeymentApi/GetToken',
@@ -323,13 +333,20 @@ return [
             'description' => 'payment using Aqayepardakht',
         ],
         'azki' => [
-            'apiPaymentUrl'   => 'https://api.azkiloan.com',
+            'apiPaymentUrl'   => 'https://api.azkivam.com',
             'callbackUrl'     => 'http://yoursite.com/path/to',
             'fallbackUrl'     => 'http://yoursite.com/path/to',
             'merchantId'      => '',
             'key'             => '',
             'description'     => 'payment using azki',
         ],
+        'payfa' => [
+            'apiPurchaseUrl' => 'https://payment.payfa.com/v2/api/Transaction/Request',
+            'apiPaymentUrl' => 'https://payment.payfa.ir/v2/api/Transaction/Pay/',
+            'apiVerificationUrl' => 'https://payment.payfa.com/v2/api/Transaction/Verify/',
+            'callbackUrl' => '',
+            'apiKey' => '',
+        ]
     ],
 
     /*
@@ -364,6 +381,7 @@ return [
         'poolam' => \Shetabit\Multipay\Drivers\Poolam\Poolam::class,
         'sadad' => \Shetabit\Multipay\Drivers\Sadad\Sadad::class,
         'saman' => \Shetabit\Multipay\Drivers\Saman\Saman::class,
+        'sep' => \Shetabit\Multipay\Drivers\SEP\SEP::class,
         'sepehr' => \Shetabit\Multipay\Drivers\Sepehr\Sepehr::class,
         'walleta' => \Shetabit\Multipay\Drivers\Walleta\Walleta::class,
         'yekpay' => \Shetabit\Multipay\Drivers\Yekpay\Yekpay::class,
@@ -375,5 +393,6 @@ return [
         'vandar' => \Shetabit\Multipay\Drivers\Vandar\Vandar::class,
         'aqayepardakht' => \Shetabit\Multipay\Drivers\Aqayepardakht\Aqayepardakht::class,
         'azki' => \Shetabit\Multipay\Drivers\Azki\Azki::class,
+        'payfa' => \Shetabit\Multipay\Drivers\Payfa\Payfa::class,
     ]
 ];

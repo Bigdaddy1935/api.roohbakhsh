@@ -6,11 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 trait Likeable
 {
-    /**
-     * @param \Illuminate\Database\Eloquent\Model $user
-     *
-     * @return bool
-     */
     public function isLikedBy(Model $user): bool
     {
         if (\is_a($user, config('auth.providers.users.model'))) {
@@ -26,8 +21,6 @@ trait Likeable
 
     /**
      * Return followers.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function likers(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {

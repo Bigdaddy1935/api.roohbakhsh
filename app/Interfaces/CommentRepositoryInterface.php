@@ -4,5 +4,8 @@ namespace App\Interfaces;
 
 interface CommentRepositoryInterface
 {
-    public function getComments();
+    public function AcceptedComments();
+    public function rejectedComments();
+    public function getSpecificComments($id , $type);
+    public function getSpecificAcceptedComments($id , $type);
 }

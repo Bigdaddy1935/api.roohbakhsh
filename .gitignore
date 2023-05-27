@@ -3,7 +3,7 @@
 /vendor
 /public
 .env
-.env.backup
+repo.zip
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml

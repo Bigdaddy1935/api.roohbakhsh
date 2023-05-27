@@ -16,18 +16,18 @@ class Notification extends Model
 
     public function lesson()
     {
-        return $this->belongsTo(Lesson::class);
+        return $this->belongsTo(Lesson::class ,'model_id','id');
     }
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class,'model_id','id');
     }
     public function course()
     {
-        return $this->belongsTo(Course::class);
+        return $this->belongsTo(Course::class,'model_id','id');
     }
     public function article()
     {
-        return $this->belongsTo(Article::class);
+        return $this->belongsTo(Article::class,'model_id','id');
     }
 }

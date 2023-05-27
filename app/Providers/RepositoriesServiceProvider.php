@@ -7,12 +7,14 @@ use App\Interfaces\CartRepositoryInterface;
 use App\Interfaces\CategoryRepositoryInterface;
 use App\Interfaces\CommentRepositoryInterface;
 use App\Interfaces\CourseRepositoryInterface;
+use App\Interfaces\GalleryRepositoryInterface;
 use App\Interfaces\InvoiceRepositoryInterface;
 use App\Interfaces\LessonRepositoryInterface;
 use App\Interfaces\LibraryRepositoryInterface;
 use App\Interfaces\ProductRepositoryInterface;
 use App\Interfaces\ProgressRepositoryInterface;
 use App\Interfaces\SearchRepositoryInterface;
+use App\Interfaces\ShowcaseRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
 use App\Interfaces\VoucherRepositoryInterface;
 use App\Interfaces\ZarinpalRepositoryInterface;
@@ -21,12 +23,14 @@ use App\Repositories\CartRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\CommentRepository;
 use App\Repositories\CourseRepository;
+use App\Repositories\GalleryRepository;
 use App\Repositories\InvoiceRepository;
 use App\Repositories\LessonRepository;
 use App\Repositories\LibraryRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\ProgressRepository;
 use App\Repositories\SearchRepository;
+use App\Repositories\ShowcaseRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\VoucherRepository;
 use App\Repositories\ZarinpalPeymentRepository;
@@ -65,5 +69,7 @@ class RepositoriesServiceProvider extends ServiceProvider
         $this->app->bind(VoucherRepositoryInterface::class,VoucherRepository::class);
         $this->app->bind(CommentRepositoryInterface::class,CommentRepository::class);
         $this->app->bind(SearchRepositoryInterface::class,SearchRepository::class);
+        $this->app->bind(ShowcaseRepositoryInterface::class,ShowcaseRepository::class);
+        $this->app->bind(GalleryRepositoryInterface::class,GalleryRepository::class);
     }
 }

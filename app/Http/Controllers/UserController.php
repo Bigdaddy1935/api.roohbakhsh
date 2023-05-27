@@ -161,6 +161,7 @@ class UserController extends Controller
                   'code'=>$code,
                   'wallet_balance'=>100000,
                   'about_me'=>$request->about_me,
+                  'bio_photo'=>$request->bio_photo,
                   'address'=>$request->address,
                   'postal'=>$request->postal,
                   'parent_num'=>$request->parent_num,
@@ -199,6 +200,7 @@ class UserController extends Controller
               'wallet_balance'=>100000,
               'teacher'=>$request->teacher,
               'about_me'=>$request->about_me,
+              'bio_photo'=>$request->bio_photo,
               'address'=>$request->address,
               'postal'=>$request->postal,
               'parent_num'=>$request->parent_num,
@@ -329,7 +331,7 @@ class UserController extends Controller
     {
 
 
-        $getUsers=$this->userRepository->all();
+        $getUsers=$this->userRepository->GetTeachersAndAuthors();
 
         if(!$getUsers)
         {
@@ -380,6 +382,7 @@ class UserController extends Controller
                 'score'=>$request->score,
                 'teacher'=>$request->teacher,
                 'about_me'=>$request->about_me,
+                'bio_photo'=>$request->bio_photo,
                 'address'=>$request->address,
                 'postal'=>$request->postal,
                 'parent_num'=>$request->parent_num,

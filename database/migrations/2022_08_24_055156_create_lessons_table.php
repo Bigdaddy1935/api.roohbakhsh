@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('title',100)->unique();
             $table->text('picture')->nullable();
             $table->string('teacher');
+            $table->string('formats');
             $table->longText('description')->nullable();
             $table->text('url_video')->nullable();
             $table->text('url_ads')->nullable();
