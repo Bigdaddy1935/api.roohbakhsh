@@ -242,6 +242,7 @@ Route::prefix('app/categories')->controller(CategoryController::class)->group(fu
     Route::get('get','getCategory');
     Route::get('get/all','getAll');
     Route::get('get/courses/{id}','get_course_cat');
+    Route::get('get/clubs/{id}','get_club_cat');
     Route::get('get/lessons/{id}','get_lesson_cat');
     Route::get('get/podcast/{id}','get_podcast_cat');
     Route::get('get/articles/{id}','get_article_cat');

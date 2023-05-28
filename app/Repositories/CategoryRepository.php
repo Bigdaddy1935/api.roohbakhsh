@@ -41,6 +41,23 @@ class CategoryRepository extends Repository implements CategoryRepositoryInterfa
             ->paginate(10);
     }
 
+    public function Get_Club_With_Their_Cat($id)
+    {
+        $user= auth('sanctum')->id();
+        return  Course::query()->where('type','=','club')->withWhereHas('categories',function ($q) use ($id){
+            $q->where('id',$id);
+        })
+            ->join('users','users.id','=','courses.course_user_id')
+            ->select('courses.*','users.fullname')
+            ->withCount('lessons')
+            ->withAggregate('visits','score')
+            ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                $q->where('user_id',$user);
+            }])
+            ->orderBy('id','DESC')
+            ->paginate(10);
+    }
+
     public function Get_Lesson_With_Their_Cat($id)
     {
         $user= auth('sanctum')->id();

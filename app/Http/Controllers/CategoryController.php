@@ -182,4 +182,15 @@ class CategoryController extends Controller
             return response()->json($cat);
 
     }
+
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function get_club_cat($id): JsonResponse
+    {
+        $cat=$this->categoryRepository->Get_Club_With_Their_Cat($id);
+
+        return response()->json($cat);
+    }
 }
