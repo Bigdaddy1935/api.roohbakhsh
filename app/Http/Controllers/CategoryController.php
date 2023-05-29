@@ -160,6 +160,14 @@ class CategoryController extends Controller
 
         return response()->json($cat);
     }
+
+    public function get_mahdyar_question_cat($id): JsonResponse
+    {
+        $cat=$this->categoryRepository->Get_Mahdyar_Question_With_Their_Cat($id);
+
+        return response()->json($cat);
+    }
+
     public function get_article_cat($id): JsonResponse
     {
 

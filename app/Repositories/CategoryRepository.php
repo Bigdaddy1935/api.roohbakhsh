@@ -134,4 +134,25 @@ class CategoryRepository extends Repository implements CategoryRepositoryInterfa
             ->orderBy('id','DESC')
             ->paginate(10);
     }
+
+    public function Get_Mahdyar_Question_With_Their_Cat($id)
+    {
+        $user= auth('sanctum')->id();
+        return Lesson::query()->where('formats','=','sound')->withWhereHas('categories',function ($q) use ($id){
+            $q->where('id',$id);
+        })->withWhereHas('courses',function ($q){
+            $q->where('type','=','podcast')->where('course_title','=','سوالات مهدیار');
+        })
+            ->join('users','users.id','=','lessons.user_id')
+            ->select('lessons.*','users.fullname')
+            ->with('categories')
+            ->withAggregate('visits','score')
+            ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                $q->where('user_id',$user);
+            }]) ->with(['progress'=>function ($q)use ($user){
+                $q->where('user_id',$user);
+            }])
+            ->orderBy('id','DESC')
+            ->paginate(10);
+    }
 }

@@ -218,6 +218,7 @@ Route::prefix('app/lessons')->controller(LessonController::class)->group(functio
     Route::get('get/all_media','getAllLessonsMedia');
     Route::post('from/tags','LessonsTags');
     Route::get('get/all/podcast','getPodcasts');
+    Route::middleware(['auth:sanctum','XSS'])->get('get/all/mahdyar/question','getMahdyarQuestion');
     Route::get('get/learned/by_course_id/{id}','GetLessonsOfAnCourseWithFullProgress');
     Route::get('get/learning/by_course_id/{id}','GetLessonsOfAnCourseNotCompletedProgress');
     Route::middleware(['auth:sanctum','XSS'])->get('like/{id}','likeLesson');
@@ -242,9 +243,10 @@ Route::prefix('app/categories')->controller(CategoryController::class)->group(fu
     Route::get('get','getCategory');
     Route::get('get/all','getAll');
     Route::get('get/courses/{id}','get_course_cat');
-    Route::get('get/clubs/{id}','get_club_cat');
+    Route::middleware(['auth:sanctum','XSS'])->get('get/clubs/{id}','get_club_cat');
     Route::get('get/lessons/{id}','get_lesson_cat');
     Route::get('get/podcast/{id}','get_podcast_cat');
+    Route::middleware(['auth:sanctum','XSS'])->get('get/mahdyar/question/{id}','get_mahdyar_question_cat');
     Route::get('get/articles/{id}','get_article_cat');
     Route::get('get/products/{id}','get_product_cat');
 

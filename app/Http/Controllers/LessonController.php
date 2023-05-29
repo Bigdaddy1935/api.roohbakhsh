@@ -500,4 +500,11 @@ class LessonController extends Controller
 
         return response()->json($podcasts);
     }
+
+    public function getMahdyarQuestion(): JsonResponse
+    {
+        $podcasts=$this->lessonRepository->GetAllMahdyarQuestion();
+
+        return response()->json($podcasts);
+    }
 }

@@ -11,4 +11,5 @@ interface CategoryRepositoryInterface
     public function Get_Article_With_Their_Cat($id);
     public function Get_Product_With_Their_Cat($id);
     public function Get_Podcast_With_Their_Cat($id);
+    public function Get_Mahdyar_Question_With_Their_Cat($id);
 }
