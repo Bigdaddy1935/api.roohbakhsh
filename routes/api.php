@@ -183,7 +183,7 @@ Route::prefix('app')->controller(ZarinpalPayment::class)->group(function (){
 });
 Route::prefix('app')->controller(HomeController::class)->group(function (){
     Route::post('/search','search')->name('search');
-    Route::post('/question/search','questionSearch');
+    Route::post('/question/search/{id}','questionSearch');
     Route::get('/tutorial','showTutorial');
     Route::post('/notification','SendNotify');
     Route::post('/version','CheckVersion');
