@@ -362,7 +362,7 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
         return   Lesson::query()->where('formats','=','sound')->join('users', 'users.id', '=', 'lessons.user_id')
             ->select('lessons.*','users.fullname')
             ->withWhereHas('courses',function ($q){
-                $q->where('type','=','podcast')->where('course_title','=','سوالات مهدیار');
+                $q->where('type','=','podcast')->where('course_title','=','سوالات');
             })
             ->with('categories')
             ->withAggregate('visits','score')

@@ -250,4 +250,21 @@ class HomeController extends Controller
     }
 
 
+    public function questionSearch(Request $request)
+    {
+        $user= auth('sanctum')->id();
+        $req=$request->input('search');
+
+            $lesson=$this->searchRepository->SearchInLesson($req,$user);
+
+            for ($i=0;$i<count($lesson);$i++){
+                $lesson[$i]['model']='lessons';
+            }
+
+            return response()->json([
+                'lesson'=>$lesson,
+            ]);
+        }
+
+
 }
