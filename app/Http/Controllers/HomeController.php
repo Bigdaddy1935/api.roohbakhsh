@@ -263,5 +263,30 @@ class HomeController extends Controller
         );
         }
 
+    public function clubLessonsSearch(Request $request,$id)
+    {
+        $user= auth('sanctum')->id();
+        $req=$request->input('search');
+
+        $lesson=$this->searchRepository->SearchInClubLessons($req,$user,$id);
+
+
+        return response()->json(
+            $lesson
+        );
+    }
+
+    public function clubCoursesSearch(Request $request , $id)
+    {
+        $user= auth('sanctum')->id();
+        $req=$request->input('search');
+
+        $lesson=$this->searchRepository->SearchInClubCourses($req,$user,$id);
+
+        return response()->json(
+            $lesson
+        );
+    }
+
 
 }
