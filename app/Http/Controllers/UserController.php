@@ -901,6 +901,13 @@ class UserController extends Controller
         return response()->json($result);
     }
 
+    public function getCityByStateId($id)
+    {
+        $result=DB::table('city')->where('province_id','=',$id)->get();
+
+        return response()->json($result);
+    }
+
 
 
 
