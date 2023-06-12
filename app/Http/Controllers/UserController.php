@@ -905,7 +905,7 @@ class UserController extends Controller
     {
      $state=DB::table('province')->where('name','=',$name)->get();
 
-     $result=DB::table('city')->where('province_id','=',$state->id)->get();
+     $result=DB::table('city')->where('province_id','=',$state['id'])->get();
 
      return response()->json($result);
     }
