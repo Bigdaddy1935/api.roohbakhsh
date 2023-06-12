@@ -154,7 +154,7 @@ class CourseRepository extends Repository implements CourseRepositoryInterface
                     $q->where('user_id',$user)->where('percentage','>',0);
                 });
             })
-            ->orderBy('id','ASC')
+            ->orderBy('id','DESC')
             ->paginate(10)->toArray();
     }
 
