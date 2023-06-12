@@ -903,9 +903,14 @@ class UserController extends Controller
 
     public function getCityByStateName($name)
     {
-     $state=DB::table('province')->where('name','=',$name)->get();
+     $states=DB::table('province')->where('name','=',$name)->get();
 
-     $result=DB::table('city')->where('province_id','=',$state['id'])->get();
+     foreach ($states as $state){
+          $id= $state->id;
+     }
+
+
+     $result=DB::table('city')->where('province_id','=',$id)->get();
 
      return response()->json($result);
     }
