@@ -901,11 +901,13 @@ class UserController extends Controller
         return response()->json($result);
     }
 
-    public function getCityByStateId($id)
+    public function getCityByStateName($name)
     {
-        $result=DB::table('city')->where('province_id','=',$id)->get();
+     $state=DB::table('province')->where('name','=',$name)->get();
 
-        return response()->json($result);
+     $result=DB::table('city')->where('province_id','=',$state->id)->get();
+
+     return response()->json($result);
     }
 
 
