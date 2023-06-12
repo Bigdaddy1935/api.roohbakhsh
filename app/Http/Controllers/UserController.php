@@ -893,13 +893,6 @@ class UserController extends Controller
     }
 
 
-    public function getState()
-    {
-
-        $result= DB::table('province')->get();
-
-        return response()->json($result);
-    }
 
 
 

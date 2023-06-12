@@ -95,7 +95,6 @@ Route::prefix('users')->controller(UserController::class)->group(function(){
     Route::middleware('XSS')->post('register','register');
     Route::middleware('XSS')->post('register/mahdyar','MahdyarRegister');
     Route::middleware('XSS')->post('register/mahdyar/sms','MahdyarSms');
-    Route::get('/get/state','getState');
     Route::middleware('auth:sanctum')->get('get','getUsers');
     Route::middleware('auth:sanctum')->get('get/counts','UsersCount');
     Route::middleware('auth:sanctum')->get('/','index');
