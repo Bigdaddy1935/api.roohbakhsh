@@ -28,14 +28,12 @@ class ZarinpalPayment
 
     public function invoicepage(Request $request)
     {
-        $request->validate([
-            'national_code'=>'required|string|max:11|unique:users,national_code'
-        ]);
+
         $data=$request->all();
         $invoice=new Invoice();
         $amount=$data['amount'];
         $invoice->amount($amount);
-        $invoice->detail(['خرید محصول سید کاظم روحبخش'=>'محصول اعتقادی اول']);
+       
 
         return  Payment::purchase($invoice,function($driver, $transactionId ) use ($amount) {
             $data=[
