@@ -33,9 +33,10 @@ class ZarinpalPayment
         $invoice=new Invoice();
         $amount=$data['amount'];
         $invoice->amount($amount);
-       
+        $CallBackUrl=$request->callback;
 
-        return  Payment::purchase($invoice,function($driver, $transactionId ) use ($amount) {
+
+        return  Payment::callbackUrl($CallBackUrl)->purchase($invoice,function($driver, $transactionId ) use ($amount) {
             $data=[
                 'amount'=>$amount,
                 'authority'=>$transactionId,

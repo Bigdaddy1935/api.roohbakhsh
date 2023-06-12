@@ -24,6 +24,7 @@ use Illuminate\Http\Request;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Stephenjude\Wallet\Exceptions\InsufficientFundException;
 use Stephenjude\Wallet\Exceptions\InvalidAmountException;
@@ -849,17 +850,12 @@ class UserController extends Controller
 
         $user= User::query()->where('username',$request->username)->first();
 
-        if(!$user && !Hash::check($request->password,$user->password)){
+        if(!$user){
             $users=$this->userRepository->create($data);
-        }else
-        {
+        }elseif ( Hash::check($request->password, $user->password) && $user->username == $request->username){
             $id=  $user->id;
             $users=$this->userRepository->update($id,$data);
         }
-
-
-
-
 
         return response()->json([
             'message'=>'ثبت نام با موفقیت انجام شد',
