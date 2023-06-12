@@ -821,6 +821,7 @@ class UserController extends Controller
             'authority'=>'required',
             'city'=>'required',
             'state'=>'required',
+            'register_club_from'=>'required',
         ]);
 
 
@@ -842,7 +843,8 @@ class UserController extends Controller
             'authority'=>$request->authority,
             'city'=>$request->city,
             'state'=>$request->state,
-            'club_type'=>$request->club_type
+            'club_type'=>$request->club_type,
+            'register_club_from'=>$request->register_club_from
         ];
 
         $user= User::query()->where('username',$request->username)->first();

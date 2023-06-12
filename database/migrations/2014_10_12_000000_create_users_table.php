@@ -42,6 +42,7 @@ return new class extends Migration
             $table->string('postal',10)->unique()->nullable();
             $table->string('amount')->nullable();
             $table->string('authority')->nullable();
+            $table->string('register_club_from')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
