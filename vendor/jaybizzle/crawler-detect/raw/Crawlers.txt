@@ -461,6 +461,7 @@ Google-Apps-Script
 Google-Calendar-Importer
 Google-HotelAdsVerifier
 Google-HTTP-Java-Client
+Google-InspectionTool
 Google-Podcast
 Google-Publisher-Plugin
 Google-Read-Aloud
@@ -597,6 +598,7 @@ internet_archive
 intraVnews
 IODC
 IOI
+Inboxb0t
 iplabel
 ips-agent
 IPS\/[0-9]
@@ -749,6 +751,7 @@ Mnogosearch
 mogimogi
 Mojeek
 Mojolicious \(Perl\)
+Mollie
 monitis
 Monitority\/
 Monit\/
@@ -1033,6 +1036,7 @@ seo4ajax
 Seobility
 SEOCentro
 SeoCheck
+seocompany
 SEOkicks
 SEOlizer
 Seomoz
@@ -1230,6 +1234,7 @@ VCI
 via ggpht\.com GoogleImageProxy
 Virusdie
 visionutils
+Visual Rights Group
 vkShare
 VoidEYE
 Voil

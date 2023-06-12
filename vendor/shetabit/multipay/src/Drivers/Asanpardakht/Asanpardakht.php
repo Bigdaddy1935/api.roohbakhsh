@@ -60,8 +60,9 @@ class Asanpardakht extends Driver
         $this->invoice($invoice);
         $this->settings = (object)$settings;
 
-        //convert to rial
-        $this->invoice->amount($this->invoice->getAmount() * 10);
+        if ($this->settings->currency == 'T') { // convert amount to rial, payment gateways need rial
+            $this->invoice->amount($this->invoice->getAmount() * 10);
+        }
     }
 
     /**
@@ -193,13 +194,19 @@ class Asanpardakht extends Driver
      */
     public function token(): array
     {
+        if (strpos($this->settings->callbackUrl, '?') !== false) {
+            $query = '&' . http_build_query(['invoice' => $this->invoice->getUuid()]);
+        } else {
+            $query = '?' . http_build_query(['invoice' => $this->invoice->getUuid()]);
+        }
+
         return $this->callApi('POST', self::TokenURL, [
             'serviceTypeId' => 1,
             'merchantConfigurationId' => $this->settings->merchantConfigID,
             'localInvoiceId' => $this->invoice->getUuid(),
             'amountInRials' => $this->invoice->getAmount(),
             'localDate' => $this->getTime()['content'],
-            'callbackURL' => $this->settings->callbackUrl . "?" . http_build_query(['invoice' => $this->invoice->getUuid()]),
+            'callbackURL' => $this->settings->callbackUrl . $query,
             'paymentId' => "0",
             'additionalData' => '',
         ]);
