@@ -28,6 +28,7 @@ use Illuminate\Validation\ValidationException;
 use Stephenjude\Wallet\Exceptions\InsufficientFundException;
 use Stephenjude\Wallet\Exceptions\InvalidAmountException;
 use SoapClient;
+use Symfony\Component\Console\Helper\Table;
 
 class UserController extends Controller
 {
@@ -888,6 +889,15 @@ class UserController extends Controller
    'name'=>$request->fullname,
    'refrence_code'=>$request->refrence_code
     ]);
+    }
+
+
+    public function getState()
+    {
+
+       $result= DB::table('province')->get();
+
+       return response()->json($result);
     }
 
 
