@@ -807,20 +807,28 @@ class UserController extends Controller
     public function MahdyarRegister(Request $request)
     {
         $request->validate([
-                'phone'=>'required|string|max:11',
-                'parent_num'=>'required|string|max:11',
-                'gender'=>'required',
-                'national_code'=>'required|string|max:11',
-                'birthday'=>'required',
-                'address'=>'required',
-                'firstname'=>'required',
-                'lastname'=>'required',
-                'amount'=>'required',
-                'authority'=>'required',
-                'city'=>'required',
-            ]);
+            'username' => 'required',
+            'password' => 'required|string|min:8',
+            'phone'=>'required|string|max:11',
+            'parent_num'=>'required|string|max:11',
+            'gender'=>'required',
+            'national_code'=>'required|string|max:11',
+            'birthday'=>'required',
+            'address'=>'required',
+            'firstname'=>'required',
+            'lastname'=>'required',
+            'amount'=>'required',
+            'authority'=>'required',
+            'city'=>'required',
+            'state'=>'required',
+        ]);
+
+
+
 
         $data=[
+            'username' => $request->username,
+            'password' => bcrypt($request->password),
             'phone'=>$request->phone,
             'fullname'=>$request->firstname.','.$request->lastname,
             'gender'=>$request->gender,
@@ -833,15 +841,28 @@ class UserController extends Controller
             'amount'=>$request->amount,
             'authority'=>$request->authority,
             'city'=>$request->city,
+            'state'=>$request->state,
+            'club_type'=>$request->club_type
         ];
-        $users=$this->userRepository->create($data);
+
+        $user= User::query()->where('username',$request->username)->first();
+
+        if(!$user && !Hash::check($request->password,$user->password)){
+            $users=$this->userRepository->create($data);
+        }else
+        {
+            $id=  $user->id;
+            $users=$this->userRepository->update($id,$data);
+        }
 
 
 
-      return response()->json([
-          'message'=>'ثبت نام با موفقیت انجام شد',
-          'user'=>$users
-      ]);
+
+
+        return response()->json([
+            'message'=>'ثبت نام با موفقیت انجام شد',
+            'user'=>$users
+        ]);
     }
 
     public function MahdyarSms(Request $request)
