@@ -807,26 +807,7 @@ class UserController extends Controller
 
     public function MahdyarRegister(Request $request)
     {
-        $request->validate([
-            'username' => 'required',
-            'password' => 'required|string|min:8',
-            'phone'=>'required|string|max:11',
-            'parent_num'=>'required|string|max:11',
-            'gender'=>'required',
-            'national_code'=>'required|string|max:11',
-            'birthday'=>'required',
-            'address'=>'required',
-            'firstname'=>'required',
-            'lastname'=>'required',
-            'amount'=>'required',
-            'authority'=>'required',
-            'city'=>'required',
-            'state'=>'required',
-            'register_club_from'=>'required',
-        ]);
-
-
-
+        
 
         $data=[
             'username' => $request->username,
