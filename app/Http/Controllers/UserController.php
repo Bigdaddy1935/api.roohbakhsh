@@ -845,7 +845,8 @@ class UserController extends Controller
             'city'=>$request->city,
             'state'=>$request->state,
             'club_type'=>$request->club_type,
-            'register_club_from'=>$request->register_club_from
+            'register_club_from'=>$request->register_club_from,
+            'employee_num'=>$request->employee_num
         ];
 
         $user= User::query()->where('username',$request->username)->first();

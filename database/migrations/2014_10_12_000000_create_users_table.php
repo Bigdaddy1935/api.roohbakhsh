@@ -43,6 +43,7 @@ return new class extends Migration
             $table->string('amount')->nullable();
             $table->string('authority')->nullable();
             $table->string('register_club_from')->nullable();
+            $table->string('employee_num')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
