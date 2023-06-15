@@ -807,7 +807,12 @@ class UserController extends Controller
 
     public function MahdyarRegister(Request $request)
     {
-        
+
+
+        $request->validate([
+            'password' => 'required|string|min:8',
+        ]);
+
 
         $data=[
             'username' => $request->username,
