@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\UserRepositoryInterface;
 use App\Interfaces\ZarinpalRepositoryInterface;
 use App\Models\User;
 use App\Models\Zarinpal;
@@ -17,10 +18,12 @@ class ZarinpalPayment
 {
 
     protected ZarinpalRepositoryInterface $zarinpalRepository;
+    private UserRepositoryInterface $userRepository;
 
-    public function __construct(ZarinpalRepositoryInterface $zarinpalRepository)
+    public function __construct(ZarinpalRepositoryInterface $zarinpalRepository , UserRepositoryInterface $userRepository)
     {
         $this->zarinpalRepository = $zarinpalRepository;
+        $this->userRepository = $userRepository;
     }
 
 
@@ -71,6 +74,17 @@ class ZarinpalPayment
                 'password'=>$request->password,
             );
             $client ->sendPatternSms($fromNum, $toNum, $user, $pass, $pattern_code, $input_data);
+
+            $refId=$receipt->getReferenceId();
+            $user= User::query()->where('username',$request->username)->first();
+            if($user){
+                $data=[
+                    'authority'=>$refId
+                ];
+
+                $id=$user->id;
+               $this->userRepository->update($id,$data);
+            }
 
 //                User::query()->where('national_code',$request->national_code)->update(['amount'=>$amount,'authority'=>$authority]);
 
