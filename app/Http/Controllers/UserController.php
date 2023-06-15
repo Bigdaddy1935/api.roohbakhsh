@@ -809,11 +809,7 @@ class UserController extends Controller
     {
 
 
-        $request->validate([
-            'password' => 'required|string|min:8',
-        ]);
-
-
+    
         $data=[
             'username' => $request->username,
             'password' => bcrypt($request->password),
