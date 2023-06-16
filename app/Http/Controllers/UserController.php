@@ -830,11 +830,12 @@ class UserController extends Controller
             'employee_num'=>$request->employee_num
         ];
 
-        $user= User::query()->where('username',$request->username)->first();
+        $user= User::query()->where('username','=',$request->username)->first();
         $id=  $user->id;
+
         if(!$user){
             $users=$this->userRepository->create($data);
-        }elseif (  $user->username == $request->username && Hash::check($request->password, $user->password)){
+        }elseif ( Hash::check($request->password, $user->password)){
             $users=$this->userRepository->update($id,$data);
         }
 
