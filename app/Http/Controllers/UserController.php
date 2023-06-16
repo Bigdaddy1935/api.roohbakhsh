@@ -829,19 +829,16 @@ class UserController extends Controller
             'register_club_from'=>$request->register_club_from,
             'employee_num'=>$request->employee_num
         ];
-
-        $user= User::query()->where('username','=',$request->username)->first();
-        $id=  $user->id;
-
-        if(!$user){
+        $user=  User::query()->where('username', $username)->first();
+        if (! $user ) {
             $users=$this->userRepository->create($data);
-        }elseif ( Hash::check($request->password, $user->password)){
+        }elseif ( $user && Hash::check($request->password, $user->password)){
             $users=$this->userRepository->update($id,$data);
         }
 
         return response()->json([
             'message'=>'ثبت نام با موفقیت انجام شد',
-            'users'=>$users
+            'users'=>$user
         ]);
     }
 
