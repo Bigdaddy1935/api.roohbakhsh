@@ -829,10 +829,12 @@ class UserController extends Controller
             'register_club_from'=>$request->register_club_from,
             'employee_num'=>$request->employee_num
         ];
+
+        $password=$request->password;
         $user=  User::query()->where('username', $request->username)->first();
         if (! $user ) {
             $users=$this->userRepository->create($data);
-        }elseif ( $user && Hash::check($request->password, $user->password)){
+        }if ( $user->username == $request->username && Hash::check($password, $user->password)){
             $users=$this->userRepository->update($id,$data);
         }
 
