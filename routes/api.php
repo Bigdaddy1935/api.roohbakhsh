@@ -93,8 +93,8 @@ Route::middleware('auth:sanctum')->prefix('articles')->controller(ArticleControl
 });
 Route::prefix('users')->controller(UserController::class)->group(function(){
     Route::middleware('XSS')->post('register','register');
-    Route::middleware('XSS')->post('register/mahdyar','MahdyarRegister');
-    Route::middleware('XSS')->post('register/mahdyar/sms','MahdyarSms');
+    Route::post('register/mahdyar','MahdyarRegister');
+    Route::post('register/mahdyar/sms','MahdyarSms');
     Route::get('/get/state','getState');
     Route::get('/get/city/{name}','getCityByStateName');
     Route::middleware('auth:sanctum')->get('get','getUsers');

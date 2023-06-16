@@ -841,7 +841,6 @@ class UserController extends Controller
 
         return response()->json([
             'message'=>'ثبت نام با موفقیت انجام شد',
-            'user'=>$users
         ]);
     }
 
