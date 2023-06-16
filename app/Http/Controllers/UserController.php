@@ -832,11 +832,12 @@ class UserController extends Controller
 
         $password=$request->password;
         $user=  User::query()->where('username', $request->username)->first();
-       $id= $user->id;
+
         if (! $user ) {
             $users=$this->userRepository->create($data);
         }if ( $user->username == $request->username && Hash::check($password, $user->password)){
-            $users=$this->userRepository->update($id,$data);
+
+            $users=$this->userRepository->update($user->id,$data);
         }
 
         return response()->json([
