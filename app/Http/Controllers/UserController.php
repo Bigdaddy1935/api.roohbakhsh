@@ -836,8 +836,9 @@ class UserController extends Controller
         if (! $user ) {
             $users=$this->userRepository->create($data);
         }elseif ( $user->username == $request->username && Hash::check($password, $user->password)){
-
             $users=$this->userRepository->update($user->id,$data);
+        }elseif ($user->username == $request->username && !Hash::check($password, $user->password)){
+            $users=$this->userRepository->create($data);
         }
 
         return response()->json([
