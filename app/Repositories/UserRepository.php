@@ -60,9 +60,7 @@ class UserRepository extends Repository implements UserRepositoryInterface
             }
         }
 
-        return response()->json([
-            'message'=>'کاربری یافت نشد'
-        ]);
+
     }
 
     public function SetNewPassword($id, $password)
