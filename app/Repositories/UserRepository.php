@@ -48,16 +48,18 @@ class UserRepository extends Repository implements UserRepositoryInterface
 
     public function SignIn($username, $password)
     {
-        $user=  User::query()->where('username', $username)->get();
-        if (! $user ) {
-            throw ValidationException::withMessages([
-                'username' => ['کاربری با این مشخصات یافت نشد.'],
-            ]);
-        }elseif ( ! Hash::check($password, $user->password)){
-            throw ValidationException::withMessages([
-                'password'=>['نام کاربری یا گذرواژه شما صحیح نمیباشد.']
-            ]);
-        }
+        $pass=bcrypt($password);
+
+        $user=  User::query()->where('username', $username)->where('password',$pass)->first();
+//        if (! $user ) {
+//            throw ValidationException::withMessages([
+//                'username' => ['کاربری با این مشخصات یافت نشد.'],
+//            ]);
+//        }elseif ( ! Hash::check($password, $user->password)){
+//            throw ValidationException::withMessages([
+//                'password'=>['نام کاربری یا گذرواژه شما صحیح نمیباشد.']
+//            ]);
+//        }
 
 
         return $user;
