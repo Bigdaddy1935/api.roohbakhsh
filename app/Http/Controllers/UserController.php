@@ -248,6 +248,12 @@ class UserController extends Controller
         $device_name='device'.'='.$request->device_name;
         $user= $this->userRepository->SignIn($request->username,$request->password);
 
+        if(!$user){
+            return response()->json([
+                'message'=>'نام کاربری یا گذرواژه صحیح نمیباشد'
+            ]);
+        }
+
         $user->tokens()->where('name','LIKE','device%')->delete();
         $token=  $user->createToken($device_name)->plainTextToken;
 
