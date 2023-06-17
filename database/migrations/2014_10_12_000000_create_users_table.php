@@ -45,6 +45,7 @@ return new class extends Migration
             $table->string('register_club_from')->nullable();
             $table->string('employee_num')->nullable();
             $table->string('club_type')->nullable();
+            $table->string('relation')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
