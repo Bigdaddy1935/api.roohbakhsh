@@ -252,24 +252,26 @@ class UserController extends Controller
             return response()->json([
                 'message'=>'نام کاربری یا گذرواژه صحیح نمیباشد'
             ]);
-        }
-
-        $user->tokens()->where('name','LIKE','device%')->delete();
-        $token=  $user->createToken($device_name)->plainTextToken;
+        }else{
+            $user->tokens()->where('name','LIKE','device%')->delete();
+            $token=  $user->createToken($device_name)->plainTextToken;
 
 //get last user login at and user ip and save to table
-          $user->update([
-              'last_login_at'=> Carbon::now()->toDateTimeString(),
-              'last_login_ip'=>$request->getClientIp(),
-          ]);
+            $user->update([
+                'last_login_at'=> Carbon::now()->toDateTimeString(),
+                'last_login_ip'=>$request->getClientIp(),
+            ]);
 
 
 
-          return response()->json([
-              'message'=>'ورود با موفقیت انجام شد',
-              'user'=>$user,
-              'Token'=>$token,
-          ]);
+            return response()->json([
+                'message'=>'ورود با موفقیت انجام شد',
+                'user'=>$user,
+                'Token'=>$token ,
+            ]);
+
+        }
+
 
 
       }
