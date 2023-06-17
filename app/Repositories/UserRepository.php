@@ -58,6 +58,9 @@ class UserRepository extends Repository implements UserRepositoryInterface
                 'password'=>['نام کاربری یا گذرواژه شما صحیح نمیباشد.']
             ]);
         }
+        elseif ($user->username == $username && Hash::check($password, $user->password)){
+            return $user;
+        }
 
         return $user;
     }
