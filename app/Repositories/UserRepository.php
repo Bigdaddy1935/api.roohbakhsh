@@ -55,16 +55,14 @@ class UserRepository extends Repository implements UserRepositoryInterface
             ]);
         }
         foreach ($users as $user){
-            if(! Hash::check($password, $user->password)){
-                throw ValidationException::withMessages([
-                    'password'=>['نام کاربری یا گذرواژه شما صحیح نمیباشد.']
-                ]);
-            }elseif (Hash::check($password, $user->password)){
+            if( Hash::check($password, $user->password)){
                 return $user;
             }
         }
 
-        return $users;
+        return response()->json([
+            'message'=>'کاربری یافت نشد'
+        ]);
     }
 
     public function SetNewPassword($id, $password)
