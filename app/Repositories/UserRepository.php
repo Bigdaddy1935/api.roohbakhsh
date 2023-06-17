@@ -48,7 +48,7 @@ class UserRepository extends Repository implements UserRepositoryInterface
 
     public function SignIn($username, $password)
     {
-        $user=  User::query()->where('username', $username)->where('password',bcrypt($password))->first();
+        $user=  User::query()->where('username', $username)->get();
         if (! $user ) {
             throw ValidationException::withMessages([
                 'username' => ['کاربری با این مشخصات یافت نشد.'],
@@ -58,7 +58,7 @@ class UserRepository extends Repository implements UserRepositoryInterface
                 'password'=>['نام کاربری یا گذرواژه شما صحیح نمیباشد.']
             ]);
         }
-      
+
 
         return $user;
     }
