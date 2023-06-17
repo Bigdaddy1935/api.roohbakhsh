@@ -90,10 +90,12 @@ class ZarinpalPayment
 
             return response()->json($receipt->getReferenceId());
         }
-        // You can show payment referenceId to the user.
-        return response()->json([
-            'message'=>'پرداخت ناموفق'
-        ],404);
+        else{
+            return response()->json([
+                'message'=>'پرداخت ناموفق'
+            ],404);
+
+        }
 
 
     }
