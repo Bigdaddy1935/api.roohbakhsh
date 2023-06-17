@@ -247,17 +247,18 @@ class UserController extends Controller
 
         $device_name='device'.'='.$request->device_name;
         $user= $this->userRepository->SignIn($request->username,$request->password);
-        if($user){
-            $user->tokens()->where('name','LIKE','device%')->delete();
-            $token=  $user->createToken($device_name)->plainTextToken;
-            $user->update([
-                'last_login_at'=> Carbon::now()->toDateTimeString(),
-                'last_login_ip'=>$request->getClientIp(),
-            ]);
-        }else{
-            $token=  $user->createToken($device_name)->plainTextToken;
-        }
-        
+
+        $user->tokens()->where('name','LIKE','device%')->delete();
+        $token=  $user->createToken($device_name)->plainTextToken;
+
+//get last user login at and user ip and save to table
+          $user->update([
+              'last_login_at'=> Carbon::now()->toDateTimeString(),
+              'last_login_ip'=>$request->getClientIp(),
+          ]);
+
+
+
           return response()->json([
               'message'=>'ورود با موفقیت انجام شد',
               'user'=>$user,
