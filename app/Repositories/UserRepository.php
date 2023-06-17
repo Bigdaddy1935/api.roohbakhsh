@@ -57,6 +57,10 @@ class UserRepository extends Repository implements UserRepositoryInterface
         foreach ($users as $user){
             if( Hash::check($password, $user->password)){
                 return $user;
+            }else{
+                throw ValidationException::withMessages([
+                    'username' => ['نام کاربری یا گذرواژه صحیح نمیباشد.'],
+                ]);
             }
         }
 
