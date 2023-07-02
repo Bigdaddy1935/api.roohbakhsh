@@ -251,7 +251,7 @@ class UserController extends Controller
         if(!$user){
             return response()->json([
                 'message'=>'نام کاربری یا گذرواژه صحیح نمیباشد'
-            ]);
+            ],400);
         }else{
             $user->tokens()->where('name','LIKE','device%')->delete();
             $token=  $user->createToken($device_name)->plainTextToken;
