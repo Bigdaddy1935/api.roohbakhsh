@@ -145,4 +145,65 @@ class SearchRepository  implements SearchRepositoryInterface
             }])->join('courses','courses.id','products.course_id')->orderBy('id','DESC')->get()->toArray();
     }
 
+    public function SearchInQuestion($req, $user,$id)
+    {
+        return   Lesson::query()->where('formats','=','sound')
+            ->join('users', 'users.id', '=', 'lessons.user_id')
+            ->select('lessons.*','users.fullname')
+            ->WhereHas('courses',function ($q){
+                $q->where('course_title','=','سوالات');
+            })
+            ->WhereHas('categories',function ($q) use ($id){
+                $q->where('id',$id);
+            })
+            ->withAggregate('visits','score')
+            ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                $q->where('user_id',$user);
+            }])
+            ->with(['progress'=>function ($q)use ($user){
+                $q->where('user_id',$user);
+            }])->with('relatedLessons',)->with('relatedArticles',function ($q){
+                $q->join('articles','articles.id','=','article_related_for_lessons.article_id')->select('articles.title','article_related_for_lessons.*');
+            })
+            ->where('title','LIKE',"%{$req}%")
+            ->orderBy('id','DESC')->paginate(10);
+    }
+
+    public function SearchInClubLessons($req, $user, $id)
+    {
+        return   Lesson::query()->where('course_id',$id)
+            ->join('users', 'users.id', '=', 'lessons.user_id')
+            ->select('lessons.*','users.fullname')
+            ->WhereHas('courses',function ($q){
+                $q->where('type','=','club');
+            })
+            ->with('categories')
+            ->withAggregate('visits','score')
+            ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                $q->where('user_id',$user);
+            }])
+            ->with(['progress'=>function ($q)use ($user){
+                $q->where('user_id',$user);
+            }])->with('relatedLessons',)->with('relatedArticles',function ($q){
+                $q->join('articles','articles.id','=','article_related_for_lessons.article_id')->select('articles.title','article_related_for_lessons.*');
+            })
+            ->where('title','LIKE',"%{$req}%")
+            ->orderBy('id','DESC')->paginate(10);
+    }
+
+    public function SearchInClubCourses($req, $user, $id)
+    {
+        return  Course::query()->where('course_title','LIKE',"%{$req}%")->where('type','=','club')->join("users","users.id",'=',"courses.course_user_id")
+            ->select("courses.*","users.fullname")
+            ->WhereHas('categories',function ($q) use ($id){
+                $q->where('id',$id);
+            })
+            ->with('categories')
+            ->withCount("lessons")
+            ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                $q->where('user_id',$user);
+            }])
+            ->orderBy('id','DESC')
+            ->paginate(10);
+    }
 }

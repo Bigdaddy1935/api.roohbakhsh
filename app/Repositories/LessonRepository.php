@@ -355,5 +355,26 @@ class LessonRepository extends Repository implements LessonRepositoryInterface
             })
             ->paginate(20);
     }
+
+    public function GetAllMahdyarQuestion()
+    {
+        $user= auth('sanctum')->id();
+        return   Lesson::query()->where('formats','=','sound')->join('users', 'users.id', '=', 'lessons.user_id')
+            ->select('lessons.*','users.fullname')
+            ->withWhereHas('courses',function ($q){
+                $q->where('type','=','podcast')->where('course_title','=','سوالات');
+            })
+            ->with('categories')
+            ->withAggregate('visits','score')
+            ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
+                $q->where('user_id',$user);
+            }])
+            ->with(['progress'=>function ($q)use ($user){
+                $q->where('user_id',$user);
+            }])->with('relatedLessons',)->with('relatedArticles',function ($q){
+                $q->join('articles','articles.id','=','article_related_for_lessons.article_id')->select('articles.title','article_related_for_lessons.*');
+            })
+            ->paginate(10);
+    }
 }
 

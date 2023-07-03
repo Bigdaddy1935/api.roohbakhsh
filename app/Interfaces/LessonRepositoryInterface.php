@@ -22,4 +22,5 @@ interface LessonRepositoryInterface
     public function lessonsCount();
     public function lessonsList();
     public function GetAllPodcast();
+    public function GetAllMahdyarQuestion();
 }

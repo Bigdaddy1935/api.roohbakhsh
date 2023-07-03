@@ -1,9 +1,15 @@
 <?php return array(
     'root' => array(
         'name' => 'laravel/laravel',
+<<<<<<< HEAD
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
         'reference' => 'a7fd4b3e6c5d5584ba118f0a71e38947a0adabb4',
+=======
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '07c8e054d0168e30d7c8bd3d2805ff1a36fcbe5f',
+>>>>>>> main
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -156,6 +162,15 @@
             'reference' => '83b609028194aa042ea33b5af2d41a7427de80e6',
             'type' => 'library',
             'install_path' => __DIR__ . '/../firebase/php-jwt',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'fruitcake/laravel-cors' => array(
+            'pretty_version' => 'v3.0.0',
+            'version' => '3.0.0.0',
+            'reference' => '7c036ec08972d8d5d9db637e772af6887828faf5',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../fruitcake/laravel-cors',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -484,9 +499,15 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
+<<<<<<< HEAD
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
             'reference' => 'a7fd4b3e6c5d5584ba118f0a71e38947a0adabb4',
+=======
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '07c8e054d0168e30d7c8bd3d2805ff1a36fcbe5f',
+>>>>>>> main
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

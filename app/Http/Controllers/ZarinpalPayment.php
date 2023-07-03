@@ -75,6 +75,7 @@ class ZarinpalPayment
             );
             $client ->sendPatternSms($fromNum, $toNum, $user, $pass, $pattern_code, $input_data);
 
+
             $refId=$receipt->getReferenceId();
             $user= User::query()->where('username',$request->username)->first();
             if($user){
@@ -90,6 +91,7 @@ class ZarinpalPayment
 
             return response()->json($receipt->getReferenceId());
         }
+
         else{
             return response()->json([
                 'message'=>'پرداخت ناموفق'

@@ -29,6 +29,7 @@ use Illuminate\Validation\ValidationException;
 use Stephenjude\Wallet\Exceptions\InsufficientFundException;
 use Stephenjude\Wallet\Exceptions\InvalidAmountException;
 use SoapClient;
+use Symfony\Component\Console\Helper\Table;
 
 class UserController extends Controller
 {
@@ -837,8 +838,20 @@ class UserController extends Controller
             'club_type'=>$request->club_type,
             'register_club_from'=>$request->register_club_from,
             'employee_num'=>$request->employee_num,
-            'relation'=>$request->relation
+            'relation'=>$request->relation,
+            'club_type'=>$request->club_type
         ];
+
+        $user= User::query()->where('username',$request->username)->first();
+
+        if(!$user && !Hash::check($request->password,$user->password)){
+            $users=$this->userRepository->create($data);
+        }else
+        {
+            $id=  $user->id;
+            $users=$this->userRepository->update($id,$data);
+        }
+
 
         $password=$request->password;
         $user=  User::query()->where('username', $request->username)->first();
@@ -851,9 +864,10 @@ class UserController extends Controller
             $users=$this->userRepository->create($data);
         }
 
+
         return response()->json([
             'message'=>'ثبت نام با موفقیت انجام شد',
-            'users'=>$user
+            'user'=>$users
         ]);
     }
 
@@ -888,6 +902,7 @@ class UserController extends Controller
     public function getState()
     {
 
+
         $result= DB::table('province')->get();
 
         return response()->json($result);
@@ -906,9 +921,6 @@ class UserController extends Controller
 
      return response()->json($result);
     }
-
-
-
 
 
 }

@@ -12,4 +12,7 @@ interface SearchRepositoryInterface
     public function SearchInArticle($req,$user);
     public function SearchInLesson($req,$user);
     public function SearchInProduct($req,$user);
+    public function SearchInQuestion($req,$user,$id);
+    public function SearchInClubLessons($req,$user,$id);
+    public function SearchInClubCourses($req,$user,$id);
 }
