@@ -251,7 +251,7 @@ class UserController extends Controller
 
         $request->validate([
             'username' => 'required|string',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string',
             'device_name'=>'required',
         ]);
 
@@ -302,7 +302,7 @@ class UserController extends Controller
 
        $request->validate([
             'username' => 'required|string',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string',
         ]);
 
         $username='web'.'='.$request->username;
