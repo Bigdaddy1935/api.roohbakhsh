@@ -130,7 +130,7 @@ class UserController extends Controller
 
 
      $request->validate([
-            'username' => 'required|string|unique:users,username',
+            'username' => 'required|string',
             'password' => 'required|string|min:8',
             'phone'=>'required|string|max:11|unique:users,phone',
             'email'=>'unique:users,email',
