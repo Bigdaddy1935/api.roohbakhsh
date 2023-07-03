@@ -133,7 +133,6 @@ class UserController extends Controller
             'username' => 'required|string',
             'password' => 'required|string',
             'phone'=>'required|string|max:11|unique:users,phone',
-            'email'=>'unique:users,email',
         ]);
         if(!empty($request->file('picture'))){
             $this->url=   $this->userRepository->Upload($request->file('picture'));
