@@ -203,7 +203,7 @@ class HomeController extends Controller
             ->select('articles.*','users.fullname')
             ->with('tagged')
             ->with('categories');
-    })->orderBy('id','DESC')->get();
+    })->orderBy('id','ASC')->get();
 
        return response()->json($notifications);
     }
