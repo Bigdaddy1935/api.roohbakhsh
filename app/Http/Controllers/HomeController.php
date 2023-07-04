@@ -242,11 +242,16 @@ class HomeController extends Controller
 
        $version= $request->version;
 
+
        if($version == '2.1.1'){
            return response()->json(true);
-
+       }else{
+           return response()->json([
+               'link'=>'https://dl.poshtybanman.ir/roohbakhshac(v2.1.1).apk',
+               'required'=>'yes'
+           ],201);
        }
-       return response()->json(false);
+
     }
 
 
