@@ -256,10 +256,7 @@ class HomeController extends Controller
         }
         }
 
-
-
-
-    }
+        
 
 
     public function questionSearch(Request $request,$id)
