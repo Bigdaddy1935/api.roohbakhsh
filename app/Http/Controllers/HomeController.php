@@ -249,7 +249,7 @@ class HomeController extends Controller
            return response()->json([
                'link'=>'https://dl.poshtybanman.ir/roohbakhshac(v2.1.1).apk',
                'required'=>'yes',
-               'message'=>'رفع مشکل خطاهای سیستمی*اضافه شدن باشگاه مهدیارشو'
+               'message'=>'رفع مشکل خطاهای سیستمی*اضافه شدن باشگاه مهدیارشو*اضافه شدن نصب درون برنامه ای*تغییرات رابط کاربری'
            ],201);
        }
 
