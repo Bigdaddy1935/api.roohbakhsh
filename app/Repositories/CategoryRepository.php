@@ -139,7 +139,7 @@ class CategoryRepository extends Repository implements CategoryRepositoryInterfa
     {
         $user= auth('sanctum')->id();
         return Lesson::query()->where('formats','=','sound')->withWhereHas('categories',function ($q) use ($id){
-            $q->where('id',$id);
+            $q->where('id',$id)->whereNot('id',4);
         })->withWhereHas('courses',function ($q){
             $q->where('type','=','podcast')->where('course_title','=','پادکست');
         })
