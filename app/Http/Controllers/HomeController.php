@@ -240,18 +240,24 @@ class HomeController extends Controller
     public function CheckVersion(Request $request)
     {
 
-       $version= $request->version;
+        $version = $request->version;
+
+        if ($version == "2.1.1") {
+            return response()->json(false);
+        } elseif ($version == "2.1.2") {
+            return response()->json(true);
+        }else
+        {
+            return response()->json([
+                'link' => 'https://dl.poshtybanman.ir/roohbakhshac(v2.1.2).apk',
+                'required' => 'yes',
+                'message' => 'رفع مشکل خطاهای سیستمی*اضافه شدن باشگاه مهدیارشو*اضافه شدن نصب درون برنامه ای*تغییرات رابط کاربری'
+            ], 201);
+        }
+        }
 
 
-       if($version == '2.1.2'){
-           return response()->json(true);
-       }else{
-           return response()->json([
-               'link'=>'https://dl.poshtybanman.ir/roohbakhshac(v2.1.2).apk',
-               'required'=>'yes',
-               'message'=>'رفع مشکل خطاهای سیستمی*اضافه شدن باشگاه مهدیارشو*اضافه شدن نصب درون برنامه ای*تغییرات رابط کاربری'
-           ],201);
-       }
+
 
     }
 
