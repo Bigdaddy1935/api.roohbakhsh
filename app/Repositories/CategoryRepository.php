@@ -142,7 +142,7 @@ class CategoryRepository extends Repository implements CategoryRepositoryInterfa
             $q->where('id',$id);
         })->withWhereHas('courses',function ($q){
             $q->where('type','=','podcast')->where('course_title','=','پادکست');
-        })
+        })->where('teacher','!=','سید کاظم روحبخش')
             ->join('users','users.id','=','lessons.user_id')
             ->select('lessons.*','users.fullname')
             ->with('categories')

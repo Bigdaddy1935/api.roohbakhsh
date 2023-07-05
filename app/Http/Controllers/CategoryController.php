@@ -165,6 +165,7 @@ class CategoryController extends Controller
     {
         $cat=$this->categoryRepository->Get_Mahdyar_Question_With_Their_Cat($id);
 
+
         return response()->json($cat);
     }
 
