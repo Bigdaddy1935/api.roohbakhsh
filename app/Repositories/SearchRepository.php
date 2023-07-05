@@ -151,10 +151,10 @@ class SearchRepository  implements SearchRepositoryInterface
             ->join('users', 'users.id', '=', 'lessons.user_id')
             ->select('lessons.*','users.fullname')
             ->WhereHas('courses',function ($q){
-                $q->where('course_title','=','سوالات');
+                $q->where('course_title','=','پادکست');
             })
             ->WhereHas('categories',function ($q) use ($id){
-                $q->where('id',$id);
+                $q->where('id',$id)->whereNot('id',4);
             })
             ->withAggregate('visits','score')
             ->withExists(['bookmarkableBookmarks as bookmark'=>function($q) use ($user){
